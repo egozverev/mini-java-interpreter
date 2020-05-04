@@ -35,7 +35,10 @@
     class Lvalue;
     class PlainIdent;
 
-    //class Program;
+    class MainClass;
+    class ClassDeclaration;
+    class ClassDeclarationList;
+    class Program;
 }
 
 // %param { Driver &drv }
@@ -72,7 +75,11 @@
     #include "values/Lvalue.h"
     #include "values/PlainIdent.h"
 
-    //#include "Program.h"
+    #include "declarations/MainClass.h"
+    #include "declarations/ClassDeclaration.h"
+    #include "declarations/ClassDeclarationList.h"
+
+    #include "Program.h"
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
     }
@@ -126,31 +133,43 @@
 %nterm <Lvalue*> lvalue
 %nterm <StatementList*> statements
 %nterm <Statement*> statement
+%nterm <MainClass*> main_class
+%nterm <Program*> program
+%nterm <ClassDeclarationList*> class_declarations
+%nterm <ClassDeclaration*> class_declaration
 
 
 %%
+
 
 %left "+" "-";
 %left "*" "/";
 
 %start program;
-program: main_class  class_declarations{};
+
+program: main_class  class_declarations
+{
+    $$ = new Program($1, $2);
+    $$ -> launch();
+
+};
+
 
 main_class : "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}"   "}"
 {
-    $11 -> execute();
+    $$ = new MainClass($11);
 };
 
 
 class_declarations:
- %empty {}
- | class_declaration class_declarations {};
+ %empty {$$ = new ClassDeclarationList();}
+ | class_declaration class_declarations {$2 -> AddDeclaration($1); $$ = $2;};
 
 statements:
  statement {$$ = new StatementList(); $$ -> AddStatement($1);}
  | statement statements {$2 -> AddStatement($1); $$ = $2;};
 
-class_declaration : "class"	"identifier" "{" declarations "}" {}
+class_declaration : "class"	"identifier" "{" declarations "}" {$$ = new ClassDeclaration();}
     | "class" "identifier" "[" "extends" "identifier" "]" "{" declarations "}" {};
 
 declarations:

@@ -74,9 +74,12 @@
     class Lvalue;
     class PlainIdent;
 
-    //class Program;
+    class MainClass;
+    class ClassDeclaration;
+    class ClassDeclarationList;
+    class Program;
 
-#line 80 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 83 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -210,7 +213,7 @@
 #endif
 
 namespace yy {
-#line 214 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 217 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -414,26 +417,38 @@ namespace yy {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
+      // class_declaration
+      char dummy1[sizeof (ClassDeclaration*)];
+
+      // class_declarations
+      char dummy2[sizeof (ClassDeclarationList*)];
+
       // lvalue
-      char dummy1[sizeof (Lvalue*)];
+      char dummy3[sizeof (Lvalue*)];
+
+      // main_class
+      char dummy4[sizeof (MainClass*)];
 
       // expr
-      char dummy2[sizeof (NumberExpression* )];
+      char dummy5[sizeof (NumberExpression* )];
+
+      // program
+      char dummy6[sizeof (Program*)];
 
       // statement
-      char dummy3[sizeof (Statement*)];
+      char dummy7[sizeof (Statement*)];
 
       // statements
-      char dummy4[sizeof (StatementList*)];
+      char dummy8[sizeof (StatementList*)];
 
       // "bool"
-      char dummy5[sizeof (bool)];
+      char dummy9[sizeof (bool)];
 
       // "number"
-      char dummy6[sizeof (int)];
+      char dummy10[sizeof (int)];
 
       // "identifier"
-      char dummy7[sizeof (std::string)];
+      char dummy11[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -565,6 +580,32 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, ClassDeclaration*&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const ClassDeclaration*& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, ClassDeclarationList*&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const ClassDeclarationList*& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, Lvalue*&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -578,6 +619,19 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, MainClass*&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const MainClass*& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, NumberExpression* && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -585,6 +639,19 @@ namespace yy {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const NumberExpression* & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, Program*&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const Program*& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -678,12 +745,28 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
+      case 53: // class_declaration
+        value.template destroy< ClassDeclaration* > ();
+        break;
+
+      case 52: // class_declarations
+        value.template destroy< ClassDeclarationList* > ();
+        break;
+
       case 47: // lvalue
         value.template destroy< Lvalue* > ();
         break;
 
+      case 50: // main_class
+        value.template destroy< MainClass* > ();
+        break;
+
       case 46: // expr
         value.template destroy< NumberExpression*  > ();
+        break;
+
+      case 51: // program
+        value.template destroy< Program* > ();
         break;
 
       case 49: // statement
@@ -1625,7 +1708,7 @@ switch (yytype)
       yyeof_ = 0,
       yylast_ = 264,     ///< Last index in yytable_.
       yynnts_ = 22,  ///< Number of nonterminal symbols.
-      yyfinal_ = 5, ///< Termination state number.
+      yyfinal_ = 8, ///< Termination state number.
       yyntokens_ = 45  ///< Number of tokens.
     };
 
@@ -1696,12 +1779,28 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
+      case 53: // class_declaration
+        value.move< ClassDeclaration* > (std::move (that.value));
+        break;
+
+      case 52: // class_declarations
+        value.move< ClassDeclarationList* > (std::move (that.value));
+        break;
+
       case 47: // lvalue
         value.move< Lvalue* > (std::move (that.value));
         break;
 
+      case 50: // main_class
+        value.move< MainClass* > (std::move (that.value));
+        break;
+
       case 46: // expr
         value.move< NumberExpression*  > (std::move (that.value));
+        break;
+
+      case 51: // program
+        value.move< Program* > (std::move (that.value));
         break;
 
       case 49: // statement
@@ -1739,12 +1838,28 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
+      case 53: // class_declaration
+        value.copy< ClassDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 52: // class_declarations
+        value.copy< ClassDeclarationList* > (YY_MOVE (that.value));
+        break;
+
       case 47: // lvalue
         value.copy< Lvalue* > (YY_MOVE (that.value));
         break;
 
+      case 50: // main_class
+        value.copy< MainClass* > (YY_MOVE (that.value));
+        break;
+
       case 46: // expr
         value.copy< NumberExpression*  > (YY_MOVE (that.value));
+        break;
+
+      case 51: // program
+        value.copy< Program* > (YY_MOVE (that.value));
         break;
 
       case 49: // statement
@@ -1789,12 +1904,28 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
+      case 53: // class_declaration
+        value.move< ClassDeclaration* > (YY_MOVE (s.value));
+        break;
+
+      case 52: // class_declarations
+        value.move< ClassDeclarationList* > (YY_MOVE (s.value));
+        break;
+
       case 47: // lvalue
         value.move< Lvalue* > (YY_MOVE (s.value));
         break;
 
+      case 50: // main_class
+        value.move< MainClass* > (YY_MOVE (s.value));
+        break;
+
       case 46: // expr
         value.move< NumberExpression*  > (YY_MOVE (s.value));
+        break;
+
+      case 51: // program
+        value.move< Program* > (YY_MOVE (s.value));
         break;
 
       case 49: // statement
@@ -1872,7 +2003,7 @@ switch (yytype)
   }
 
 } // yy
-#line 1876 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2007 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

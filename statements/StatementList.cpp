@@ -6,7 +6,8 @@ void StatementList::AddStatement(Statement *statement) {
 }
 
 void StatementList::execute() const {
-  for (Statement *statement: statements_) {
-    statement->execute();
+  for (auto it = statements_.end() - 1;
+       it != statements_.begin() - 1; --it) {
+    (*it)->execute();
   }
 }

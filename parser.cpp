@@ -41,7 +41,7 @@
 
 
 // Unqualified %code blocks.
-#line 46 "parser.y"
+#line 49 "parser.y"
 
     #include "driver.hh"
     #include "location.hh"
@@ -71,12 +71,16 @@
     #include "values/Lvalue.h"
     #include "values/PlainIdent.h"
 
-    //#include "Program.h"
+    #include "declarations/MainClass.h"
+    #include "declarations/ClassDeclaration.h"
+    #include "declarations/ClassDeclarationList.h"
+
+    #include "Program.h"
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
     }
 
-#line 80 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 84 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
 
 #ifndef YY_
@@ -167,7 +171,7 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 namespace yy {
-#line 171 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 175 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -278,12 +282,28 @@ namespace yy {
   {
     switch (that.type_get ())
     {
+      case 53: // class_declaration
+        value.YY_MOVE_OR_COPY< ClassDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 52: // class_declarations
+        value.YY_MOVE_OR_COPY< ClassDeclarationList* > (YY_MOVE (that.value));
+        break;
+
       case 47: // lvalue
         value.YY_MOVE_OR_COPY< Lvalue* > (YY_MOVE (that.value));
         break;
 
+      case 50: // main_class
+        value.YY_MOVE_OR_COPY< MainClass* > (YY_MOVE (that.value));
+        break;
+
       case 46: // expr
         value.YY_MOVE_OR_COPY< NumberExpression*  > (YY_MOVE (that.value));
+        break;
+
+      case 51: // program
+        value.YY_MOVE_OR_COPY< Program* > (YY_MOVE (that.value));
         break;
 
       case 49: // statement
@@ -321,12 +341,28 @@ namespace yy {
   {
     switch (that.type_get ())
     {
+      case 53: // class_declaration
+        value.move< ClassDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 52: // class_declarations
+        value.move< ClassDeclarationList* > (YY_MOVE (that.value));
+        break;
+
       case 47: // lvalue
         value.move< Lvalue* > (YY_MOVE (that.value));
         break;
 
+      case 50: // main_class
+        value.move< MainClass* > (YY_MOVE (that.value));
+        break;
+
       case 46: // expr
         value.move< NumberExpression*  > (YY_MOVE (that.value));
+        break;
+
+      case 51: // program
+        value.move< Program* > (YY_MOVE (that.value));
         break;
 
       case 49: // statement
@@ -364,12 +400,28 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
+      case 53: // class_declaration
+        value.copy< ClassDeclaration* > (that.value);
+        break;
+
+      case 52: // class_declarations
+        value.copy< ClassDeclarationList* > (that.value);
+        break;
+
       case 47: // lvalue
         value.copy< Lvalue* > (that.value);
         break;
 
+      case 50: // main_class
+        value.copy< MainClass* > (that.value);
+        break;
+
       case 46: // expr
         value.copy< NumberExpression*  > (that.value);
+        break;
+
+      case 51: // program
+        value.copy< Program* > (that.value);
         break;
 
       case 49: // statement
@@ -406,12 +458,28 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
+      case 53: // class_declaration
+        value.move< ClassDeclaration* > (that.value);
+        break;
+
+      case 52: // class_declarations
+        value.move< ClassDeclarationList* > (that.value);
+        break;
+
       case 47: // lvalue
         value.move< Lvalue* > (that.value);
         break;
 
+      case 50: // main_class
+        value.move< MainClass* > (that.value);
+        break;
+
       case 46: // expr
         value.move< NumberExpression*  > (that.value);
+        break;
+
+      case 51: // program
+        value.move< Program* > (that.value);
         break;
 
       case 49: // statement
@@ -684,12 +752,28 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
+      case 53: // class_declaration
+        yylhs.value.emplace< ClassDeclaration* > ();
+        break;
+
+      case 52: // class_declarations
+        yylhs.value.emplace< ClassDeclarationList* > ();
+        break;
+
       case 47: // lvalue
         yylhs.value.emplace< Lvalue* > ();
         break;
 
+      case 50: // main_class
+        yylhs.value.emplace< MainClass* > ();
+        break;
+
       case 46: // expr
         yylhs.value.emplace< NumberExpression*  > ();
+        break;
+
+      case 51: // program
+        yylhs.value.emplace< Program* > ();
         break;
 
       case 49: // statement
@@ -733,351 +817,355 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 137 "parser.y"
-                                       {}
-#line 739 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 151 "parser.y"
+{
+    yylhs.value.as < Program* > () = new Program(yystack_[1].value.as < MainClass* > (), yystack_[0].value.as < ClassDeclarationList* > ());
+    yylhs.value.as < Program* > () -> launch();
+
+}
+#line 827 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 3:
-#line 140 "parser.y"
+#line 159 "parser.y"
 {
-    yystack_[2].value.as < StatementList* > () -> execute();
+    yylhs.value.as < MainClass* > () = new MainClass(yystack_[2].value.as < StatementList* > ());
 }
-#line 747 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 835 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 4:
-#line 146 "parser.y"
-        {}
-#line 753 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 165 "parser.y"
+        {yylhs.value.as < ClassDeclarationList* > () = new ClassDeclarationList();}
+#line 841 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 5:
-#line 147 "parser.y"
-                                        {}
-#line 759 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 166 "parser.y"
+                                        {yystack_[0].value.as < ClassDeclarationList* > () -> AddDeclaration(yystack_[1].value.as < ClassDeclaration* > ()); yylhs.value.as < ClassDeclarationList* > () = yystack_[0].value.as < ClassDeclarationList* > ();}
+#line 847 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 6:
-#line 150 "parser.y"
+#line 169 "parser.y"
            {yylhs.value.as < StatementList* > () = new StatementList(); yylhs.value.as < StatementList* > () -> AddStatement(yystack_[0].value.as < Statement* > ());}
-#line 765 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 853 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 7:
-#line 151 "parser.y"
+#line 170 "parser.y"
                         {yystack_[0].value.as < StatementList* > () -> AddStatement(yystack_[1].value.as < Statement* > ()); yylhs.value.as < StatementList* > () = yystack_[0].value.as < StatementList* > ();}
-#line 771 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 859 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 8:
-#line 153 "parser.y"
-                                                                  {}
-#line 777 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 172 "parser.y"
+                                                                  {yylhs.value.as < ClassDeclaration* > () = new ClassDeclaration();}
+#line 865 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 9:
-#line 154 "parser.y"
+#line 173 "parser.y"
                                                                                {}
-#line 783 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 871 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 10:
-#line 157 "parser.y"
+#line 176 "parser.y"
            {}
-#line 789 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 877 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 11:
-#line 158 "parser.y"
+#line 177 "parser.y"
                                {}
-#line 795 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 883 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 12:
-#line 161 "parser.y"
+#line 180 "parser.y"
                          {}
-#line 801 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 889 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 13:
-#line 162 "parser.y"
+#line 181 "parser.y"
                          {}
-#line 807 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 895 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 14:
-#line 165 "parser.y"
+#line 184 "parser.y"
                                                           {}
-#line 813 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 901 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 15:
-#line 166 "parser.y"
+#line 185 "parser.y"
                                                                     {}
-#line 819 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 907 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 16:
-#line 168 "parser.y"
+#line 187 "parser.y"
                                              { driver.variables[yystack_[1].value.as < std::string > ()] = 0;}
-#line 825 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 913 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 17:
-#line 171 "parser.y"
+#line 190 "parser.y"
                       {}
-#line 831 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 919 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 18:
-#line 172 "parser.y"
+#line 191 "parser.y"
                                 {}
-#line 837 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 925 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 19:
-#line 175 "parser.y"
+#line 194 "parser.y"
                 {}
-#line 843 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 931 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 20:
-#line 176 "parser.y"
+#line 195 "parser.y"
                {}
-#line 849 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 937 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 21:
-#line 179 "parser.y"
+#line 198 "parser.y"
           {}
-#line 855 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 943 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 22:
-#line 180 "parser.y"
+#line 199 "parser.y"
                 {}
-#line 861 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 949 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 23:
-#line 181 "parser.y"
+#line 200 "parser.y"
              {}
-#line 867 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 955 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 24:
-#line 182 "parser.y"
+#line 201 "parser.y"
                       {}
-#line 873 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 961 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 25:
-#line 185 "parser.y"
+#line 204 "parser.y"
                         {}
-#line 879 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 967 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 26:
-#line 188 "parser.y"
+#line 207 "parser.y"
                  {}
-#line 885 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 973 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 27:
-#line 189 "parser.y"
+#line 208 "parser.y"
                                       {}
-#line 891 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 979 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 28:
-#line 190 "parser.y"
+#line 209 "parser.y"
                                  {}
-#line 897 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 985 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 29:
-#line 191 "parser.y"
+#line 210 "parser.y"
                          {}
-#line 903 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 991 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 30:
-#line 192 "parser.y"
+#line 211 "parser.y"
                                    {}
-#line 909 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 997 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 31:
-#line 193 "parser.y"
+#line 212 "parser.y"
                                                     {}
-#line 915 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1003 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 32:
-#line 194 "parser.y"
+#line 213 "parser.y"
                                      {}
-#line 921 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1009 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 33:
-#line 195 "parser.y"
+#line 214 "parser.y"
                               {yylhs.value.as < Statement* > () = new PrintStatement(yystack_[2].value.as < NumberExpression*  > ());}
-#line 927 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1015 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 34:
-#line 196 "parser.y"
+#line 215 "parser.y"
                           {yylhs.value.as < Statement* > () = new Assignment(yystack_[3].value.as < Lvalue* > (), driver, yystack_[1].value.as < NumberExpression*  > ());}
-#line 933 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1021 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 35:
-#line 197 "parser.y"
+#line 216 "parser.y"
                         {}
-#line 939 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1027 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 36:
-#line 198 "parser.y"
+#line 217 "parser.y"
                             {}
-#line 945 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1033 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 37:
-#line 202 "parser.y"
+#line 221 "parser.y"
                          {}
-#line 951 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1039 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 40:
-#line 209 "parser.y"
+#line 228 "parser.y"
          {}
-#line 957 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1045 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 41:
-#line 210 "parser.y"
+#line 229 "parser.y"
                        {}
-#line 963 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1051 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 42:
-#line 213 "parser.y"
+#line 232 "parser.y"
                  {yylhs.value.as < Lvalue* > () = new PlainIdent(yystack_[0].value.as < std::string > ());}
-#line 969 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1057 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 43:
-#line 214 "parser.y"
+#line 233 "parser.y"
                                 {}
-#line 975 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1063 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 44:
-#line 217 "parser.y"
+#line 236 "parser.y"
                   {yylhs.value.as < NumberExpression*  > () = new AddExpression(yystack_[2].value.as < NumberExpression*  > (), yystack_[0].value.as < NumberExpression*  > ());}
-#line 981 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1069 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 45:
-#line 218 "parser.y"
+#line 237 "parser.y"
                     {yylhs.value.as < NumberExpression*  > () = new SubstractExpression(yystack_[2].value.as < NumberExpression*  > (), yystack_[0].value.as < NumberExpression*  > ());}
-#line 987 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1075 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 46:
-#line 219 "parser.y"
+#line 238 "parser.y"
                     {yylhs.value.as < NumberExpression*  > () = new MulExpression(yystack_[2].value.as < NumberExpression*  > (), yystack_[0].value.as < NumberExpression*  > ());}
-#line 993 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1081 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 47:
-#line 220 "parser.y"
+#line 239 "parser.y"
                     {yylhs.value.as < NumberExpression*  > () = new DivExpression(yystack_[2].value.as < NumberExpression*  > (), yystack_[0].value.as < NumberExpression*  > ());}
-#line 999 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1087 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 48:
-#line 221 "parser.y"
+#line 240 "parser.y"
                     {yylhs.value.as < NumberExpression*  > () = new ModExpression(yystack_[2].value.as < NumberExpression*  > (), yystack_[0].value.as < NumberExpression*  > ());}
-#line 1005 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1093 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 49:
-#line 222 "parser.y"
+#line 241 "parser.y"
                         {}
-#line 1011 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1099 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 50:
-#line 223 "parser.y"
+#line 242 "parser.y"
                         {}
-#line 1017 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1105 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 51:
-#line 224 "parser.y"
+#line 243 "parser.y"
                                      {}
-#line 1023 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1111 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 52:
-#line 225 "parser.y"
+#line 244 "parser.y"
                                     {}
-#line 1029 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1117 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 53:
-#line 226 "parser.y"
+#line 245 "parser.y"
                {}
-#line 1035 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1123 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 54:
-#line 227 "parser.y"
+#line 246 "parser.y"
                    {}
-#line 1041 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1129 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 55:
-#line 228 "parser.y"
+#line 247 "parser.y"
                    {}
-#line 1047 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1135 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 56:
-#line 229 "parser.y"
+#line 248 "parser.y"
                {yylhs.value.as < NumberExpression*  > () = new PlainNumberExpression(yystack_[0].value.as < int > ());}
-#line 1053 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1141 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 57:
-#line 230 "parser.y"
+#line 249 "parser.y"
              {}
-#line 1059 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1147 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 58:
-#line 231 "parser.y"
+#line 250 "parser.y"
              {}
-#line 1065 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1153 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 59:
-#line 232 "parser.y"
+#line 251 "parser.y"
               {}
-#line 1071 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1159 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 60:
-#line 233 "parser.y"
+#line 252 "parser.y"
                         {}
-#line 1077 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1165 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
 
-#line 1081 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1169 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
             default:
               break;
@@ -1355,7 +1443,7 @@ namespace yy {
   const short
   parser::yypact_[] =
   {
-      -9,    -4,    20,     0,    46,   -57,    39,   -57,     0,    49,
+      -9,    -4,    -6,    26,    46,    39,   -57,    -6,   -57,    49,
      119,   -57,    56,    69,    54,    59,    57,   -57,   -57,   -57,
      153,   -57,    88,    54,   -57,   -57,    83,   -57,   -57,    89,
      101,    91,   -57,   -57,   124,   153,   132,   130,   133,   -57,
@@ -1376,7 +1464,7 @@ namespace yy {
   const signed char
   parser::yydefact_[] =
   {
-       0,     0,     0,     4,     0,     1,     0,     2,     4,     0,
+       0,     0,     4,     0,     0,     0,     2,     4,     1,     0,
        0,     5,     0,     0,    10,     0,     0,    21,    22,    23,
        0,    26,     0,    10,    13,    12,     0,    19,    24,     0,
        0,     0,     8,    11,     0,     0,     0,     0,     0,    16,
@@ -1397,7 +1485,7 @@ namespace yy {
   const short
   parser::yypgoto_[] =
   {
-     -57,   -56,   -57,   -51,    28,   -57,   -57,   241,   -57,    31,
+     -57,   -56,   -57,   -51,    28,   -57,   -57,   242,   -57,    31,
      -57,   -57,     1,   195,   -10,   -57,   -14,   -57,   187,   -57,
      -52,   107
   };
@@ -1405,7 +1493,7 @@ namespace yy {
   const short
   parser::yydefgoto_[] =
   {
-      -1,    71,    72,    73,    74,     2,     3,     7,     8,    22,
+      -1,    71,    72,    73,    74,     2,     3,     6,     7,    22,
       23,    24,    75,    49,    26,    35,    27,    41,    28,    76,
       83,   146
   };
@@ -1415,7 +1503,7 @@ namespace yy {
   {
       77,    82,    77,    78,    96,    97,    77,    84,   123,    90,
       31,    93,   142,    98,    99,    25,    57,     1,   124,   143,
-       5,    40,    77,   103,    25,     4,     6,    77,   106,   109,
+       5,    40,    77,   103,    25,     4,     8,    77,   106,   109,
      110,   111,   112,   113,    50,   100,    81,    61,   117,   118,
      119,   120,   121,   122,    25,   125,    50,    66,    67,    68,
       69,    70,    91,   114,    33,    94,    95,    96,    97,   133,
@@ -1447,7 +1535,7 @@ namespace yy {
   {
       52,    57,    54,    54,     7,     8,    58,    58,    29,    65,
       20,    67,    10,    16,    17,    14,     9,    26,    39,    17,
-       0,    35,    74,    74,    23,    29,    26,    79,    79,    85,
+      26,    35,    74,    74,    23,    29,     0,    79,    79,    85,
       86,    87,    88,    89,    44,    38,    29,    30,    94,    95,
       96,    97,    98,    99,    43,   101,    56,    40,    41,    42,
       43,    44,    66,     3,    23,     5,     6,     7,     8,   115,
@@ -1469,7 +1557,7 @@ namespace yy {
        7,     8,     4,    16,    17,     9,     9,     3,    38,    16,
       17,    18,    20,    35,    20,     5,     6,     7,     8,    20,
       17,     5,     6,     7,     8,    38,    16,    17,    18,     9,
-       9,    38,    16,    17,    20,    20,    10,     3,    10,     8,
+       9,    38,    16,    17,    20,    20,    10,     3,    10,     7,
       18,    56,   145,    66,    -1,    -1,    -1,    -1,    38,    -1,
       -1,    -1,    -1,    -1,    38
   };
@@ -1477,7 +1565,7 @@ namespace yy {
   const signed char
   parser::yystos_[] =
   {
-       0,    26,    50,    51,    29,     0,    26,    52,    53,    19,
+       0,    26,    50,    51,    29,    26,    52,    53,     0,    19,
       29,    52,    24,    17,    19,    25,    32,    21,    22,    23,
       24,    29,    54,    55,    56,    57,    59,    61,    63,    23,
       29,    59,    20,    54,    29,    60,    27,    18,    29,     3,
@@ -1498,7 +1586,7 @@ namespace yy {
   const signed char
   parser::yyr1_[] =
   {
-       0,    45,    50,    51,    52,    52,    48,    48,    53,    53,
+       0,    45,    51,    50,    52,    52,    48,    48,    53,    53,
       54,    54,    55,    55,    56,    56,    57,    58,    58,    60,
       59,    61,    61,    61,    61,    62,    63,    49,    49,    49,
       49,    49,    49,    49,    49,    49,    49,    64,    65,    65,
@@ -1534,7 +1622,7 @@ namespace yy {
   "\"bool\"", "\"extends\"", "\"assert\"", "\"if\"", "\"else\"",
   "\"while\"", "\"return\"", "\".\"", "\"length\"", "\"new\"", "\"!\"",
   "\"this\"", "\"true\"", "\"false\"", "$accept", "expr", "lvalue",
-  "statements", "statement", "program", "main_class", "class_declarations",
+  "statements", "statement", "main_class", "program", "class_declarations",
   "class_declaration", "declarations", "declaration", "method_declaration",
   "variable_declaration", "formals", "type", "$@1", "simple_type",
   "array_type", "type_identifier", "local_variable_declaration",
@@ -1545,13 +1633,13 @@ namespace yy {
   const unsigned char
   parser::yyrline_[] =
   {
-       0,   137,   137,   139,   146,   147,   150,   151,   153,   154,
-     157,   158,   161,   162,   165,   166,   168,   171,   172,   175,
-     175,   179,   180,   181,   182,   185,   188,   189,   190,   191,
-     192,   193,   194,   195,   196,   197,   198,   202,   205,   206,
-     209,   210,   213,   214,   217,   218,   219,   220,   221,   222,
-     223,   224,   225,   226,   227,   228,   229,   230,   231,   232,
-     233
+       0,   150,   150,   158,   165,   166,   169,   170,   172,   173,
+     176,   177,   180,   181,   184,   185,   187,   190,   191,   194,
+     194,   198,   199,   200,   201,   204,   207,   208,   209,   210,
+     211,   212,   213,   214,   215,   216,   217,   221,   224,   225,
+     228,   229,   232,   233,   236,   237,   238,   239,   240,   241,
+     242,   243,   244,   245,   246,   247,   248,   249,   250,   251,
+     252
   };
 
   // Print the state stack on the debug stream.
@@ -1585,9 +1673,9 @@ namespace yy {
 
 
 } // yy
-#line 1589 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1677 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
-#line 253 "parser.y"
+#line 272 "parser.y"
 
 
 void

@@ -59,5 +59,5 @@ add_executable(
         values/PlainIdent.cpp
         values/PlainIdent.h
         statements/PrintStatement.cpp
-        statements/PrintStatement.h)
+        statements/PrintStatement.h declarations/MainClass.cpp declarations/MainClass.h declarations/ClassDeclaration.cpp declarations/ClassDeclaration.h declarations/ClassDeclarationList.cpp declarations/ClassDeclarationList.h Program.cpp Program.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})
