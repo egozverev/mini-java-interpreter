@@ -1,5 +1,0 @@
-class Factorial {
-  public static void main () {
-    System.out.println (13412);
-  }
-}

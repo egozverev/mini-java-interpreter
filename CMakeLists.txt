@@ -30,5 +30,34 @@ add_executable(
         driver.cpp
         ${BISON_MyParser_OUTPUTS}
         ${FLEX_MyScanner_OUTPUTS}
-)
+        expressions/MulExpression.cpp
+        expressions/AddExpression.cpp
+        expressions/SubstractExpression.cpp
+        expressions/DivExpression.cpp
+        expressions/IdentExpression.cpp
+        assignments/Assignment.cpp
+        assignments/AssignmentList.cpp
+        statements/Statement.h
+        statements/StatementList.cpp
+        statements/StatementList.h
+        expressions/PlainNumberExpression.cpp
+        expressions/PlainNumberExpression.h
+        expressions/ModExpression.cpp
+        expressions/ModExpression.h
+        expressions/BoolExpression.h
+        expressions/AndExpression.cpp
+        expressions/AndExpression.h
+        expressions/OrExpression.cpp
+        expressions/OrExpression.h
+        expressions/LessExpression.cpp
+        expressions/LessExpression.h
+        expressions/GreaterExpression.cpp
+        expressions/GreaterExpression.h
+        expressions/EqualExpression.cpp
+        expressions/EqualExpression.h
+        values/Lvalue.h
+        values/PlainIdent.cpp
+        values/PlainIdent.h
+        statements/PrintStatement.cpp
+        statements/PrintStatement.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})

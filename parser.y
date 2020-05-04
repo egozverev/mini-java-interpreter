@@ -10,6 +10,32 @@
     #include <string>
     class Scanner;
     class Driver;
+    class Expression;
+    class IdentExpression;
+    class NumberExpression;
+    class PlainNumberExpression;
+    class AddExpression;
+    class SubstractExpression;
+    class DivExpression;
+    class ModExpression;
+    class BoolExpression;
+    class AndExpression;
+    class OrExpression;
+    class EqualExpression;
+    class LessExpression;
+    class GreaterExpression;
+
+    class Assignment;
+    class AssignmentList;
+
+    class Statement;
+    class StatementList;
+    class PrintStatement;
+
+    class Lvalue;
+    class PlainIdent;
+
+    //class Program;
 }
 
 // %param { Driver &drv }
@@ -20,7 +46,33 @@
 %code {
     #include "driver.hh"
     #include "location.hh"
+    #include "expressions/Expression.h"
+    #include "expressions/NumberExpression.h"
+    #include "expressions/PlainNumberExpression.h"
+    #include "expressions/BoolExpression.h"
+    #include "expressions/AddExpression.h"
+    #include "expressions/MulExpression.h"
+    #include "expressions/DivExpression.h"
+    #include "expressions/SubstractExpression.h"
+    #include "expressions/ModExpression.h"
+    #include "expressions/IdentExpression.h"
+    #include "expressions/AndExpression.h"
+    #include "expressions/OrExpression.h"
+    #include "expressions/LessExpression.h"
+    #include "expressions/GreaterExpression.h"
+    #include "expressions/EqualExpression.h"
 
+    #include "assignments/Assignment.h"
+    #include "assignments/AssignmentList.h"
+
+    #include "statements/Statement.h"
+    #include "statements/StatementList.h"
+    #include "statements/PrintStatement.h"
+
+    #include "values/Lvalue.h"
+    #include "values/PlainIdent.h"
+
+    //#include "Program.h"
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
     }
@@ -70,8 +122,10 @@
 %token <int> NUMBER "number"
 %token <bool> BOOLEAN "bool"
 //%token <void> VOID "voidness"
-%nterm <int> expr
-%nterm <std::string> lvalue
+%nterm <NumberExpression* > expr
+%nterm <Lvalue*> lvalue
+%nterm <StatementList*> statements
+%nterm <Statement*> statement
 
 
 %%
@@ -82,15 +136,19 @@
 %start program;
 program: main_class  class_declarations{};
 
-main_class : "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}"   "}" {};
+main_class : "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}"   "}"
+{
+    $11 -> execute();
+};
+
 
 class_declarations:
  %empty {}
  | class_declaration class_declarations {};
 
 statements:
- statement {}
- | statement statements {};
+ statement {$$ = new StatementList(); $$ -> AddStatement($1);}
+ | statement statements {$2 -> AddStatement($1); $$ = $2;};
 
 class_declaration : "class"	"identifier" "{" declarations "}" {}
     | "class" "identifier" "[" "extends" "identifier" "]" "{" declarations "}" {};
@@ -134,8 +192,8 @@ statement :	"assert" "(" expr ")" {}
     | "if"  "(" expr ")" statement {}
     | "if"  "(" expr ")" statement "else" statement {}
     | "while" "(" expr ")" statement {}
-    | "print" "(" expr")" ";" {std::cout << $3;}
-    | lvalue "=" expr ";" {driver.variables[$1] = $3;}
+    | "print" "(" expr")" ";" {$$ = new PrintStatement($3);}
+    | lvalue "=" expr ";" {$$ = new Assignment($1, driver, $3);}
     | "return" expr ";" {}
     | method_invocation ";" {};
 
@@ -152,11 +210,15 @@ expressions:
     | expr expressions {};
 
 lvalue :
-    "identifier" {$$ = $1;}
+    "identifier" {$$ = new PlainIdent($1);}
     | "identifier" "[" expr "]" {};
 
 expr :
-    expr binary_operator expr {}
+    expr "+" expr {$$ = new AddExpression($1, $3);}
+    | expr "-" expr {$$ = new SubstractExpression($1, $3);}
+    | expr "*" expr {$$ = new MulExpression($1, $3);}
+    | expr "/" expr {$$ = new DivExpression($1, $3);}
+    | expr "%" expr {$$ = new ModExpression($1, $3);}
     | expr "[" expr "]" {}
     | expr "." "length" {}
     | "new" simple_type "[" expr "]" {}
@@ -164,23 +226,27 @@ expr :
     | "!" expr {}
     | "(" expr ")" {}
     | "identifier" {}
-    | "number" {$$ = $1;}
+    | "number" {$$ = new PlainNumberExpression($1);}
     | "this" {}
     | "true" {}
     | "false" {}
     | method_invocation {};
+    //expr "&&" expr {$$ = new AndExpression($1, $3)}
+    //| expr "||" expr {$$ = new OrExpression($1, $3)}
+    //| expr "<" expr {$$ = new LessExpression($1, $3)}
+    //| expr ">" expr {$$ = new GreaterExpression($1, $3)}
+    //| expr "==" expr {$$ = new EqualExpression($1, $3)}
 
-
-binary_operator : "&&" {}
-    |  "||" {}
-    |  "<" {}
-    | ">" {}
-    |  "==" {}
-    | "+" {}
-    |  "-" {}
-    | "*" {}
-    | "/" {}
-    | "%" {};
+//binary_operator : "&&" {}
+//    |  "||" {}
+//    |  "<" {}
+//    | ">" {}
+//    |  "==" {}
+//    | "+" {}
+//    |  "-" {}
+//    | "*" {}
+//    | "/" {}
+//    | "%" {};
 
 
 

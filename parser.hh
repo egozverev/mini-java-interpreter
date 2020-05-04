@@ -49,8 +49,34 @@
     #include <string>
     class Scanner;
     class Driver;
+    class Expression;
+    class IdentExpression;
+    class NumberExpression;
+    class PlainNumberExpression;
+    class AddExpression;
+    class SubstractExpression;
+    class DivExpression;
+    class ModExpression;
+    class BoolExpression;
+    class AndExpression;
+    class OrExpression;
+    class EqualExpression;
+    class LessExpression;
+    class GreaterExpression;
 
-#line 54 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+    class Assignment;
+    class AssignmentList;
+
+    class Statement;
+    class StatementList;
+    class PrintStatement;
+
+    class Lvalue;
+    class PlainIdent;
+
+    //class Program;
+
+#line 80 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -184,7 +210,7 @@
 #endif
 
 namespace yy {
-#line 188 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 214 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -388,16 +414,26 @@ namespace yy {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
+      // lvalue
+      char dummy1[sizeof (Lvalue*)];
+
+      // expr
+      char dummy2[sizeof (NumberExpression* )];
+
+      // statement
+      char dummy3[sizeof (Statement*)];
+
+      // statements
+      char dummy4[sizeof (StatementList*)];
+
       // "bool"
-      char dummy1[sizeof (bool)];
+      char dummy5[sizeof (bool)];
 
       // "number"
-      // expr
-      char dummy2[sizeof (int)];
+      char dummy6[sizeof (int)];
 
       // "identifier"
-      // lvalue
-      char dummy3[sizeof (std::string)];
+      char dummy7[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -529,6 +565,58 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, Lvalue*&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const Lvalue*& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, NumberExpression* && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const NumberExpression* & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, Statement*&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const Statement*& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, StatementList*&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const StatementList*& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, bool&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -590,17 +678,31 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
+      case 47: // lvalue
+        value.template destroy< Lvalue* > ();
+        break;
+
+      case 46: // expr
+        value.template destroy< NumberExpression*  > ();
+        break;
+
+      case 49: // statement
+        value.template destroy< Statement* > ();
+        break;
+
+      case 48: // statements
+        value.template destroy< StatementList* > ();
+        break;
+
       case 31: // "bool"
         value.template destroy< bool > ();
         break;
 
       case 30: // "number"
-      case 46: // expr
         value.template destroy< int > ();
         break;
 
       case 29: // "identifier"
-      case 47: // lvalue
         value.template destroy< std::string > ();
         break;
 
@@ -1521,8 +1623,8 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 323,     ///< Last index in yytable_.
-      yynnts_ = 23,  ///< Number of nonterminal symbols.
+      yylast_ = 264,     ///< Last index in yytable_.
+      yynnts_ = 22,  ///< Number of nonterminal symbols.
       yyfinal_ = 5, ///< Termination state number.
       yyntokens_ = 45  ///< Number of tokens.
     };
@@ -1594,17 +1696,31 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
+      case 47: // lvalue
+        value.move< Lvalue* > (std::move (that.value));
+        break;
+
+      case 46: // expr
+        value.move< NumberExpression*  > (std::move (that.value));
+        break;
+
+      case 49: // statement
+        value.move< Statement* > (std::move (that.value));
+        break;
+
+      case 48: // statements
+        value.move< StatementList* > (std::move (that.value));
+        break;
+
       case 31: // "bool"
         value.move< bool > (std::move (that.value));
         break;
 
       case 30: // "number"
-      case 46: // expr
         value.move< int > (std::move (that.value));
         break;
 
       case 29: // "identifier"
-      case 47: // lvalue
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -1623,17 +1739,31 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
+      case 47: // lvalue
+        value.copy< Lvalue* > (YY_MOVE (that.value));
+        break;
+
+      case 46: // expr
+        value.copy< NumberExpression*  > (YY_MOVE (that.value));
+        break;
+
+      case 49: // statement
+        value.copy< Statement* > (YY_MOVE (that.value));
+        break;
+
+      case 48: // statements
+        value.copy< StatementList* > (YY_MOVE (that.value));
+        break;
+
       case 31: // "bool"
         value.copy< bool > (YY_MOVE (that.value));
         break;
 
       case 30: // "number"
-      case 46: // expr
         value.copy< int > (YY_MOVE (that.value));
         break;
 
       case 29: // "identifier"
-      case 47: // lvalue
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1659,17 +1789,31 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
+      case 47: // lvalue
+        value.move< Lvalue* > (YY_MOVE (s.value));
+        break;
+
+      case 46: // expr
+        value.move< NumberExpression*  > (YY_MOVE (s.value));
+        break;
+
+      case 49: // statement
+        value.move< Statement* > (YY_MOVE (s.value));
+        break;
+
+      case 48: // statements
+        value.move< StatementList* > (YY_MOVE (s.value));
+        break;
+
       case 31: // "bool"
         value.move< bool > (YY_MOVE (s.value));
         break;
 
       case 30: // "number"
-      case 46: // expr
         value.move< int > (YY_MOVE (s.value));
         break;
 
       case 29: // "identifier"
-      case 47: // lvalue
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1728,7 +1872,7 @@ switch (yytype)
   }
 
 } // yy
-#line 1732 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 1876 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
