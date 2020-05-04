@@ -184,7 +184,7 @@ method_declaration:
     "public" type "identifier" "(" ")" "{" statements "}" {}
     | "public" type "identifier" "(" formals ")" "{" statements "}" {};
 
-variable_declaration : type "identifier" ";" { driver.variables[$2] = 0;};
+variable_declaration : type "identifier" ";" {};
 
 formals:
     type "identifier" {}
@@ -244,7 +244,7 @@ expr :
     | "new" type_identifier "(" ")" {}
     | "!" expr {}
     | "(" expr ")" {}
-    | "identifier" {}
+    | "identifier" {$$ = new IdentExpression($1, driver);}
     | "number" {$$ = new PlainNumberExpression($1);}
     | "this" {}
     | "true" {}

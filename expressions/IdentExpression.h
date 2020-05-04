@@ -1,15 +1,16 @@
 #pragma once
 
-#include "Expression.h"
-
+#include "NumberExpression.h"
+#include "driver.hh"
 #include <string>
 
-class IdentExpression : public Expression {
+class IdentExpression : public NumberExpression {
 public:
-  IdentExpression(const std::string &ident);
+  explicit IdentExpression(const std::string &ident, Driver& driver);
 
-  int eval() const;
+  int eval() const override;
 
 private:
   std::string ident_;
+  Driver& driver_;
 };

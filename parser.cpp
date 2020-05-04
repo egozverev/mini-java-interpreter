@@ -908,7 +908,7 @@ namespace yy {
 
   case 16:
 #line 187 "parser.y"
-                                             { driver.variables[yystack_[1].value.as < std::string > ()] = 0;}
+                                             {}
 #line 913 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
@@ -1130,7 +1130,7 @@ namespace yy {
 
   case 55:
 #line 247 "parser.y"
-                   {}
+                   {yylhs.value.as < NumberExpression*  > () = new IdentExpression(yystack_[0].value.as < std::string > (), driver);}
 #line 1135 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
