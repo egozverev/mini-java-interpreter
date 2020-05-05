@@ -65,7 +65,6 @@
     class GreaterExpression;
 
     class Assignment;
-    class AssignmentList;
 
     class Statement;
     class StatementList;
@@ -79,7 +78,7 @@
     class ClassDeclarationList;
     class Program;
 
-#line 83 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 82 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -213,7 +212,7 @@
 #endif
 
 namespace yy {
-#line 217 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 216 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -2003,7 +2002,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2007 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2006 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

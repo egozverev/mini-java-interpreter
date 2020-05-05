@@ -10,7 +10,13 @@ class Assignment : public Statement {
 public:
   Assignment(Lvalue* lvalue, Driver& driver,  Expression *expression);
 
-  void execute() const override ;
+  //void execute() const override ;
+
+  Lvalue* GetLvalue();
+
+  Expression* GetExpression();
+
+  void Accept(Visitor *visitor) override;
 
 private:
   Lvalue* lvalue_;

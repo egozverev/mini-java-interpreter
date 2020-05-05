@@ -2,7 +2,9 @@
 
 //#include "Expression.h"
 
-class BoolExpression {
+#include "BaseElement.h"
+
+class BoolExpression: BaseElement {
 public:
-  virtual bool eval() const = 0;
+  //virtual bool eval() const = 0;
 };

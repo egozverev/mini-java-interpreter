@@ -8,7 +8,11 @@ class IdentExpression : public NumberExpression {
 public:
   explicit IdentExpression(const std::string &ident, Driver& driver);
 
-  int eval() const override;
+  //int eval() const override;
+
+  void Accept(Visitor* visitor) override;
+
+  std::string GetIdent();
 
 private:
   std::string ident_;

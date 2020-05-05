@@ -10,6 +10,9 @@ public:
 
   std::string GetId() const override;
 
+  //void Accept(Visitor *visitor) override;
+
+
 private:
   std::string ident_;
 };

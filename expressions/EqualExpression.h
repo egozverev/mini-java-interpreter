@@ -7,7 +7,9 @@ class EqualExpression : public BoolExpression {
 public:
   EqualExpression(NumberExpression *e1, NumberExpression *e2);
 
-  bool eval() const override;
+  //bool eval() const override;
+
+
 
 private:
   NumberExpression *first;

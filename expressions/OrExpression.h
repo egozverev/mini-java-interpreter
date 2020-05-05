@@ -6,7 +6,8 @@ class OrExpression : public BoolExpression {
 public:
   OrExpression(BoolExpression *e1, BoolExpression *e2);
 
-  bool eval() const override;
+  //bool eval() const override;
+
 
 private:
   BoolExpression *first;

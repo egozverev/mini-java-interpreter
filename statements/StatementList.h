@@ -4,10 +4,12 @@
 
 #include <vector>
 
-class StatementList {
+class StatementList: BaseElement {
 public:
   void AddStatement(Statement* statement);
-  void execute() const;
-private:
+  //void execute() const;
+
+  void Accept(Visitor *visitor) override;
+
   std::vector<Statement*> statements_;
 };

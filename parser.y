@@ -26,7 +26,6 @@
     class GreaterExpression;
 
     class Assignment;
-    class AssignmentList;
 
     class Statement;
     class StatementList;
@@ -66,7 +65,6 @@
     #include "expressions/EqualExpression.h"
 
     #include "assignments/Assignment.h"
-    #include "assignments/AssignmentList.h"
 
     #include "statements/Statement.h"
     #include "statements/StatementList.h"
@@ -150,7 +148,8 @@
 program: main_class  class_declarations
 {
     $$ = new Program($1, $2);
-    $$ -> launch();
+    driver.program = $$;
+    //$$ -> launch();
 
 };
 

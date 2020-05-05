@@ -1,6 +1,8 @@
 #pragma once
 
-class Expression {
+#include "BaseElement.h"
+
+class Expression: public BaseElement {
 public:
-  virtual int eval() const = 0;
+  //virtual int eval() const = 0;
 };

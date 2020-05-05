@@ -7,7 +7,8 @@ class GreaterExpression : public BoolExpression {
 public:
   GreaterExpression(NumberExpression *e1, NumberExpression *e2);
 
-  bool eval() const override;
+  //bool eval() const override;
+
 
 private:
   NumberExpression *first;

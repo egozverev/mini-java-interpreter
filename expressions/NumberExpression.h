@@ -4,5 +4,5 @@
 
 class NumberExpression : public Expression {
 public:
-  virtual int eval() const = 0;
+  //int eval() const override = 0;
 };

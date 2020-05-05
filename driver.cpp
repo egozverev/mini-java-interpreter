@@ -7,8 +7,7 @@ Driver::Driver() :
     trace_parsing(false),
     trace_scanning(false),
     scanner(*this), parser(scanner, *this) {
-    variables["one"] = 1;
-    variables["two"] = 2;
+
 }
 
 
@@ -37,3 +36,12 @@ void Driver::scan_end()
     stream.close();
 }
 
+void Driver::PrintTree(const std::string& filename) {
+  SymbolTreeVisitor visitor(filename);
+  visitor.Visit(program);
+}
+
+void Driver::ExecuteProgram() {
+  Interpreter interpreter;
+  interpreter.Visit(program);
+}

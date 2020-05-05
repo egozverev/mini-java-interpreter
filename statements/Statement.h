@@ -1,6 +1,8 @@
 #pragma once
 
-class Statement {
+#include "BaseElement.h"
+
+class Statement: public BaseElement{
 public:
-  virtual void execute() const = 0;
+  //virtual void execute() const = 0;
 };
