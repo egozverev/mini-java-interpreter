@@ -4,7 +4,7 @@
 #include "driver.hh"
 #include <string>
 
-class IdentExpression : public NumberExpression {
+class IdentExpression : public NumberExpression, public std::enable_shared_from_this<IdentExpression> {
 public:
   explicit IdentExpression(const std::string &ident, Driver& driver);
 

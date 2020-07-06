@@ -1,8 +1,8 @@
 #include "StatementList.h"
 
 
-void StatementList::AddStatement(Statement *statement) {
-  statements_.push_back(statement);
+void StatementList::AddStatement(std::shared_ptr<Statement> statement) {
+  statements_.push_back(std::move(statement));
 }
 
 /*void StatementList::execute() const {
@@ -13,5 +13,5 @@ void StatementList::AddStatement(Statement *statement) {
 }*/
 
 void StatementList::Accept(Visitor* visitor) {
-  visitor->Visit(this);
+  visitor->Visit(this->shared_from_this());
 }

@@ -8,5 +8,5 @@ PlainNumberExpression::PlainNumberExpression(int val): value(val) {
 }*/
 
 void PlainNumberExpression::Accept(Visitor* visitor) {
-  visitor->Visit(this);
+  visitor->Visit(this->shared_from_this());
 }

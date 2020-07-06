@@ -2,18 +2,20 @@
 
 #include "NumberExpression.h"
 
-class AddExpression : public NumberExpression {
+#include <memory>
+
+class AddExpression : public NumberExpression, public std::enable_shared_from_this<AddExpression> {
 public:
-  AddExpression(NumberExpression *e1, NumberExpression *e2);
+  AddExpression(std::shared_ptr<NumberExpression> e1, std::shared_ptr<NumberExpression> e2);
 
   //int eval() const override;
 
   void Accept(Visitor *visitor) override;
 
-  NumberExpression* GetFirst();
-  NumberExpression* GetSecond();
+  std::shared_ptr<NumberExpression> GetFirst();
+  std::shared_ptr<NumberExpression> GetSecond();
 
 private:
-  NumberExpression *first;
-  NumberExpression *second;
+  std::shared_ptr<NumberExpression> first;
+  std::shared_ptr<NumberExpression> second;
 };

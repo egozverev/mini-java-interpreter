@@ -1,13 +1,13 @@
 #include "MainClass.h"
 
-MainClass::MainClass(StatementList *statement_list) : statement_list_(statement_list) {}
+MainClass::MainClass(std::shared_ptr<StatementList> statement_list) : statement_list_(std::move(statement_list)) {}
 
 /*void MainClass::perform_body() const {
   statement_list_->execute();
 }*/
 
 void MainClass::Accept(Visitor *visitor) {
-  visitor->Visit(this);
+  visitor->Visit(this->shared_from_this());
 }
 
-StatementList *MainClass::GetStatementList() { return statement_list_; }
+std::shared_ptr<StatementList> MainClass::GetStatementList() { return statement_list_; }

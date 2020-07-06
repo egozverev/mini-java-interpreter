@@ -3,16 +3,18 @@
 #include "Statement.h"
 #include "expressions/Expression.h"
 
-class PrintStatement : public Statement {
+#include <memory>
+
+class PrintStatement : public Statement, public std::enable_shared_from_this<PrintStatement> {
 public:
-  explicit PrintStatement(Expression *expression);
+  explicit PrintStatement(std::shared_ptr<Expression> expression);
 
   //void execute() const override;
 
   void Accept(Visitor *visitor) override;
 
-  Expression* GetExpression();
+  std::shared_ptr<Expression> GetExpression();
 
 private:
-  Expression *expression_;
+  std::shared_ptr<Expression> expression_;
 };

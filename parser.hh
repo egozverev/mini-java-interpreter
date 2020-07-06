@@ -47,6 +47,7 @@
 #line 9 "parser.y"
 
     #include <string>
+    #include <memory>
     class Scanner;
     class Driver;
     class Expression;
@@ -78,7 +79,7 @@
     class ClassDeclarationList;
     class Program;
 
-#line 82 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 83 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -212,7 +213,7 @@
 #endif
 
 namespace yy {
-#line 216 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 217 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -416,35 +417,35 @@ namespace yy {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
-      // class_declaration
-      char dummy1[sizeof (ClassDeclaration*)];
-
-      // class_declarations
-      char dummy2[sizeof (ClassDeclarationList*)];
-
-      // lvalue
-      char dummy3[sizeof (Lvalue*)];
-
-      // main_class
-      char dummy4[sizeof (MainClass*)];
-
-      // expr
-      char dummy5[sizeof (NumberExpression* )];
-
-      // program
-      char dummy6[sizeof (Program*)];
-
-      // statement
-      char dummy7[sizeof (Statement*)];
-
-      // statements
-      char dummy8[sizeof (StatementList*)];
-
       // "bool"
-      char dummy9[sizeof (bool)];
+      char dummy1[sizeof (bool)];
 
       // "number"
-      char dummy10[sizeof (int)];
+      char dummy2[sizeof (int)];
+
+      // class_declaration
+      char dummy3[sizeof (std::shared_ptr<ClassDeclaration> )];
+
+      // class_declarations
+      char dummy4[sizeof (std::shared_ptr<ClassDeclarationList> )];
+
+      // lvalue
+      char dummy5[sizeof (std::shared_ptr<Lvalue> )];
+
+      // main_class
+      char dummy6[sizeof (std::shared_ptr<MainClass> )];
+
+      // expr
+      char dummy7[sizeof (std::shared_ptr<NumberExpression> )];
+
+      // program
+      char dummy8[sizeof (std::shared_ptr<Program> )];
+
+      // statement
+      char dummy9[sizeof (std::shared_ptr<Statement> )];
+
+      // statements
+      char dummy10[sizeof (std::shared_ptr<StatementList> )];
 
       // "identifier"
       char dummy11[sizeof (std::string)];
@@ -579,110 +580,6 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ClassDeclaration*&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const ClassDeclaration*& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ClassDeclarationList*&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const ClassDeclarationList*& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, Lvalue*&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const Lvalue*& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, MainClass*&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const MainClass*& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, NumberExpression* && v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const NumberExpression* & v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, Program*&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const Program*& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, Statement*&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const Statement*& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, StatementList*&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const StatementList*& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, bool&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -703,6 +600,110 @@ namespace yy {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const int& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ClassDeclaration> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ClassDeclaration> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ClassDeclarationList> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ClassDeclarationList> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<Lvalue> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<Lvalue> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<MainClass> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<MainClass> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<NumberExpression> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<NumberExpression> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<Program> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<Program> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<Statement> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<Statement> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<StatementList> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<StatementList> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -744,44 +745,44 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 53: // class_declaration
-        value.template destroy< ClassDeclaration* > ();
-        break;
-
-      case 52: // class_declarations
-        value.template destroy< ClassDeclarationList* > ();
-        break;
-
-      case 47: // lvalue
-        value.template destroy< Lvalue* > ();
-        break;
-
-      case 50: // main_class
-        value.template destroy< MainClass* > ();
-        break;
-
-      case 46: // expr
-        value.template destroy< NumberExpression*  > ();
-        break;
-
-      case 51: // program
-        value.template destroy< Program* > ();
-        break;
-
-      case 49: // statement
-        value.template destroy< Statement* > ();
-        break;
-
-      case 48: // statements
-        value.template destroy< StatementList* > ();
-        break;
-
       case 31: // "bool"
         value.template destroy< bool > ();
         break;
 
       case 30: // "number"
         value.template destroy< int > ();
+        break;
+
+      case 53: // class_declaration
+        value.template destroy< std::shared_ptr<ClassDeclaration>  > ();
+        break;
+
+      case 52: // class_declarations
+        value.template destroy< std::shared_ptr<ClassDeclarationList>  > ();
+        break;
+
+      case 47: // lvalue
+        value.template destroy< std::shared_ptr<Lvalue>  > ();
+        break;
+
+      case 50: // main_class
+        value.template destroy< std::shared_ptr<MainClass>  > ();
+        break;
+
+      case 46: // expr
+        value.template destroy< std::shared_ptr<NumberExpression>  > ();
+        break;
+
+      case 51: // program
+        value.template destroy< std::shared_ptr<Program>  > ();
+        break;
+
+      case 49: // statement
+        value.template destroy< std::shared_ptr<Statement>  > ();
+        break;
+
+      case 48: // statements
+        value.template destroy< std::shared_ptr<StatementList>  > ();
         break;
 
       case 29: // "identifier"
@@ -1778,44 +1779,44 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 53: // class_declaration
-        value.move< ClassDeclaration* > (std::move (that.value));
-        break;
-
-      case 52: // class_declarations
-        value.move< ClassDeclarationList* > (std::move (that.value));
-        break;
-
-      case 47: // lvalue
-        value.move< Lvalue* > (std::move (that.value));
-        break;
-
-      case 50: // main_class
-        value.move< MainClass* > (std::move (that.value));
-        break;
-
-      case 46: // expr
-        value.move< NumberExpression*  > (std::move (that.value));
-        break;
-
-      case 51: // program
-        value.move< Program* > (std::move (that.value));
-        break;
-
-      case 49: // statement
-        value.move< Statement* > (std::move (that.value));
-        break;
-
-      case 48: // statements
-        value.move< StatementList* > (std::move (that.value));
-        break;
-
       case 31: // "bool"
         value.move< bool > (std::move (that.value));
         break;
 
       case 30: // "number"
         value.move< int > (std::move (that.value));
+        break;
+
+      case 53: // class_declaration
+        value.move< std::shared_ptr<ClassDeclaration>  > (std::move (that.value));
+        break;
+
+      case 52: // class_declarations
+        value.move< std::shared_ptr<ClassDeclarationList>  > (std::move (that.value));
+        break;
+
+      case 47: // lvalue
+        value.move< std::shared_ptr<Lvalue>  > (std::move (that.value));
+        break;
+
+      case 50: // main_class
+        value.move< std::shared_ptr<MainClass>  > (std::move (that.value));
+        break;
+
+      case 46: // expr
+        value.move< std::shared_ptr<NumberExpression>  > (std::move (that.value));
+        break;
+
+      case 51: // program
+        value.move< std::shared_ptr<Program>  > (std::move (that.value));
+        break;
+
+      case 49: // statement
+        value.move< std::shared_ptr<Statement>  > (std::move (that.value));
+        break;
+
+      case 48: // statements
+        value.move< std::shared_ptr<StatementList>  > (std::move (that.value));
         break;
 
       case 29: // "identifier"
@@ -1837,44 +1838,44 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 53: // class_declaration
-        value.copy< ClassDeclaration* > (YY_MOVE (that.value));
-        break;
-
-      case 52: // class_declarations
-        value.copy< ClassDeclarationList* > (YY_MOVE (that.value));
-        break;
-
-      case 47: // lvalue
-        value.copy< Lvalue* > (YY_MOVE (that.value));
-        break;
-
-      case 50: // main_class
-        value.copy< MainClass* > (YY_MOVE (that.value));
-        break;
-
-      case 46: // expr
-        value.copy< NumberExpression*  > (YY_MOVE (that.value));
-        break;
-
-      case 51: // program
-        value.copy< Program* > (YY_MOVE (that.value));
-        break;
-
-      case 49: // statement
-        value.copy< Statement* > (YY_MOVE (that.value));
-        break;
-
-      case 48: // statements
-        value.copy< StatementList* > (YY_MOVE (that.value));
-        break;
-
       case 31: // "bool"
         value.copy< bool > (YY_MOVE (that.value));
         break;
 
       case 30: // "number"
         value.copy< int > (YY_MOVE (that.value));
+        break;
+
+      case 53: // class_declaration
+        value.copy< std::shared_ptr<ClassDeclaration>  > (YY_MOVE (that.value));
+        break;
+
+      case 52: // class_declarations
+        value.copy< std::shared_ptr<ClassDeclarationList>  > (YY_MOVE (that.value));
+        break;
+
+      case 47: // lvalue
+        value.copy< std::shared_ptr<Lvalue>  > (YY_MOVE (that.value));
+        break;
+
+      case 50: // main_class
+        value.copy< std::shared_ptr<MainClass>  > (YY_MOVE (that.value));
+        break;
+
+      case 46: // expr
+        value.copy< std::shared_ptr<NumberExpression>  > (YY_MOVE (that.value));
+        break;
+
+      case 51: // program
+        value.copy< std::shared_ptr<Program>  > (YY_MOVE (that.value));
+        break;
+
+      case 49: // statement
+        value.copy< std::shared_ptr<Statement>  > (YY_MOVE (that.value));
+        break;
+
+      case 48: // statements
+        value.copy< std::shared_ptr<StatementList>  > (YY_MOVE (that.value));
         break;
 
       case 29: // "identifier"
@@ -1903,44 +1904,44 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 53: // class_declaration
-        value.move< ClassDeclaration* > (YY_MOVE (s.value));
-        break;
-
-      case 52: // class_declarations
-        value.move< ClassDeclarationList* > (YY_MOVE (s.value));
-        break;
-
-      case 47: // lvalue
-        value.move< Lvalue* > (YY_MOVE (s.value));
-        break;
-
-      case 50: // main_class
-        value.move< MainClass* > (YY_MOVE (s.value));
-        break;
-
-      case 46: // expr
-        value.move< NumberExpression*  > (YY_MOVE (s.value));
-        break;
-
-      case 51: // program
-        value.move< Program* > (YY_MOVE (s.value));
-        break;
-
-      case 49: // statement
-        value.move< Statement* > (YY_MOVE (s.value));
-        break;
-
-      case 48: // statements
-        value.move< StatementList* > (YY_MOVE (s.value));
-        break;
-
       case 31: // "bool"
         value.move< bool > (YY_MOVE (s.value));
         break;
 
       case 30: // "number"
         value.move< int > (YY_MOVE (s.value));
+        break;
+
+      case 53: // class_declaration
+        value.move< std::shared_ptr<ClassDeclaration>  > (YY_MOVE (s.value));
+        break;
+
+      case 52: // class_declarations
+        value.move< std::shared_ptr<ClassDeclarationList>  > (YY_MOVE (s.value));
+        break;
+
+      case 47: // lvalue
+        value.move< std::shared_ptr<Lvalue>  > (YY_MOVE (s.value));
+        break;
+
+      case 50: // main_class
+        value.move< std::shared_ptr<MainClass>  > (YY_MOVE (s.value));
+        break;
+
+      case 46: // expr
+        value.move< std::shared_ptr<NumberExpression>  > (YY_MOVE (s.value));
+        break;
+
+      case 51: // program
+        value.move< std::shared_ptr<Program>  > (YY_MOVE (s.value));
+        break;
+
+      case 49: // statement
+        value.move< std::shared_ptr<Statement>  > (YY_MOVE (s.value));
+        break;
+
+      case 48: // statements
+        value.move< std::shared_ptr<StatementList>  > (YY_MOVE (s.value));
         break;
 
       case 29: // "identifier"
@@ -2002,7 +2003,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2006 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2007 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

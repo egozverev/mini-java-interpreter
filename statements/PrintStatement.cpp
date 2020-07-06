@@ -1,14 +1,14 @@
 #include "PrintStatement.h"
 #include <iostream>
 
-PrintStatement::PrintStatement(Expression *expression) : expression_(expression) {}
+PrintStatement::PrintStatement(std::shared_ptr<Expression> expression) : expression_(std::move(expression)) {}
 
 /*void PrintStatement::execute() const {
   std::cout << expression_->eval() << "\n";
 }*/
 
 void PrintStatement::Accept(Visitor *visitor) {
-  visitor->Visit(this);
+  visitor->Visit(this->shared_from_this());
 }
 
-Expression *PrintStatement::GetExpression() { return expression_; }
+std::shared_ptr<Expression> PrintStatement::GetExpression() { return expression_; }

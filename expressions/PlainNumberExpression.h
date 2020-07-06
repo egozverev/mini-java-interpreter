@@ -2,7 +2,7 @@
 
 #include "NumberExpression.h"
 
-class PlainNumberExpression : public NumberExpression {
+class PlainNumberExpression : public NumberExpression, public std::enable_shared_from_this<PlainNumberExpression> {
 public:
   explicit PlainNumberExpression(int value);
 

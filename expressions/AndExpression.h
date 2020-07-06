@@ -2,15 +2,13 @@
 
 #include "BoolExpression.h"
 
-class AndExpression : public BoolExpression {
+#include <memory>
+
+class AndExpression : public BoolExpression, public std::enable_shared_from_this<AndExpression> {
 public:
-  AndExpression(BoolExpression *e1, BoolExpression *e2);
-
-  //bool eval() const override;
-
-
+  AndExpression(std::shared_ptr<BoolExpression> e1, std::shared_ptr<BoolExpression> e2);
 
 private:
-  BoolExpression *first;
-  BoolExpression *second;
+  std::shared_ptr<BoolExpression> first;
+  std::shared_ptr<BoolExpression> second;
 };

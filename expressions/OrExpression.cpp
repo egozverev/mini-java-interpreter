@@ -1,6 +1,7 @@
 #include "OrExpression.h"
 
-OrExpression::OrExpression(BoolExpression *e1, BoolExpression *e2) : first(e1), second(e2) {}
+OrExpression::OrExpression(std::shared_ptr<BoolExpression> e1, std::shared_ptr<BoolExpression> e2) :
+  first(std::move(e1)), second(std::move(e2)) {}
 
 /*bool OrExpression::eval() const {
   return first->eval() || second->eval();

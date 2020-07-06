@@ -3,14 +3,15 @@
 #include "BoolExpression.h"
 #include "NumberExpression.h"
 
-class LessExpression : public BoolExpression {
+#include <memory>
+
+class LessExpression : public BoolExpression, public std::enable_shared_from_this<LessExpression>{
 public:
-  LessExpression(NumberExpression *e1, NumberExpression *e2);
+  LessExpression(std::shared_ptr<NumberExpression> e1, std::shared_ptr<NumberExpression> e2);
 
   //bool eval() const override;
 
-
 private:
-  NumberExpression *first;
-  NumberExpression *second;
+  std::shared_ptr<NumberExpression> first;
+  std::shared_ptr<NumberExpression> second;
 };

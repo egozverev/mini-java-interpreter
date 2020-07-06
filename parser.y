@@ -8,6 +8,7 @@
 
 %code requires {
     #include <string>
+    #include <memory>
     class Scanner;
     class Driver;
     class Expression;
@@ -127,14 +128,14 @@
 %token <int> NUMBER "number"
 %token <bool> BOOLEAN "bool"
 //%token <void> VOID "voidness"
-%nterm <NumberExpression* > expr
-%nterm <Lvalue*> lvalue
-%nterm <StatementList*> statements
-%nterm <Statement*> statement
-%nterm <MainClass*> main_class
-%nterm <Program*> program
-%nterm <ClassDeclarationList*> class_declarations
-%nterm <ClassDeclaration*> class_declaration
+%nterm <std::shared_ptr<NumberExpression> > expr
+%nterm <std::shared_ptr<Lvalue> > lvalue
+%nterm <std::shared_ptr<StatementList> > statements
+%nterm <std::shared_ptr<Statement> > statement
+%nterm <std::shared_ptr<MainClass> > main_class
+%nterm <std::shared_ptr<Program> > program
+%nterm <std::shared_ptr<ClassDeclarationList> > class_declarations
+%nterm <std::shared_ptr<ClassDeclaration> > class_declaration
 
 
 %%
@@ -147,28 +148,27 @@
 
 program: main_class  class_declarations
 {
-    $$ = new Program($1, $2);
+    $$ = std::make_shared<Program>($1, $2);
     driver.program = $$;
-    //$$ -> launch();
 
 };
 
 
 main_class : "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}"   "}"
 {
-    $$ = new MainClass($11);
+    $$ = std::make_shared<MainClass>($11);
 };
 
 
 class_declarations:
- %empty {$$ = new ClassDeclarationList();}
+ %empty {$$ = std::make_shared<ClassDeclarationList>();}
  | class_declaration class_declarations {$2 -> AddDeclaration($1); $$ = $2;};
 
 statements:
- statement {$$ = new StatementList(); $$ -> AddStatement($1);}
+ statement {$$ = std::make_shared<StatementList>(); $$ -> AddStatement($1);}
  | statement statements {$2 -> AddStatement($1); $$ = $2;};
 
-class_declaration : "class"	"identifier" "{" declarations "}" {$$ = new ClassDeclaration();}
+class_declaration : "class"	"identifier" "{" declarations "}" {$$ = std::make_shared<ClassDeclaration>();}
     | "class" "identifier" "[" "extends" "identifier" "]" "{" declarations "}" {};
 
 declarations:
@@ -210,8 +210,8 @@ statement :	"assert" "(" expr ")" {}
     | "if"  "(" expr ")" statement {}
     | "if"  "(" expr ")" statement "else" statement {}
     | "while" "(" expr ")" statement {}
-    | "print" "(" expr")" ";" {$$ = new PrintStatement($3);}
-    | lvalue "=" expr ";" {$$ = new Assignment($1, driver, $3);}
+    | "print" "(" expr")" ";" {$$ = std::make_shared<PrintStatement>($3);}
+    | lvalue "=" expr ";" {$$ = std::make_shared<Assignment>($1, driver, $3);}
     | "return" expr ";" {}
     | method_invocation ";" {};
 
@@ -228,32 +228,32 @@ expressions:
     | expr expressions {};
 
 lvalue :
-    "identifier" {$$ = new PlainIdent($1);}
+    "identifier" {$$ = std::make_shared<PlainIdent>($1);}
     | "identifier" "[" expr "]" {};
 
 expr :
-    expr "+" expr {$$ = new AddExpression($1, $3);}
-    | expr "-" expr {$$ = new SubstractExpression($1, $3);}
-    | expr "*" expr {$$ = new MulExpression($1, $3);}
-    | expr "/" expr {$$ = new DivExpression($1, $3);}
-    | expr "%" expr {$$ = new ModExpression($1, $3);}
+    expr "+" expr {$$ = std::make_shared<AddExpression>($1, $3);}
+    | expr "-" expr {$$ = std::make_shared<SubstractExpression>($1, $3);}
+    | expr "*" expr {$$ = std::make_shared<MulExpression>($1, $3);}
+    | expr "/" expr {$$ = std::make_shared<DivExpression>($1, $3);}
+    | expr "%" expr {$$ = std::make_shared<ModExpression>($1, $3);}
     | expr "[" expr "]" {}
     | expr "." "length" {}
     | "new" simple_type "[" expr "]" {}
     | "new" type_identifier "(" ")" {}
     | "!" expr {}
     | "(" expr ")" {}
-    | "identifier" {$$ = new IdentExpression($1, driver);}
-    | "number" {$$ = new PlainNumberExpression($1);}
+    | "identifier" {$$ = std::make_shared<IdentExpression> ($1, driver);}
+    | "number" {$$ = std::make_shared<PlainNumberExpression> ($1);}
     | "this" {}
     | "true" {}
     | "false" {}
     | method_invocation {};
-    //expr "&&" expr {$$ = new AndExpression($1, $3)}
-    //| expr "||" expr {$$ = new OrExpression($1, $3)}
-    //| expr "<" expr {$$ = new LessExpression($1, $3)}
-    //| expr ">" expr {$$ = new GreaterExpression($1, $3)}
-    //| expr "==" expr {$$ = new EqualExpression($1, $3)}
+    //expr "&&" expr {$$ = std::make_shared<AndExpression>($1, $3)}
+    //| expr "||" expr {$$ = std::make_shared<OrExpression>($1, $3)}
+    //| expr "<" expr {$$ = std::make_shared<LessExpression>($1, $3)}
+    //| expr ">" expr {$$ = std::make_shared<GreaterExpression>($1, $3)}
+    //| expr "==" expr {$$ = std::make_shared<EqualExpression>($1, $3)}
 
 //binary_operator : "&&" {}
 //    |  "||" {}

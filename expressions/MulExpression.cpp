@@ -1,20 +1,20 @@
 #include "MulExpression.h"
 
 MulExpression::MulExpression(
-    NumberExpression *e1, NumberExpression *e2
-): first(e1), second(e2) {}
+    std::shared_ptr<NumberExpression> e1, std::shared_ptr<NumberExpression> e2
+): first(std::move(e1)), second(std::move(e2)) {}
 
 /*int MulExpression::eval() const {
     return first->eval() * second->eval();
 }*/
 
 void MulExpression::Accept(Visitor* visitor) {
-  visitor->Visit(this);
+  visitor->Visit(this->shared_from_this());
 }
 
-NumberExpression* MulExpression::GetFirst() {
+std::shared_ptr<NumberExpression> MulExpression::GetFirst() {
   return first;
 }
-NumberExpression* MulExpression::GetSecond() {
+std::shared_ptr<NumberExpression> MulExpression::GetSecond() {
   return second;
 }

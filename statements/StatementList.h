@@ -4,12 +4,14 @@
 
 #include <vector>
 
-class StatementList: BaseElement {
+#include <memory>
+
+class StatementList : BaseElement, public std::enable_shared_from_this<StatementList> {
 public:
-  void AddStatement(Statement* statement);
+  void AddStatement(std::shared_ptr<Statement> statement);
   //void execute() const;
 
   void Accept(Visitor *visitor) override;
 
-  std::vector<Statement*> statements_;
+  std::vector<std::shared_ptr<Statement> > statements_;
 };

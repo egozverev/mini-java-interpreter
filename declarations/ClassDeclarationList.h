@@ -3,16 +3,18 @@
 #include "ClassDeclaration.h"
 #include "BaseElement.h"
 
+#include <memory>
 #include <vector>
 
-class ClassDeclarationList: BaseElement{
+
+class ClassDeclarationList : BaseElement, public std::enable_shared_from_this<ClassDeclarationList> {
 public:
   explicit ClassDeclarationList() = default;
 
-  void AddDeclaration(ClassDeclaration *declaration);
+  void AddDeclaration(std::shared_ptr<ClassDeclaration> declaration);
 
   void Accept(Visitor *visitor) override;
 
 private:
-  std::vector<ClassDeclaration *> declarations_;
+  std::vector<std::shared_ptr<ClassDeclaration> > declarations_;
 };

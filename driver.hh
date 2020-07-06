@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <memory>
 #include <string>
 #include <fstream>
 #include "scanner.h"
@@ -10,8 +11,6 @@
 class Driver {
 public:
   Driver();
-
-  int result;
 
   int parse(const std::string &f);
 
@@ -34,7 +33,7 @@ public:
   Scanner scanner;
   yy::parser parser;
 
-  Program* program;
+  std::shared_ptr<Program> program;
 
 private:
   std::ifstream stream;

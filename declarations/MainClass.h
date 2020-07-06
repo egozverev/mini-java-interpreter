@@ -3,17 +3,18 @@
 #include "statements/StatementList.h"
 #include "BaseElement.h"
 
+#include <memory>
 
-class MainClass: BaseElement{
+class MainClass : BaseElement, public std::enable_shared_from_this<MainClass> {
 public:
-  explicit MainClass(StatementList* statement_list);
+  explicit MainClass(std::shared_ptr<StatementList> statement_list);
 
   //void perform_body() const;
 
   void Accept(Visitor *visitor) override;
 
-  StatementList* GetStatementList();
+  std::shared_ptr<StatementList> GetStatementList();
 
 private:
-  StatementList* statement_list_;
+  std::shared_ptr<StatementList> statement_list_;
 };

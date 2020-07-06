@@ -3,15 +3,15 @@
 
 class Program {
 public:
-  Program(MainClass *main_class, ClassDeclarationList *declaration_list);
+  Program(std::shared_ptr<MainClass> main_class, std::shared_ptr<ClassDeclarationList> declaration_list);
 
   //void launch() const;
 
-  MainClass* GetMainClass();
+  std::shared_ptr<MainClass> GetMainClass();
 
-  ClassDeclarationList* GetDeclList();
+  std::shared_ptr<ClassDeclarationList> GetDeclList();
 
 private:
-  MainClass *main_class_;
-  ClassDeclarationList *declaration_list_;
+  std::shared_ptr<MainClass> main_class_;
+  std::shared_ptr<ClassDeclarationList> declaration_list_;
 };
