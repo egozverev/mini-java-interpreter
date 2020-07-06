@@ -7,8 +7,8 @@ SubstractExpression::SubstractExpression(std::shared_ptr<NumberExpression> e1, s
     return first->eval() - second->eval();
 }*/
 
-void SubstractExpression::Accept(Visitor* visitor) {
-  visitor->Visit(this->shared_from_this());
+void SubstractExpression::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }
 
 std::shared_ptr<NumberExpression> SubstractExpression::GetFirst() {

@@ -11,7 +11,7 @@ public:
   void AddStatement(std::shared_ptr<Statement> statement);
   //void execute() const;
 
-  void Accept(Visitor *visitor) override;
+  void Accept(Visitor& visitor) override;
 
   std::vector<std::shared_ptr<Statement> > statements_;
 };

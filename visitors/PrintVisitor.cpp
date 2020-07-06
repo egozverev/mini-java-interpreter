@@ -17,8 +17,8 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<AddExpression> expression) {
   stream_ << "AddExpression is:" << std::endl;
 
   ++num_tabs_;
-  expression->GetFirst()->Accept(this);
-  expression->GetSecond()->Accept(this);
+  expression->GetFirst()->Accept(*this);
+  expression->GetSecond()->Accept(*this);
   --num_tabs_;
 }
 
@@ -27,8 +27,8 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<SubstractExpression> expression) {
 
   stream_ << "SubExpression: " << std::endl;
   ++num_tabs_;
-  expression->GetFirst()->Accept(this);
-  expression->GetSecond()->Accept(this);
+  expression->GetFirst()->Accept(*this);
+  expression->GetSecond()->Accept(*this);
   --num_tabs_;
 }
 
@@ -37,8 +37,8 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<MulExpression> expression) {
 
   stream_ << "MulExpression: " << std::endl;
   ++num_tabs_;
-  expression->GetFirst()->Accept(this);
-  expression->GetSecond()->Accept(this);
+  expression->GetFirst()->Accept(*this);
+  expression->GetSecond()->Accept(*this);
   --num_tabs_;
 }
 
@@ -47,8 +47,8 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ModExpression> expression) {
 
   stream_ << "ModExpression: " << std::endl;
   ++num_tabs_;
-  expression->GetFirst()->Accept(this);
-  expression->GetSecond()->Accept(this);
+  expression->GetFirst()->Accept(*this);
+  expression->GetSecond()->Accept(*this);
   --num_tabs_;
 }
 
@@ -56,8 +56,8 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<DivExpression> expression) {
   PrintTabs();
   stream_ << "DivExpression: " << std::endl;
   ++num_tabs_;
-  expression->GetFirst()->Accept(this);
-  expression->GetSecond()->Accept(this);
+  expression->GetFirst()->Accept(*this);
+  expression->GetSecond()->Accept(*this);
   --num_tabs_;
 }
 
@@ -71,7 +71,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<Assignment> assignment) {
   PrintTabs();
   stream_ << "Assignment: " << assignment->GetLvalue()->GetId() << std::endl;
   ++num_tabs_;
-  assignment->GetExpression()->Accept(this);
+  assignment->GetExpression()->Accept(*this);
   --num_tabs_;
 }
 
@@ -79,7 +79,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<PrintStatement> statement) {
   PrintTabs();
   stream_ << "PrintStatement: " << std::endl;
   ++num_tabs_;
-  statement->GetExpression()->Accept(this);
+  statement->GetExpression()->Accept(*this);
   --num_tabs_;
 }
 
@@ -90,7 +90,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<StatementList> statement_list) {
   ++num_tabs_;
   for (auto it = statement_list->statements_.end() - 1;
        it != statement_list->statements_.begin() - 1; --it) {
-    (*it)->Accept(this);
+    (*it)->Accept(*this);
   }
 
   --num_tabs_;
@@ -110,8 +110,8 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<Program> program) {
 
   ++num_tabs_;
 
-  program->GetMainClass()->Accept(this);
-  program->GetDeclList()->Accept(this);
+  program->GetMainClass()->Accept(*this);
+  program->GetDeclList()->Accept(*this);
 
   --num_tabs_;
 }
@@ -122,7 +122,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<MainClass> main_class) {
 
   ++num_tabs_;
 
-  main_class->GetStatementList()->Accept(this);
+  main_class->GetStatementList()->Accept(*this);
 
   --num_tabs_;
 }

@@ -14,6 +14,6 @@ std::shared_ptr<Lvalue> Assignment::GetLvalue() { return lvalue_; }
 
 std::shared_ptr<Expression> Assignment::GetExpression() { return expression_; }
 
-void Assignment::Accept(Visitor *visitor) {
-  visitor->Visit(this->shared_from_this());
+void Assignment::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }

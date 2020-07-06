@@ -12,6 +12,6 @@ void StatementList::AddStatement(std::shared_ptr<Statement> statement) {
   }
 }*/
 
-void StatementList::Accept(Visitor* visitor) {
-  visitor->Visit(this->shared_from_this());
+void StatementList::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }

@@ -8,8 +8,8 @@ ModExpression::ModExpression(
   return first->eval() % second->eval();
 }*/
 
-void ModExpression::Accept(Visitor* visitor) {
-  visitor->Visit(this->shared_from_this());
+void ModExpression::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }
 
 std::shared_ptr<NumberExpression> ModExpression::GetFirst() {

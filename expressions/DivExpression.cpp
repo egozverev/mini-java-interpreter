@@ -8,8 +8,8 @@ DivExpression::DivExpression(
   return first->eval() / second->eval();
 }*/
 
-void DivExpression::Accept(Visitor* visitor) {
-  visitor->Visit(this->shared_from_this());
+void DivExpression::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }
 
 std::shared_ptr<NumberExpression> DivExpression::GetFirst() {

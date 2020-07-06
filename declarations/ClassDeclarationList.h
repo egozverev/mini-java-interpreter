@@ -13,7 +13,7 @@ public:
 
   void AddDeclaration(std::shared_ptr<ClassDeclaration> declaration);
 
-  void Accept(Visitor *visitor) override;
+  void Accept(Visitor& visitor) override;
 
 private:
   std::vector<std::shared_ptr<ClassDeclaration> > declarations_;

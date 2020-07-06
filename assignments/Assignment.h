@@ -20,7 +20,7 @@ public:
 
   std::shared_ptr<Expression> GetExpression();
 
-  void Accept(Visitor *visitor) override;
+  void Accept(Visitor& visitor) override;
 
 private:
   std::shared_ptr<Lvalue> lvalue_;

@@ -7,8 +7,8 @@ AddExpression::AddExpression(std::shared_ptr<NumberExpression> e1, std::shared_p
   return first->eval() + second->eval();
 }*/
 
-void AddExpression::Accept(Visitor *visitor) {
-  visitor->Visit(this->shared_from_this());
+void AddExpression::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }
 
 std::shared_ptr<NumberExpression> AddExpression::GetFirst() {

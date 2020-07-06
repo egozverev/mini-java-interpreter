@@ -7,6 +7,6 @@ PlainNumberExpression::PlainNumberExpression(int val): value(val) {
   return value;
 }*/
 
-void PlainNumberExpression::Accept(Visitor* visitor) {
-  visitor->Visit(this->shared_from_this());
+void PlainNumberExpression::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }

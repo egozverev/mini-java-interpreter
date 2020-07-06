@@ -8,8 +8,8 @@ MulExpression::MulExpression(
     return first->eval() * second->eval();
 }*/
 
-void MulExpression::Accept(Visitor* visitor) {
-  visitor->Visit(this->shared_from_this());
+void MulExpression::Accept(Visitor& visitor) {
+  visitor.Visit(this->shared_from_this());
 }
 
 std::shared_ptr<NumberExpression> MulExpression::GetFirst() {

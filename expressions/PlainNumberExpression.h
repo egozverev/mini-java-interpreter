@@ -8,7 +8,7 @@ public:
 
   //int eval() const override;
 
-  void Accept(Visitor *visitor) override;
+  void Accept(Visitor& visitor) override;
 
   int value;
 
