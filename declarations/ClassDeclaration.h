@@ -1,5 +1,7 @@
 #pragma once
 
-class ClassDeclaration {
-  //yet empty
-};
+namespace ast {
+  class ClassDeclaration {
+    //yet empty
+  };
+}

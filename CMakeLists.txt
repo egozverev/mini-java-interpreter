@@ -10,14 +10,14 @@ set(
 )
 BISON_TARGET(
         MyParser
-        parser.y
+        grammar/parser.y
         ${mini_java_compiler_SOURCE_DIR}/parser.cpp
         DEFINES_FILE ${mini_java_compiler_SOURCE_DIR}/parser.hh
 )
 
 FLEX_TARGET(
         MyScanner
-        scanner.l
+        grammar/scanner.l
         ${mini_java_compiler_SOURCE_DIR}/scanner.cpp
 )
 
@@ -27,7 +27,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${mini_java_compiler_SOURCE_DIR}/bin)
 add_executable(
         mini_java_compiler
         main.cpp
-        driver.cpp
+        grammar/driver.cpp
         ${BISON_MyParser_OUTPUTS}
         ${FLEX_MyScanner_OUTPUTS}
         expressions/MulExpression.cpp
@@ -58,5 +58,21 @@ add_executable(
         values/PlainIdent.cpp
         values/PlainIdent.h
         statements/PrintStatement.cpp
-        statements/PrintStatement.h declarations/MainClass.cpp declarations/MainClass.h declarations/ClassDeclaration.cpp declarations/ClassDeclaration.h declarations/ClassDeclarationList.cpp declarations/ClassDeclarationList.h Program.cpp Program.h visitors/Visitor.h visitors/forward_decl.h visitors/PrintVisitor.cpp visitors/PrintVisitor.h BaseElement.h visitors/visitor_requirements.h visitors/Interpreter.cpp visitors/Interpreter.h)
+        statements/PrintStatement.h
+        declarations/MainClass.cpp
+        declarations/MainClass.h
+        declarations/ClassDeclaration.cpp
+        declarations/ClassDeclaration.h
+        declarations/ClassDeclarationList.cpp
+        declarations/ClassDeclarationList.h
+        program_base/Program.cpp
+        program_base/Program.h
+        visitors/Visitor.h
+        visitors/forward_decl.h
+        visitors/PrintVisitor.cpp
+        visitors/PrintVisitor.h
+        program_base/BaseElement.h
+        visitors/visitor_requirements.h
+        visitors/Interpreter.cpp
+        visitors/Interpreter.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})

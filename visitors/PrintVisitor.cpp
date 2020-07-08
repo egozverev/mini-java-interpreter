@@ -1,18 +1,19 @@
 #include "PrintVisitor.h"
 
 #include "visitor_requirements.h"
+#include "forward_decl.h"
 
 #include <iostream>
 
 SymbolTreeVisitor::SymbolTreeVisitor(const std::string& filename) : stream_(filename) {
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<PlainNumberExpression> expression) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PlainNumberExpression> expression) {
   PrintTabs();
   stream_ << "NumExpression " << expression->value << std::endl;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<AddExpression> expression) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::AddExpression> expression) {
   PrintTabs();
   stream_ << "AddExpression is:" << std::endl;
 
@@ -22,7 +23,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<AddExpression> expression) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<SubstractExpression> expression) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::SubstractExpression> expression) {
   PrintTabs();
 
   stream_ << "SubExpression: " << std::endl;
@@ -32,7 +33,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<SubstractExpression> expression) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<MulExpression> expression) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::MulExpression> expression) {
   PrintTabs();
 
   stream_ << "MulExpression: " << std::endl;
@@ -42,7 +43,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<MulExpression> expression) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<ModExpression> expression) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ModExpression> expression) {
   PrintTabs();
 
   stream_ << "ModExpression: " << std::endl;
@@ -52,7 +53,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ModExpression> expression) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<DivExpression> expression) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::DivExpression> expression) {
   PrintTabs();
   stream_ << "DivExpression: " << std::endl;
   ++num_tabs_;
@@ -61,13 +62,13 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<DivExpression> expression) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<IdentExpression> expression) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::IdentExpression> expression) {
   PrintTabs();
 
   stream_ << "IdentExpression: " << expression->GetIdent() << std::endl;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<Assignment> assignment) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Assignment> assignment) {
   PrintTabs();
   stream_ << "Assignment: " << assignment->GetLvalue()->GetId() << std::endl;
   ++num_tabs_;
@@ -75,7 +76,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<Assignment> assignment) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<PrintStatement> statement) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PrintStatement> statement) {
   PrintTabs();
   stream_ << "PrintStatement: " << std::endl;
   ++num_tabs_;
@@ -83,7 +84,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<PrintStatement> statement) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<StatementList> statement_list) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list) {
   PrintTabs();
   stream_ << "StatementList: " << std::endl;
 
@@ -104,7 +105,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<StatementList> statement_list) {
 
 
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<Program> program) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Program> program) {
   PrintTabs();
   stream_ << "Program:" << std::endl;
 
@@ -116,7 +117,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<Program> program) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<MainClass> main_class) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::MainClass> main_class) {
   PrintTabs();
   stream_ << "MainClass:" << std::endl;
 
@@ -127,7 +128,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<MainClass> main_class) {
   --num_tabs_;
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<ClassDeclarationList> decl_list) {
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ClassDeclarationList> decl_list) {
   PrintTabs();
   stream_ << "Class DeclarationList:" << std::endl;
 

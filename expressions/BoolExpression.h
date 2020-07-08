@@ -2,9 +2,11 @@
 
 //#include "Expression.h"
 
-#include "BaseElement.h"
+#include "program_base/BaseElement.h"
 
-class BoolExpression: BaseElement, public std::enable_shared_from_this<BoolExpression> {
-public:
-  //virtual bool eval() const = 0;
-};
+namespace ast {
+  class BoolExpression: BaseElement, public std::enable_shared_from_this<BoolExpression> {
+  public:
+    //virtual bool eval() const = 0;
+  };
+}

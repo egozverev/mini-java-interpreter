@@ -543,26 +543,26 @@ static const flex_int16_t yy_rule_linenum[34] =
 #define yymore() yymore_used_but_not_detected
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
-#line 1 "scanner.l"
-#line 2 "scanner.l"
+#line 1 "grammar/scanner.l"
+#line 2 "grammar/scanner.l"
     #include <cerrno>
     #include <climits>
     #include <cstdlib>
     #include <cstring> // strerror
     #include <string>
     #include <iostream>
-    #include "driver.hh"
+    #include "grammar/driver.hh"
     #include "parser.hh"
 #line 557 "/home/egor/C_projects/mini-java-compiler/scanner.cpp"
 #define YY_NO_INPUT 1
-#line 18 "scanner.l"
+#line 18 "grammar/scanner.l"
   // A number symbol corresponding to the value in S.
   yy::parser::symbol_type make_NUMBER(
     const std::string &s,
     const yy::parser::location_type& loc
   );
 #line 565 "/home/egor/C_projects/mini-java-compiler/scanner.cpp"
-#line 30 "scanner.l"
+#line 30 "grammar/scanner.l"
   // Code run each time a pattern is matched.
   # define YY_USER_ACTION  loc.columns (yyleng);// columns += len
 #line 569 "/home/egor/C_projects/mini-java-compiler/scanner.cpp"
@@ -758,10 +758,10 @@ YY_DECL
 
 	{
 /* %% [7.0] user's declarations go here */
-#line 33 "scanner.l"
+#line 33 "grammar/scanner.l"
 
 
-#line 36 "scanner.l"
+#line 36 "grammar/scanner.l"
   // A handy shortcut to the location held by the driver.
   yy::location& loc = driver.location;
   // Code run each time yylex is called.
@@ -845,179 +845,179 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 42 "scanner.l"
+#line 42 "grammar/scanner.l"
 loc.step ();
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 43 "scanner.l"
+#line 43 "grammar/scanner.l"
 loc.lines (yyleng); loc.step ();
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 45 "scanner.l"
+#line 45 "grammar/scanner.l"
 return yy::parser::make_MINUS  (loc);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 46 "scanner.l"
+#line 46 "grammar/scanner.l"
 return yy::parser::make_PLUS   (loc);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 47 "scanner.l"
+#line 47 "grammar/scanner.l"
 return yy::parser::make_STAR   (loc);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 48 "scanner.l"
+#line 48 "grammar/scanner.l"
 return yy::parser::make_SLASH  (loc);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 49 "scanner.l"
+#line 49 "grammar/scanner.l"
 return yy::parser::make_LPAREN (loc);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 50 "scanner.l"
+#line 50 "grammar/scanner.l"
 return yy::parser::make_RPAREN (loc);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 51 "scanner.l"
+#line 51 "grammar/scanner.l"
 return yy::parser::make_ASSIGN (loc);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 52 "scanner.l"
+#line 52 "grammar/scanner.l"
 return yy::parser::make_EQUAL (loc);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 53 "scanner.l"
+#line 53 "grammar/scanner.l"
 return yy::parser::make_AND (loc);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 54 "scanner.l"
+#line 54 "grammar/scanner.l"
 return yy::parser::make_OR (loc);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 55 "scanner.l"
+#line 55 "grammar/scanner.l"
 return yy::parser::make_LESS (loc);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 56 "scanner.l"
+#line 56 "grammar/scanner.l"
 return yy::parser::make_MORE (loc);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 57 "scanner.l"
+#line 57 "grammar/scanner.l"
 return yy::parser::make_MODULE (loc);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 58 "scanner.l"
+#line 58 "grammar/scanner.l"
 return yy::parser::make_LSPAREN (loc);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 59 "scanner.l"
+#line 59 "grammar/scanner.l"
 return yy::parser::make_RSPAREN (loc);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 60 "scanner.l"
+#line 60 "grammar/scanner.l"
 return yy::parser::make_LFPAREN (loc);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 61 "scanner.l"
+#line 61 "grammar/scanner.l"
 return yy::parser::make_RFPAREN (loc);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 62 "scanner.l"
+#line 62 "grammar/scanner.l"
 return yy::parser::make_SEPARATOR (loc);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 63 "scanner.l"
+#line 63 "grammar/scanner.l"
 return yy::parser::make_PUBLIC_KW (loc);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 64 "scanner.l"
+#line 64 "grammar/scanner.l"
 return yy::parser::make_STATIC_KW (loc);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 65 "scanner.l"
+#line 65 "grammar/scanner.l"
 return yy::parser::make_CLASS_KW (loc);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 66 "scanner.l"
+#line 66 "grammar/scanner.l"
 return yy::parser::make_MAIN_KW (loc);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 67 "scanner.l"
+#line 67 "grammar/scanner.l"
 return yy::parser::make_PRINT (loc);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 68 "scanner.l"
+#line 68 "grammar/scanner.l"
 return yy::parser::make_INT_T (loc);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 69 "scanner.l"
+#line 69 "grammar/scanner.l"
 return yy::parser::make_BOOLEAN_T (loc);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 70 "scanner.l"
+#line 70 "grammar/scanner.l"
 return yy::parser::make_VOID_T (loc) ;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 71 "scanner.l"
+#line 71 "grammar/scanner.l"
 return make_NUMBER(yytext, loc);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 72 "scanner.l"
+#line 72 "grammar/scanner.l"
 return yy::parser::make_BOOLEAN(1, loc);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 73 "scanner.l"
+#line 73 "grammar/scanner.l"
 return yy::parser::make_BOOLEAN(0, loc);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 74 "scanner.l"
+#line 74 "grammar/scanner.l"
 return yy::parser::make_IDENTIFIER(yytext, loc);
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 77 "scanner.l"
+#line 77 "grammar/scanner.l"
 return yy::parser::make_END (loc);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 78 "scanner.l"
+#line 78 "grammar/scanner.l"
 {
                 throw yy::parser::syntax_error(loc, "invalid character: " + std::string(yytext));
            }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 81 "scanner.l"
+#line 81 "grammar/scanner.l"
 ECHO;
 	YY_BREAK
 #line 1024 "/home/egor/C_projects/mini-java-compiler/scanner.cpp"
@@ -2137,7 +2137,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 81 "scanner.l"
+#line 81 "grammar/scanner.l"
 
 
 yy::parser::symbol_type make_NUMBER(

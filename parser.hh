@@ -44,42 +44,44 @@
 #ifndef YY_YY_HOME_EGOR_C_PROJECTS_MINI_JAVA_COMPILER_PARSER_HH_INCLUDED
 # define YY_YY_HOME_EGOR_C_PROJECTS_MINI_JAVA_COMPILER_PARSER_HH_INCLUDED
 // "%code requires" blocks.
-#line 9 "parser.y"
+#line 9 "grammar/parser.y"
 
     #include <string>
     #include <memory>
     class Scanner;
     class Driver;
-    class Expression;
-    class IdentExpression;
-    class NumberExpression;
-    class PlainNumberExpression;
-    class AddExpression;
-    class SubstractExpression;
-    class DivExpression;
-    class ModExpression;
-    class BoolExpression;
-    class AndExpression;
-    class OrExpression;
-    class EqualExpression;
-    class LessExpression;
-    class GreaterExpression;
+    namespace ast {
+        class Expression;
+        class IdentExpression;
+        class NumberExpression;
+        class PlainNumberExpression;
+        class AddExpression;
+        class SubstractExpression;
+        class DivExpression;
+        class ModExpression;
+        class BoolExpression;
+        class AndExpression;
+        class OrExpression;
+        class EqualExpression;
+        class LessExpression;
+        class GreaterExpression;
 
-    class Assignment;
+        class Assignment;
 
-    class Statement;
-    class StatementList;
-    class PrintStatement;
+        class Statement;
+        class StatementList;
+        class PrintStatement;
 
-    class Lvalue;
-    class PlainIdent;
+        class Lvalue;
+        class PlainIdent;
 
-    class MainClass;
-    class ClassDeclaration;
-    class ClassDeclarationList;
-    class Program;
+        class MainClass;
+        class ClassDeclaration;
+        class ClassDeclarationList;
+        class Program;
+    }
 
-#line 83 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 85 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -213,7 +215,7 @@
 #endif
 
 namespace yy {
-#line 217 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 219 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -424,28 +426,28 @@ namespace yy {
       char dummy2[sizeof (int)];
 
       // class_declaration
-      char dummy3[sizeof (std::shared_ptr<ClassDeclaration> )];
+      char dummy3[sizeof (std::shared_ptr<ast::ClassDeclaration> )];
 
       // class_declarations
-      char dummy4[sizeof (std::shared_ptr<ClassDeclarationList> )];
+      char dummy4[sizeof (std::shared_ptr<ast::ClassDeclarationList> )];
 
       // lvalue
-      char dummy5[sizeof (std::shared_ptr<Lvalue> )];
+      char dummy5[sizeof (std::shared_ptr<ast::Lvalue> )];
 
       // main_class
-      char dummy6[sizeof (std::shared_ptr<MainClass> )];
+      char dummy6[sizeof (std::shared_ptr<ast::MainClass> )];
 
       // expr
-      char dummy7[sizeof (std::shared_ptr<NumberExpression> )];
+      char dummy7[sizeof (std::shared_ptr<ast::NumberExpression> )];
 
       // program
-      char dummy8[sizeof (std::shared_ptr<Program> )];
+      char dummy8[sizeof (std::shared_ptr<ast::Program> )];
 
       // statement
-      char dummy9[sizeof (std::shared_ptr<Statement> )];
+      char dummy9[sizeof (std::shared_ptr<ast::Statement> )];
 
       // statements
-      char dummy10[sizeof (std::shared_ptr<StatementList> )];
+      char dummy10[sizeof (std::shared_ptr<ast::StatementList> )];
 
       // "identifier"
       char dummy11[sizeof (std::string)];
@@ -606,104 +608,104 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<ClassDeclaration> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::ClassDeclaration> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ClassDeclaration> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::ClassDeclaration> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<ClassDeclarationList> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::ClassDeclarationList> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ClassDeclarationList> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::ClassDeclarationList> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<Lvalue> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::Lvalue> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<Lvalue> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::Lvalue> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<MainClass> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::MainClass> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<MainClass> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::MainClass> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<NumberExpression> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::NumberExpression> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<NumberExpression> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::NumberExpression> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<Program> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::Program> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<Program> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::Program> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<Statement> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::Statement> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<Statement> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::Statement> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<StatementList> && v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::StatementList> && v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<StatementList> & v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::StatementList> & v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -754,35 +756,35 @@ switch (yytype)
         break;
 
       case 53: // class_declaration
-        value.template destroy< std::shared_ptr<ClassDeclaration>  > ();
+        value.template destroy< std::shared_ptr<ast::ClassDeclaration>  > ();
         break;
 
       case 52: // class_declarations
-        value.template destroy< std::shared_ptr<ClassDeclarationList>  > ();
+        value.template destroy< std::shared_ptr<ast::ClassDeclarationList>  > ();
         break;
 
       case 47: // lvalue
-        value.template destroy< std::shared_ptr<Lvalue>  > ();
+        value.template destroy< std::shared_ptr<ast::Lvalue>  > ();
         break;
 
       case 50: // main_class
-        value.template destroy< std::shared_ptr<MainClass>  > ();
+        value.template destroy< std::shared_ptr<ast::MainClass>  > ();
         break;
 
       case 46: // expr
-        value.template destroy< std::shared_ptr<NumberExpression>  > ();
+        value.template destroy< std::shared_ptr<ast::NumberExpression>  > ();
         break;
 
       case 51: // program
-        value.template destroy< std::shared_ptr<Program>  > ();
+        value.template destroy< std::shared_ptr<ast::Program>  > ();
         break;
 
       case 49: // statement
-        value.template destroy< std::shared_ptr<Statement>  > ();
+        value.template destroy< std::shared_ptr<ast::Statement>  > ();
         break;
 
       case 48: // statements
-        value.template destroy< std::shared_ptr<StatementList>  > ();
+        value.template destroy< std::shared_ptr<ast::StatementList>  > ();
         break;
 
       case 29: // "identifier"
@@ -1788,35 +1790,35 @@ switch (yytype)
         break;
 
       case 53: // class_declaration
-        value.move< std::shared_ptr<ClassDeclaration>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::ClassDeclaration>  > (std::move (that.value));
         break;
 
       case 52: // class_declarations
-        value.move< std::shared_ptr<ClassDeclarationList>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::ClassDeclarationList>  > (std::move (that.value));
         break;
 
       case 47: // lvalue
-        value.move< std::shared_ptr<Lvalue>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::Lvalue>  > (std::move (that.value));
         break;
 
       case 50: // main_class
-        value.move< std::shared_ptr<MainClass>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::MainClass>  > (std::move (that.value));
         break;
 
       case 46: // expr
-        value.move< std::shared_ptr<NumberExpression>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::NumberExpression>  > (std::move (that.value));
         break;
 
       case 51: // program
-        value.move< std::shared_ptr<Program>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::Program>  > (std::move (that.value));
         break;
 
       case 49: // statement
-        value.move< std::shared_ptr<Statement>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::Statement>  > (std::move (that.value));
         break;
 
       case 48: // statements
-        value.move< std::shared_ptr<StatementList>  > (std::move (that.value));
+        value.move< std::shared_ptr<ast::StatementList>  > (std::move (that.value));
         break;
 
       case 29: // "identifier"
@@ -1847,35 +1849,35 @@ switch (yytype)
         break;
 
       case 53: // class_declaration
-        value.copy< std::shared_ptr<ClassDeclaration>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (that.value));
         break;
 
       case 52: // class_declarations
-        value.copy< std::shared_ptr<ClassDeclarationList>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (that.value));
         break;
 
       case 47: // lvalue
-        value.copy< std::shared_ptr<Lvalue>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (that.value));
         break;
 
       case 50: // main_class
-        value.copy< std::shared_ptr<MainClass>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::MainClass>  > (YY_MOVE (that.value));
         break;
 
       case 46: // expr
-        value.copy< std::shared_ptr<NumberExpression>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::NumberExpression>  > (YY_MOVE (that.value));
         break;
 
       case 51: // program
-        value.copy< std::shared_ptr<Program>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::Program>  > (YY_MOVE (that.value));
         break;
 
       case 49: // statement
-        value.copy< std::shared_ptr<Statement>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::Statement>  > (YY_MOVE (that.value));
         break;
 
       case 48: // statements
-        value.copy< std::shared_ptr<StatementList>  > (YY_MOVE (that.value));
+        value.copy< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
         break;
 
       case 29: // "identifier"
@@ -1913,35 +1915,35 @@ switch (yytype)
         break;
 
       case 53: // class_declaration
-        value.move< std::shared_ptr<ClassDeclaration>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (s.value));
         break;
 
       case 52: // class_declarations
-        value.move< std::shared_ptr<ClassDeclarationList>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (s.value));
         break;
 
       case 47: // lvalue
-        value.move< std::shared_ptr<Lvalue>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (s.value));
         break;
 
       case 50: // main_class
-        value.move< std::shared_ptr<MainClass>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::MainClass>  > (YY_MOVE (s.value));
         break;
 
       case 46: // expr
-        value.move< std::shared_ptr<NumberExpression>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::NumberExpression>  > (YY_MOVE (s.value));
         break;
 
       case 51: // program
-        value.move< std::shared_ptr<Program>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::Program>  > (YY_MOVE (s.value));
         break;
 
       case 49: // statement
-        value.move< std::shared_ptr<Statement>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::Statement>  > (YY_MOVE (s.value));
         break;
 
       case 48: // statements
-        value.move< std::shared_ptr<StatementList>  > (YY_MOVE (s.value));
+        value.move< std::shared_ptr<ast::StatementList>  > (YY_MOVE (s.value));
         break;
 
       case 29: // "identifier"
@@ -2003,7 +2005,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2007 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2009 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

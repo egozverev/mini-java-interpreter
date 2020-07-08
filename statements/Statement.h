@@ -1,8 +1,10 @@
 #pragma once
 
-#include "BaseElement.h"
+#include "program_base/BaseElement.h"
 
-class Statement: public BaseElement{
-public:
-  //virtual void execute() const = 0;
-};
+namespace ast {
+  class Statement: public ast::BaseElement{
+  public:
+    //virtual void execute() const = 0;
+  };
+}

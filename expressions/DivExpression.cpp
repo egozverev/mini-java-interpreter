@@ -1,6 +1,7 @@
 #include "DivExpression.h"
+#include "NumberExpression.h"
 
-DivExpression::DivExpression(
+ast::DivExpression::DivExpression(
     std::shared_ptr<NumberExpression> e1, std::shared_ptr<NumberExpression> e2
 ) : first(std::move(e1)), second(std::move(e2)) {}
 
@@ -8,13 +9,13 @@ DivExpression::DivExpression(
   return first->eval() / second->eval();
 }*/
 
-void DivExpression::Accept(Visitor& visitor) {
+void ast::DivExpression::Accept(Visitor& visitor) {
   visitor.Visit(this->shared_from_this());
 }
 
-std::shared_ptr<NumberExpression> DivExpression::GetFirst() {
+std::shared_ptr<ast::NumberExpression> ast::DivExpression::GetFirst() {
   return first;
 }
-std::shared_ptr<NumberExpression> DivExpression::GetSecond() {
+std::shared_ptr<ast::NumberExpression> ast::DivExpression::GetSecond() {
   return second;
 }

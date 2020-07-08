@@ -8,6 +8,7 @@
 #include "parser.hh"
 #include "visitors/PrintVisitor.h"
 #include "visitors/Interpreter.h"
+
 class Driver {
 public:
   Driver();
@@ -33,7 +34,7 @@ public:
   Scanner scanner;
   yy::parser parser;
 
-  std::shared_ptr<Program> program;
+  std::shared_ptr<ast::Program> program;
 
 private:
   std::ifstream stream;

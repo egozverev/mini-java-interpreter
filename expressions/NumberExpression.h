@@ -2,7 +2,9 @@
 
 #include "Expression.h"
 
-class NumberExpression : public Expression {
-public:
-  //int eval() const override = 0;
-};
+namespace ast {
+  class NumberExpression : public ast::Expression {
+  public:
+    //int eval() const override = 0;
+  };
+}

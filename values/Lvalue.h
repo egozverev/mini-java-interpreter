@@ -2,9 +2,11 @@
 
 #include <string>
 
-#include "BaseElement.h"
+#include "program_base/BaseElement.h"
 
-class Lvalue {
-public:
-  virtual std::string GetId() const = 0;
-};
+namespace ast {
+  class Lvalue {
+  public:
+    virtual std::string GetId() const = 0;
+  };
+}

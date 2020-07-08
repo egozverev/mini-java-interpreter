@@ -28,4 +28,4 @@
 #include "declarations/MainClass.h"
 #include "declarations/ClassDeclaration.h"
 #include "declarations/ClassDeclarationList.h"
-#include "Program.h"
+#include "program_base/Program.h"

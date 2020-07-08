@@ -1,9 +1,10 @@
 #include "ClassDeclarationList.h"
+#include "ClassDeclaration.h"
 
-void ClassDeclarationList::AddDeclaration(std::shared_ptr<ClassDeclaration> declaration) {
+void ast::ClassDeclarationList::AddDeclaration(std::shared_ptr<ast::ClassDeclaration> declaration) {
   declarations_.push_back(std::move(declaration));
 }
 
-void ClassDeclarationList::Accept(Visitor& visitor) {
+void ast::ClassDeclarationList::Accept(Visitor& visitor) {
   visitor.Visit(this->shared_from_this());
 }

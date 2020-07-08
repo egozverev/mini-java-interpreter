@@ -11,34 +11,36 @@
     #include <memory>
     class Scanner;
     class Driver;
-    class Expression;
-    class IdentExpression;
-    class NumberExpression;
-    class PlainNumberExpression;
-    class AddExpression;
-    class SubstractExpression;
-    class DivExpression;
-    class ModExpression;
-    class BoolExpression;
-    class AndExpression;
-    class OrExpression;
-    class EqualExpression;
-    class LessExpression;
-    class GreaterExpression;
+    namespace ast {
+        class Expression;
+        class IdentExpression;
+        class NumberExpression;
+        class PlainNumberExpression;
+        class AddExpression;
+        class SubstractExpression;
+        class DivExpression;
+        class ModExpression;
+        class BoolExpression;
+        class AndExpression;
+        class OrExpression;
+        class EqualExpression;
+        class LessExpression;
+        class GreaterExpression;
 
-    class Assignment;
+        class Assignment;
 
-    class Statement;
-    class StatementList;
-    class PrintStatement;
+        class Statement;
+        class StatementList;
+        class PrintStatement;
 
-    class Lvalue;
-    class PlainIdent;
+        class Lvalue;
+        class PlainIdent;
 
-    class MainClass;
-    class ClassDeclaration;
-    class ClassDeclarationList;
-    class Program;
+        class MainClass;
+        class ClassDeclaration;
+        class ClassDeclarationList;
+        class Program;
+    }
 }
 
 // %param { Driver &drv }
@@ -47,7 +49,7 @@
 %define parse.error verbose
 
 %code {
-    #include "driver.hh"
+    #include "grammar/driver.hh"
     #include "location.hh"
     #include "expressions/Expression.h"
     #include "expressions/NumberExpression.h"
@@ -78,7 +80,7 @@
     #include "declarations/ClassDeclaration.h"
     #include "declarations/ClassDeclarationList.h"
 
-    #include "Program.h"
+    #include "program_base/Program.h"
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
     }
@@ -128,14 +130,14 @@
 %token <int> NUMBER "number"
 %token <bool> BOOLEAN "bool"
 //%token <void> VOID "voidness"
-%nterm <std::shared_ptr<NumberExpression> > expr
-%nterm <std::shared_ptr<Lvalue> > lvalue
-%nterm <std::shared_ptr<StatementList> > statements
-%nterm <std::shared_ptr<Statement> > statement
-%nterm <std::shared_ptr<MainClass> > main_class
-%nterm <std::shared_ptr<Program> > program
-%nterm <std::shared_ptr<ClassDeclarationList> > class_declarations
-%nterm <std::shared_ptr<ClassDeclaration> > class_declaration
+%nterm <std::shared_ptr<ast::NumberExpression> > expr
+%nterm <std::shared_ptr<ast::Lvalue> > lvalue
+%nterm <std::shared_ptr<ast::StatementList> > statements
+%nterm <std::shared_ptr<ast::Statement> > statement
+%nterm <std::shared_ptr<ast::MainClass> > main_class
+%nterm <std::shared_ptr<ast::Program> > program
+%nterm <std::shared_ptr<ast::ClassDeclarationList> > class_declarations
+%nterm <std::shared_ptr<ast::ClassDeclaration> > class_declaration
 
 
 %%
@@ -148,7 +150,7 @@
 
 program: main_class  class_declarations
 {
-    $$ = std::make_shared<Program>($1, $2);
+    $$ = std::make_shared<ast::Program>($1, $2);
     driver.program = $$;
 
 };
@@ -156,19 +158,19 @@ program: main_class  class_declarations
 
 main_class : "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}"   "}"
 {
-    $$ = std::make_shared<MainClass>($11);
+    $$ = std::make_shared<ast::MainClass>($11);
 };
 
 
 class_declarations:
- %empty {$$ = std::make_shared<ClassDeclarationList>();}
+ %empty {$$ = std::make_shared<ast::ClassDeclarationList>();}
  | class_declaration class_declarations {$2 -> AddDeclaration($1); $$ = $2;};
 
 statements:
- statement {$$ = std::make_shared<StatementList>(); $$ -> AddStatement($1);}
+ statement {$$ = std::make_shared<ast::StatementList>(); $$ -> AddStatement($1);}
  | statement statements {$2 -> AddStatement($1); $$ = $2;};
 
-class_declaration : "class"	"identifier" "{" declarations "}" {$$ = std::make_shared<ClassDeclaration>();}
+class_declaration : "class"	"identifier" "{" declarations "}" {$$ = std::make_shared<ast::ClassDeclaration>();}
     | "class" "identifier" "[" "extends" "identifier" "]" "{" declarations "}" {};
 
 declarations:
@@ -210,8 +212,8 @@ statement :	"assert" "(" expr ")" {}
     | "if"  "(" expr ")" statement {}
     | "if"  "(" expr ")" statement "else" statement {}
     | "while" "(" expr ")" statement {}
-    | "print" "(" expr")" ";" {$$ = std::make_shared<PrintStatement>($3);}
-    | lvalue "=" expr ";" {$$ = std::make_shared<Assignment>($1, driver, $3);}
+    | "print" "(" expr")" ";" {$$ = std::make_shared<ast::PrintStatement>($3);}
+    | lvalue "=" expr ";" {$$ = std::make_shared<ast::Assignment>($1, driver, $3);}
     | "return" expr ";" {}
     | method_invocation ";" {};
 
@@ -228,32 +230,32 @@ expressions:
     | expr expressions {};
 
 lvalue :
-    "identifier" {$$ = std::make_shared<PlainIdent>($1);}
+    "identifier" {$$ = std::make_shared<ast::PlainIdent>($1);}
     | "identifier" "[" expr "]" {};
 
 expr :
-    expr "+" expr {$$ = std::make_shared<AddExpression>($1, $3);}
-    | expr "-" expr {$$ = std::make_shared<SubstractExpression>($1, $3);}
-    | expr "*" expr {$$ = std::make_shared<MulExpression>($1, $3);}
-    | expr "/" expr {$$ = std::make_shared<DivExpression>($1, $3);}
-    | expr "%" expr {$$ = std::make_shared<ModExpression>($1, $3);}
+    expr "+" expr {$$ = std::make_shared<ast::AddExpression>($1, $3);}
+    | expr "-" expr {$$ = std::make_shared<ast::SubstractExpression>($1, $3);}
+    | expr "*" expr {$$ = std::make_shared<ast::MulExpression>($1, $3);}
+    | expr "/" expr {$$ = std::make_shared<ast::DivExpression>($1, $3);}
+    | expr "%" expr {$$ = std::make_shared<ast::ModExpression>($1, $3);}
     | expr "[" expr "]" {}
     | expr "." "length" {}
     | "new" simple_type "[" expr "]" {}
     | "new" type_identifier "(" ")" {}
     | "!" expr {}
     | "(" expr ")" {}
-    | "identifier" {$$ = std::make_shared<IdentExpression> ($1, driver);}
-    | "number" {$$ = std::make_shared<PlainNumberExpression> ($1);}
+    | "identifier" {$$ = std::make_shared<ast::IdentExpression> ($1, driver);}
+    | "number" {$$ = std::make_shared<ast::PlainNumberExpression> ($1);}
     | "this" {}
     | "true" {}
     | "false" {}
     | method_invocation {};
-    //expr "&&" expr {$$ = std::make_shared<AndExpression>($1, $3)}
-    //| expr "||" expr {$$ = std::make_shared<OrExpression>($1, $3)}
-    //| expr "<" expr {$$ = std::make_shared<LessExpression>($1, $3)}
-    //| expr ">" expr {$$ = std::make_shared<GreaterExpression>($1, $3)}
-    //| expr "==" expr {$$ = std::make_shared<EqualExpression>($1, $3)}
+    //expr "&&" expr {$$ = std::make_shared<ast::AndExpression>($1, $3)}
+    //| expr "||" expr {$$ = std::make_shared<ast::OrExpression>($1, $3)}
+    //| expr "<" expr {$$ = std::make_shared<ast::LessExpression>($1, $3)}
+    //| expr ">" expr {$$ = std::make_shared<ast::GreaterExpression>($1, $3)}
+    //| expr "==" expr {$$ = std::make_shared<ast::EqualExpression>($1, $3)}
 
 //binary_operator : "&&" {}
 //    |  "||" {}

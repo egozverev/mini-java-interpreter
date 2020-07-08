@@ -1,8 +1,10 @@
 #pragma once
 
-#include "BaseElement.h"
+#include "program_base/BaseElement.h"
 
-class Expression: public BaseElement {
-public:
-  //virtual int eval() const = 0;
-};
+namespace ast {
+  class Expression: public BaseElement {
+  public:
+    //virtual int eval() const = 0;
+  };
+}

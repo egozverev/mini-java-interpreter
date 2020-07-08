@@ -41,9 +41,9 @@
 
 
 // Unqualified %code blocks.
-#line 49 "parser.y"
+#line 51 "grammar/parser.y"
 
-    #include "driver.hh"
+    #include "grammar/driver.hh"
     #include "location.hh"
     #include "expressions/Expression.h"
     #include "expressions/NumberExpression.h"
@@ -74,7 +74,7 @@
     #include "declarations/ClassDeclaration.h"
     #include "declarations/ClassDeclarationList.h"
 
-    #include "Program.h"
+    #include "program_base/Program.h"
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
     }
@@ -290,35 +290,35 @@ namespace yy {
         break;
 
       case 53: // class_declaration
-        value.YY_MOVE_OR_COPY< std::shared_ptr<ClassDeclaration>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (that.value));
         break;
 
       case 52: // class_declarations
-        value.YY_MOVE_OR_COPY< std::shared_ptr<ClassDeclarationList>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (that.value));
         break;
 
       case 47: // lvalue
-        value.YY_MOVE_OR_COPY< std::shared_ptr<Lvalue>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (that.value));
         break;
 
       case 50: // main_class
-        value.YY_MOVE_OR_COPY< std::shared_ptr<MainClass>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::MainClass>  > (YY_MOVE (that.value));
         break;
 
       case 46: // expr
-        value.YY_MOVE_OR_COPY< std::shared_ptr<NumberExpression>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::NumberExpression>  > (YY_MOVE (that.value));
         break;
 
       case 51: // program
-        value.YY_MOVE_OR_COPY< std::shared_ptr<Program>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Program>  > (YY_MOVE (that.value));
         break;
 
       case 49: // statement
-        value.YY_MOVE_OR_COPY< std::shared_ptr<Statement>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Statement>  > (YY_MOVE (that.value));
         break;
 
       case 48: // statements
-        value.YY_MOVE_OR_COPY< std::shared_ptr<StatementList>  > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
         break;
 
       case 29: // "identifier"
@@ -349,35 +349,35 @@ namespace yy {
         break;
 
       case 53: // class_declaration
-        value.move< std::shared_ptr<ClassDeclaration>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (that.value));
         break;
 
       case 52: // class_declarations
-        value.move< std::shared_ptr<ClassDeclarationList>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (that.value));
         break;
 
       case 47: // lvalue
-        value.move< std::shared_ptr<Lvalue>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (that.value));
         break;
 
       case 50: // main_class
-        value.move< std::shared_ptr<MainClass>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::MainClass>  > (YY_MOVE (that.value));
         break;
 
       case 46: // expr
-        value.move< std::shared_ptr<NumberExpression>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::NumberExpression>  > (YY_MOVE (that.value));
         break;
 
       case 51: // program
-        value.move< std::shared_ptr<Program>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::Program>  > (YY_MOVE (that.value));
         break;
 
       case 49: // statement
-        value.move< std::shared_ptr<Statement>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::Statement>  > (YY_MOVE (that.value));
         break;
 
       case 48: // statements
-        value.move< std::shared_ptr<StatementList>  > (YY_MOVE (that.value));
+        value.move< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
         break;
 
       case 29: // "identifier"
@@ -408,35 +408,35 @@ namespace yy {
         break;
 
       case 53: // class_declaration
-        value.copy< std::shared_ptr<ClassDeclaration>  > (that.value);
+        value.copy< std::shared_ptr<ast::ClassDeclaration>  > (that.value);
         break;
 
       case 52: // class_declarations
-        value.copy< std::shared_ptr<ClassDeclarationList>  > (that.value);
+        value.copy< std::shared_ptr<ast::ClassDeclarationList>  > (that.value);
         break;
 
       case 47: // lvalue
-        value.copy< std::shared_ptr<Lvalue>  > (that.value);
+        value.copy< std::shared_ptr<ast::Lvalue>  > (that.value);
         break;
 
       case 50: // main_class
-        value.copy< std::shared_ptr<MainClass>  > (that.value);
+        value.copy< std::shared_ptr<ast::MainClass>  > (that.value);
         break;
 
       case 46: // expr
-        value.copy< std::shared_ptr<NumberExpression>  > (that.value);
+        value.copy< std::shared_ptr<ast::NumberExpression>  > (that.value);
         break;
 
       case 51: // program
-        value.copy< std::shared_ptr<Program>  > (that.value);
+        value.copy< std::shared_ptr<ast::Program>  > (that.value);
         break;
 
       case 49: // statement
-        value.copy< std::shared_ptr<Statement>  > (that.value);
+        value.copy< std::shared_ptr<ast::Statement>  > (that.value);
         break;
 
       case 48: // statements
-        value.copy< std::shared_ptr<StatementList>  > (that.value);
+        value.copy< std::shared_ptr<ast::StatementList>  > (that.value);
         break;
 
       case 29: // "identifier"
@@ -466,35 +466,35 @@ namespace yy {
         break;
 
       case 53: // class_declaration
-        value.move< std::shared_ptr<ClassDeclaration>  > (that.value);
+        value.move< std::shared_ptr<ast::ClassDeclaration>  > (that.value);
         break;
 
       case 52: // class_declarations
-        value.move< std::shared_ptr<ClassDeclarationList>  > (that.value);
+        value.move< std::shared_ptr<ast::ClassDeclarationList>  > (that.value);
         break;
 
       case 47: // lvalue
-        value.move< std::shared_ptr<Lvalue>  > (that.value);
+        value.move< std::shared_ptr<ast::Lvalue>  > (that.value);
         break;
 
       case 50: // main_class
-        value.move< std::shared_ptr<MainClass>  > (that.value);
+        value.move< std::shared_ptr<ast::MainClass>  > (that.value);
         break;
 
       case 46: // expr
-        value.move< std::shared_ptr<NumberExpression>  > (that.value);
+        value.move< std::shared_ptr<ast::NumberExpression>  > (that.value);
         break;
 
       case 51: // program
-        value.move< std::shared_ptr<Program>  > (that.value);
+        value.move< std::shared_ptr<ast::Program>  > (that.value);
         break;
 
       case 49: // statement
-        value.move< std::shared_ptr<Statement>  > (that.value);
+        value.move< std::shared_ptr<ast::Statement>  > (that.value);
         break;
 
       case 48: // statements
-        value.move< std::shared_ptr<StatementList>  > (that.value);
+        value.move< std::shared_ptr<ast::StatementList>  > (that.value);
         break;
 
       case 29: // "identifier"
@@ -760,35 +760,35 @@ namespace yy {
         break;
 
       case 53: // class_declaration
-        yylhs.value.emplace< std::shared_ptr<ClassDeclaration>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::ClassDeclaration>  > ();
         break;
 
       case 52: // class_declarations
-        yylhs.value.emplace< std::shared_ptr<ClassDeclarationList>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::ClassDeclarationList>  > ();
         break;
 
       case 47: // lvalue
-        yylhs.value.emplace< std::shared_ptr<Lvalue>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::Lvalue>  > ();
         break;
 
       case 50: // main_class
-        yylhs.value.emplace< std::shared_ptr<MainClass>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::MainClass>  > ();
         break;
 
       case 46: // expr
-        yylhs.value.emplace< std::shared_ptr<NumberExpression>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::NumberExpression>  > ();
         break;
 
       case 51: // program
-        yylhs.value.emplace< std::shared_ptr<Program>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::Program>  > ();
         break;
 
       case 49: // statement
-        yylhs.value.emplace< std::shared_ptr<Statement>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::Statement>  > ();
         break;
 
       case 48: // statements
-        yylhs.value.emplace< std::shared_ptr<StatementList>  > ();
+        yylhs.value.emplace< std::shared_ptr<ast::StatementList>  > ();
         break;
 
       case 29: // "identifier"
@@ -816,349 +816,349 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 150 "parser.y"
+#line 152 "grammar/parser.y"
 {
-    yylhs.value.as < std::shared_ptr<Program>  > () = std::make_shared<Program>(yystack_[1].value.as < std::shared_ptr<MainClass>  > (), yystack_[0].value.as < std::shared_ptr<ClassDeclarationList>  > ());
-    driver.program = yylhs.value.as < std::shared_ptr<Program>  > ();
+    yylhs.value.as < std::shared_ptr<ast::Program>  > () = std::make_shared<ast::Program>(yystack_[1].value.as < std::shared_ptr<ast::MainClass>  > (), yystack_[0].value.as < std::shared_ptr<ast::ClassDeclarationList>  > ());
+    driver.program = yylhs.value.as < std::shared_ptr<ast::Program>  > ();
 
 }
 #line 826 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 3:
-#line 158 "parser.y"
+#line 160 "grammar/parser.y"
 {
-    yylhs.value.as < std::shared_ptr<MainClass>  > () = std::make_shared<MainClass>(yystack_[2].value.as < std::shared_ptr<StatementList>  > ());
+    yylhs.value.as < std::shared_ptr<ast::MainClass>  > () = std::make_shared<ast::MainClass>(yystack_[2].value.as < std::shared_ptr<ast::StatementList>  > ());
 }
 #line 834 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 4:
-#line 164 "parser.y"
-        {yylhs.value.as < std::shared_ptr<ClassDeclarationList>  > () = std::make_shared<ClassDeclarationList>();}
+#line 166 "grammar/parser.y"
+        {yylhs.value.as < std::shared_ptr<ast::ClassDeclarationList>  > () = std::make_shared<ast::ClassDeclarationList>();}
 #line 840 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 5:
-#line 165 "parser.y"
-                                        {yystack_[0].value.as < std::shared_ptr<ClassDeclarationList>  > () -> AddDeclaration(yystack_[1].value.as < std::shared_ptr<ClassDeclaration>  > ()); yylhs.value.as < std::shared_ptr<ClassDeclarationList>  > () = yystack_[0].value.as < std::shared_ptr<ClassDeclarationList>  > ();}
+#line 167 "grammar/parser.y"
+                                        {yystack_[0].value.as < std::shared_ptr<ast::ClassDeclarationList>  > () -> AddDeclaration(yystack_[1].value.as < std::shared_ptr<ast::ClassDeclaration>  > ()); yylhs.value.as < std::shared_ptr<ast::ClassDeclarationList>  > () = yystack_[0].value.as < std::shared_ptr<ast::ClassDeclarationList>  > ();}
 #line 846 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 6:
-#line 168 "parser.y"
-           {yylhs.value.as < std::shared_ptr<StatementList>  > () = std::make_shared<StatementList>(); yylhs.value.as < std::shared_ptr<StatementList>  > () -> AddStatement(yystack_[0].value.as < std::shared_ptr<Statement>  > ());}
+#line 170 "grammar/parser.y"
+           {yylhs.value.as < std::shared_ptr<ast::StatementList>  > () = std::make_shared<ast::StatementList>(); yylhs.value.as < std::shared_ptr<ast::StatementList>  > () -> AddStatement(yystack_[0].value.as < std::shared_ptr<ast::Statement>  > ());}
 #line 852 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 7:
-#line 169 "parser.y"
-                        {yystack_[0].value.as < std::shared_ptr<StatementList>  > () -> AddStatement(yystack_[1].value.as < std::shared_ptr<Statement>  > ()); yylhs.value.as < std::shared_ptr<StatementList>  > () = yystack_[0].value.as < std::shared_ptr<StatementList>  > ();}
+#line 171 "grammar/parser.y"
+                        {yystack_[0].value.as < std::shared_ptr<ast::StatementList>  > () -> AddStatement(yystack_[1].value.as < std::shared_ptr<ast::Statement>  > ()); yylhs.value.as < std::shared_ptr<ast::StatementList>  > () = yystack_[0].value.as < std::shared_ptr<ast::StatementList>  > ();}
 #line 858 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 8:
-#line 171 "parser.y"
-                                                                  {yylhs.value.as < std::shared_ptr<ClassDeclaration>  > () = std::make_shared<ClassDeclaration>();}
+#line 173 "grammar/parser.y"
+                                                                  {yylhs.value.as < std::shared_ptr<ast::ClassDeclaration>  > () = std::make_shared<ast::ClassDeclaration>();}
 #line 864 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 9:
-#line 172 "parser.y"
+#line 174 "grammar/parser.y"
                                                                                {}
 #line 870 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 10:
-#line 175 "parser.y"
+#line 177 "grammar/parser.y"
            {}
 #line 876 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 11:
-#line 176 "parser.y"
+#line 178 "grammar/parser.y"
                                {}
 #line 882 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 12:
-#line 179 "parser.y"
+#line 181 "grammar/parser.y"
                          {}
 #line 888 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 13:
-#line 180 "parser.y"
+#line 182 "grammar/parser.y"
                          {}
 #line 894 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 14:
-#line 183 "parser.y"
+#line 185 "grammar/parser.y"
                                                           {}
 #line 900 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 15:
-#line 184 "parser.y"
+#line 186 "grammar/parser.y"
                                                                     {}
 #line 906 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 16:
-#line 186 "parser.y"
+#line 188 "grammar/parser.y"
                                              {}
 #line 912 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 17:
-#line 189 "parser.y"
+#line 191 "grammar/parser.y"
                       {}
 #line 918 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 18:
-#line 190 "parser.y"
+#line 192 "grammar/parser.y"
                                 {}
 #line 924 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 19:
-#line 193 "parser.y"
+#line 195 "grammar/parser.y"
                 {}
 #line 930 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 20:
-#line 194 "parser.y"
+#line 196 "grammar/parser.y"
                {}
 #line 936 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 21:
-#line 197 "parser.y"
+#line 199 "grammar/parser.y"
           {}
 #line 942 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 22:
-#line 198 "parser.y"
+#line 200 "grammar/parser.y"
                 {}
 #line 948 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 23:
-#line 199 "parser.y"
+#line 201 "grammar/parser.y"
              {}
 #line 954 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 24:
-#line 200 "parser.y"
+#line 202 "grammar/parser.y"
                       {}
 #line 960 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 25:
-#line 203 "parser.y"
+#line 205 "grammar/parser.y"
                         {}
 #line 966 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 26:
-#line 206 "parser.y"
+#line 208 "grammar/parser.y"
                  {}
 #line 972 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 27:
-#line 207 "parser.y"
+#line 209 "grammar/parser.y"
                                       {}
 #line 978 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 28:
-#line 208 "parser.y"
+#line 210 "grammar/parser.y"
                                  {}
 #line 984 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 29:
-#line 209 "parser.y"
+#line 211 "grammar/parser.y"
                          {}
 #line 990 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 30:
-#line 210 "parser.y"
+#line 212 "grammar/parser.y"
                                    {}
 #line 996 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 31:
-#line 211 "parser.y"
+#line 213 "grammar/parser.y"
                                                     {}
 #line 1002 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 32:
-#line 212 "parser.y"
+#line 214 "grammar/parser.y"
                                      {}
 #line 1008 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 33:
-#line 213 "parser.y"
-                              {yylhs.value.as < std::shared_ptr<Statement>  > () = std::make_shared<PrintStatement>(yystack_[2].value.as < std::shared_ptr<NumberExpression>  > ());}
+#line 215 "grammar/parser.y"
+                              {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::PrintStatement>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1014 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 34:
-#line 214 "parser.y"
-                          {yylhs.value.as < std::shared_ptr<Statement>  > () = std::make_shared<Assignment>(yystack_[3].value.as < std::shared_ptr<Lvalue>  > (), driver, yystack_[1].value.as < std::shared_ptr<NumberExpression>  > ());}
+#line 216 "grammar/parser.y"
+                          {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::Assignment>(yystack_[3].value.as < std::shared_ptr<ast::Lvalue>  > (), driver, yystack_[1].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1020 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 35:
-#line 215 "parser.y"
+#line 217 "grammar/parser.y"
                         {}
 #line 1026 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 36:
-#line 216 "parser.y"
+#line 218 "grammar/parser.y"
                             {}
 #line 1032 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 37:
-#line 220 "parser.y"
+#line 222 "grammar/parser.y"
                          {}
 #line 1038 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 40:
-#line 227 "parser.y"
+#line 229 "grammar/parser.y"
          {}
 #line 1044 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 41:
-#line 228 "parser.y"
+#line 230 "grammar/parser.y"
                        {}
 #line 1050 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 42:
-#line 231 "parser.y"
-                 {yylhs.value.as < std::shared_ptr<Lvalue>  > () = std::make_shared<PlainIdent>(yystack_[0].value.as < std::string > ());}
+#line 233 "grammar/parser.y"
+                 {yylhs.value.as < std::shared_ptr<ast::Lvalue>  > () = std::make_shared<ast::PlainIdent>(yystack_[0].value.as < std::string > ());}
 #line 1056 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 43:
-#line 232 "parser.y"
+#line 234 "grammar/parser.y"
                                 {}
 #line 1062 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 44:
-#line 235 "parser.y"
-                  {yylhs.value.as < std::shared_ptr<NumberExpression>  > () = std::make_shared<AddExpression>(yystack_[2].value.as < std::shared_ptr<NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<NumberExpression>  > ());}
+#line 237 "grammar/parser.y"
+                  {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::AddExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1068 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 45:
-#line 236 "parser.y"
-                    {yylhs.value.as < std::shared_ptr<NumberExpression>  > () = std::make_shared<SubstractExpression>(yystack_[2].value.as < std::shared_ptr<NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<NumberExpression>  > ());}
+#line 238 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::SubstractExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1074 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 46:
-#line 237 "parser.y"
-                    {yylhs.value.as < std::shared_ptr<NumberExpression>  > () = std::make_shared<MulExpression>(yystack_[2].value.as < std::shared_ptr<NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<NumberExpression>  > ());}
+#line 239 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::MulExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1080 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 47:
-#line 238 "parser.y"
-                    {yylhs.value.as < std::shared_ptr<NumberExpression>  > () = std::make_shared<DivExpression>(yystack_[2].value.as < std::shared_ptr<NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<NumberExpression>  > ());}
+#line 240 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::DivExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1086 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 48:
-#line 239 "parser.y"
-                    {yylhs.value.as < std::shared_ptr<NumberExpression>  > () = std::make_shared<ModExpression>(yystack_[2].value.as < std::shared_ptr<NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<NumberExpression>  > ());}
+#line 241 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::ModExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1092 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 49:
-#line 240 "parser.y"
+#line 242 "grammar/parser.y"
                         {}
 #line 1098 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 50:
-#line 241 "parser.y"
+#line 243 "grammar/parser.y"
                         {}
 #line 1104 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 51:
-#line 242 "parser.y"
+#line 244 "grammar/parser.y"
                                      {}
 #line 1110 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 52:
-#line 243 "parser.y"
+#line 245 "grammar/parser.y"
                                     {}
 #line 1116 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 53:
-#line 244 "parser.y"
+#line 246 "grammar/parser.y"
                {}
 #line 1122 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 54:
-#line 245 "parser.y"
+#line 247 "grammar/parser.y"
                    {}
 #line 1128 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 55:
-#line 246 "parser.y"
-                   {yylhs.value.as < std::shared_ptr<NumberExpression>  > () = std::make_shared<IdentExpression> (yystack_[0].value.as < std::string > (), driver);}
+#line 248 "grammar/parser.y"
+                   {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::IdentExpression> (yystack_[0].value.as < std::string > (), driver);}
 #line 1134 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 56:
-#line 247 "parser.y"
-               {yylhs.value.as < std::shared_ptr<NumberExpression>  > () = std::make_shared<PlainNumberExpression> (yystack_[0].value.as < int > ());}
+#line 249 "grammar/parser.y"
+               {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::PlainNumberExpression> (yystack_[0].value.as < int > ());}
 #line 1140 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 57:
-#line 248 "parser.y"
+#line 250 "grammar/parser.y"
              {}
 #line 1146 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 58:
-#line 249 "parser.y"
+#line 251 "grammar/parser.y"
              {}
 #line 1152 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 59:
-#line 250 "parser.y"
+#line 252 "grammar/parser.y"
               {}
 #line 1158 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 60:
-#line 251 "parser.y"
+#line 253 "grammar/parser.y"
                         {}
 #line 1164 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
@@ -1632,13 +1632,13 @@ namespace yy {
   const unsigned char
   parser::yyrline_[] =
   {
-       0,   149,   149,   157,   164,   165,   168,   169,   171,   172,
-     175,   176,   179,   180,   183,   184,   186,   189,   190,   193,
-     193,   197,   198,   199,   200,   203,   206,   207,   208,   209,
-     210,   211,   212,   213,   214,   215,   216,   220,   223,   224,
-     227,   228,   231,   232,   235,   236,   237,   238,   239,   240,
-     241,   242,   243,   244,   245,   246,   247,   248,   249,   250,
-     251
+       0,   151,   151,   159,   166,   167,   170,   171,   173,   174,
+     177,   178,   181,   182,   185,   186,   188,   191,   192,   195,
+     195,   199,   200,   201,   202,   205,   208,   209,   210,   211,
+     212,   213,   214,   215,   216,   217,   218,   222,   225,   226,
+     229,   230,   233,   234,   237,   238,   239,   240,   241,   242,
+     243,   244,   245,   246,   247,   248,   249,   250,   251,   252,
+     253
   };
 
   // Print the state stack on the debug stream.
@@ -1674,7 +1674,7 @@ namespace yy {
 } // yy
 #line 1676 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
-#line 271 "parser.y"
+#line 273 "grammar/parser.y"
 
 
 void
