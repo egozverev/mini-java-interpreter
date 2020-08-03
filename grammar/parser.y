@@ -40,6 +40,14 @@
         class ClassDeclaration;
         class ClassDeclarationList;
         class Program;
+
+        VariableDeclaration;
+
+        class Type;
+        class Integer;
+        class Void;
+        class Boolean;
+        class UserType;
     }
 }
 
@@ -81,6 +89,9 @@
     #include "declarations/ClassDeclarationList.h"
 
     #include "program_base/Program.h"
+    #include "values/VariableDeclaration.h"
+    #include "values*Types.h"
+
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
     }
@@ -138,6 +149,10 @@
 %nterm <std::shared_ptr<ast::Program> > program
 %nterm <std::shared_ptr<ast::ClassDeclarationList> > class_declarations
 %nterm <std::shared_ptr<ast::ClassDeclaration> > class_declaration
+%nterm <std::shared_ptr<ast::VariableDeclaration> > variable_declaration
+%nterm <std::shared_ptr<ast::Type> > simple_type
+%nterm <std::shared_ptr<ast::Type> > type
+
 
 
 %%
@@ -185,7 +200,7 @@ method_declaration:
     "public" type "identifier" "(" ")" "{" statements "}" {}
     | "public" type "identifier" "(" formals ")" "{" statements "}" {};
 
-variable_declaration : type "identifier" ";" {};
+variable_declaration : type "identifier" ";" {$$ = std::make_shared<ast::VariableDeclaration>($2, $1);};
 
 formals:
     type "identifier" {}
@@ -196,10 +211,10 @@ type:
     array_type {};
 
 simple_type:
-    "int" {}
-    | "boolean" {}
-    | "void" {}
-    | type_identifier {};
+    "int" {$$ = std::make_shared<ast::Integer>();}
+    | "boolean" {$$ = std::make_shared<ast::Boolean>();}
+    | "void" {$$ = std::make_shared<ast::Void>();}
+    | type_identifier {$$ = std::make_shared<ast::UserType>();};
 
 array_type:
     simple_type "[" "]" {};

@@ -1,12 +1,18 @@
 #pragma once
 #include "Visitor.h"
+#include "TemplateVisitor.h"
+#include "symbol_table/ScopeLayer.h"
+#include "objects/Integer.h"
 #include "forward_decl.h"
 
+#include <iostream>
+#include <stack>
 #include <map>
+#include <memory>
 
-class Interpreter : public Visitor {
+class Interpreter : public TemplateVisitor<int>  { // not int btw
 public:
-  Interpreter();
+  Interpreter(std::shared_ptr<ScopeLayer> root);
   //void Visit(std::shared_ptr<ast::NumberExpression> expression) override;
 
   //void Visit(std::shared_ptr<ast::BoolExpression> expression) override;
@@ -51,15 +57,13 @@ public:
 
   void Visit(std::shared_ptr<ast::Program> program) override;
 
+  void Visit(std::shared_ptr<ast::VariableDeclaration> declaration) override;
+
+
   void Execute(std::shared_ptr<ast::Program> program);
 
 private:
-  void SetTosValue(int value);
-  void UnsetTosValue();
+  std::shared_ptr<ScopeLayer> current_layer_;
 
-  std::map<std::string, int> variables_;
-
-  bool is_tos_expression_;
-  int tos_value_;
-
+  std::stack<int> offsets_;
 };

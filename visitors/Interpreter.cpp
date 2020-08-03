@@ -2,82 +2,53 @@
 
 #include "visitor_requirements.h"
 
-#include <iostream>
 
-Interpreter::Interpreter() {
-  is_tos_expression_ = false;
+Interpreter::Interpreter(std::shared_ptr<ScopeLayer> root): current_layer_(root) {
+  offsets_.push(0);
   tos_value_ = 0;
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::PlainNumberExpression> expression) {
-  SetTosValue(expression->value);
+  tos_value_ = expression->value;
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::AddExpression> expression) {
-  int value = 0;
-  expression->GetFirst()->Accept(*this);
-  value += tos_value_;
-
-  expression->GetSecond()->Accept(*this);
-  value += tos_value_;
-  SetTosValue(value);
+  tos_value_ = Accept(expression->GetFirst()) + Accept(expression->GetSecond());
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::ModExpression> expression) {
-  int value = 0;
-  expression->GetFirst()->Accept(*this);
-  value = tos_value_;
+  tos_value_ = Accept(expression->GetFirst()) % Accept(expression->GetSecond());
 
-  expression->GetSecond()->Accept(*this);
-  value %= tos_value_;
-  SetTosValue(value);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::SubstractExpression> expression) {
-  expression->GetFirst()->Accept(*this);
-  int value = tos_value_;
-  expression->GetSecond()->Accept(*this);
-  value -= tos_value_;
+  tos_value_ = Accept(expression->GetFirst()) - Accept(expression->GetSecond());
 
-  SetTosValue(value);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::MulExpression> expression) {
-  expression->GetFirst()->Accept(*this);
-  int value = tos_value_;
-  expression->GetSecond()->Accept(*this);
-  value *= tos_value_;
+  tos_value_ = Accept(expression->GetFirst()) * Accept(expression->GetSecond());
 
-  SetTosValue(value);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::DivExpression> expression) {
-  expression->GetFirst()->Accept(*this);
-  int value = tos_value_;
-  expression->GetSecond()->Accept(*this);
-  value /= tos_value_;
+  tos_value_ = Accept(expression->GetFirst()) / Accept(expression->GetSecond());
 
-  SetTosValue(value);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::IdentExpression> expression) {
-  int value = variables_[expression->GetIdent()];
-
-  SetTosValue(value);
+  tos_value_ = current_layer_->Get(Symbol(expression->GetIdent()))->ToInt();
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::Assignment> assignment) {
-  assignment->GetExpression()->Accept(*this);
-  variables_[assignment->GetLvalue()->GetId()] = tos_value_;
-
-  UnsetTosValue();
+  int value = Accept(assignment->GetExpression());
+  std::string ident = assignment->GetLvalue()->GetId();
+  current_layer_->Put(Symbol(ident), std::make_shared<Integer>(value));
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::PrintStatement> statement) {
-  statement->GetExpression()->Accept(*this);
-  std::cout << tos_value_ << std::endl;
-
-  UnsetTosValue();
+  //statement->GetExpression()->Accept(*this);
+  std::cout << Accept(statement->GetExpression()) << std::endl;
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::StatementList> statement_list) {
@@ -85,19 +56,14 @@ void Interpreter::Visit(std::shared_ptr<ast::StatementList> statement_list) {
        it != statement_list->statements_.begin() - 1; --it) {
     (*it)->Accept(*this);
   }
-
-  UnsetTosValue();
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::MainClass> main_class) {
   main_class->GetStatementList()->Accept(*this);
-
-  UnsetTosValue();
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::ClassDeclarationList> class_declaration) {
   //yet nothing
-  UnsetTosValue();
 }
 
 
@@ -107,19 +73,11 @@ void Interpreter::Visit(std::shared_ptr<ast::Program> program) {
   program->GetDeclList()->Accept(*this); // tos value is called
 }
 
-
-
-void Interpreter::SetTosValue(int value) {
-  tos_value_ = value;
-  is_tos_expression_ = true;
+void Interpreter::Visit(std::shared_ptr<ast::VariableDeclaration> declaration){
+  //nothing
 }
 
-void Interpreter::UnsetTosValue() {
-  tos_value_ = 0;
-  is_tos_expression_ = false;
-}
 
 void Interpreter::Execute(std::shared_ptr<ast::Program> program) {
-  UnsetTosValue();
   Visit(std::move(program));
 }

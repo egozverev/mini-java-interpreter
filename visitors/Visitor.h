@@ -27,4 +27,7 @@ public:
   virtual void Visit(std::shared_ptr<ast::ClassDeclarationList> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::MainClass> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::Program> program) = 0;
+
+  virtual void Visit(std::shared_ptr<ast::VariableDeclaration> declaration) = 0;
+
 };

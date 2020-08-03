@@ -50,5 +50,7 @@ namespace ast {
   class ClassDeclarationList;
 
   class Program;
+
+  class VariableDeclaration;
 }
 

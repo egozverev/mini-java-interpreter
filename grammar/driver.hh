@@ -8,6 +8,7 @@
 #include "parser.hh"
 #include "visitors/PrintVisitor.h"
 #include "visitors/Interpreter.h"
+#include "visitors/SymbolTreeVisitor.h"
 
 class Driver {
 public:

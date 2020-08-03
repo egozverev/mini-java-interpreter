@@ -74,5 +74,12 @@ add_executable(
         program_base/BaseElement.h
         visitors/visitor_requirements.h
         visitors/Interpreter.cpp
-        visitors/Interpreter.h)
+        visitors/Interpreter.h
+        symbol_table/Symbol.cpp
+        symbol_table/ScopeLayer.cpp
+        symbol_table/ScopeLayerTree.cpp
+        objects/Integer.cpp
+        objects/Object.cpp
+        objects/UninitObject.cpp
+        visitors/SymbolTreeVisitor.cpp visitors/SymbolTreeVisitor.h values/VariableDeclaration.cpp values/VariableDeclaration.h values/Types.h values/Types.cpp visitors/TemplateVisitor.cpp visitors/TemplateVisitor.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})

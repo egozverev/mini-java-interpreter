@@ -79,9 +79,17 @@
         class ClassDeclaration;
         class ClassDeclarationList;
         class Program;
+
+        VariableDeclaration;
+
+        class Type;
+        class Integer;
+        class Void;
+        class Boolean;
+        class UserType;
     }
 
-#line 85 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 93 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -215,7 +223,7 @@
 #endif
 
 namespace yy {
-#line 219 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 227 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -449,8 +457,15 @@ namespace yy {
       // statements
       char dummy10[sizeof (std::shared_ptr<ast::StatementList> )];
 
+      // simple_type
+      // type
+      char dummy11[sizeof (std::shared_ptr<ast::Type> )];
+
+      // variable_declaration
+      char dummy12[sizeof (std::shared_ptr<ast::VariableDeclaration> )];
+
       // "identifier"
-      char dummy11[sizeof (std::string)];
+      char dummy13[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -712,6 +727,32 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::Type> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::Type> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::shared_ptr<ast::VariableDeclaration> && v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ast::VariableDeclaration> & v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -785,6 +826,15 @@ switch (yytype)
 
       case 48: // statements
         value.template destroy< std::shared_ptr<ast::StatementList>  > ();
+        break;
+
+      case 55: // simple_type
+      case 56: // type
+        value.template destroy< std::shared_ptr<ast::Type>  > ();
+        break;
+
+      case 54: // variable_declaration
+        value.template destroy< std::shared_ptr<ast::VariableDeclaration>  > ();
         break;
 
       case 29: // "identifier"
@@ -1481,7 +1531,7 @@ switch (yytype)
     static const char* const yytname_[];
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-    static const unsigned char yyrline_[];
+    static const short yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -1708,7 +1758,7 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 264,     ///< Last index in yytable_.
+      yylast_ = 270,     ///< Last index in yytable_.
       yynnts_ = 22,  ///< Number of nonterminal symbols.
       yyfinal_ = 8, ///< Termination state number.
       yyntokens_ = 45  ///< Number of tokens.
@@ -1821,6 +1871,15 @@ switch (yytype)
         value.move< std::shared_ptr<ast::StatementList>  > (std::move (that.value));
         break;
 
+      case 55: // simple_type
+      case 56: // type
+        value.move< std::shared_ptr<ast::Type>  > (std::move (that.value));
+        break;
+
+      case 54: // variable_declaration
+        value.move< std::shared_ptr<ast::VariableDeclaration>  > (std::move (that.value));
+        break;
+
       case 29: // "identifier"
         value.move< std::string > (std::move (that.value));
         break;
@@ -1878,6 +1937,15 @@ switch (yytype)
 
       case 48: // statements
         value.copy< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
+        break;
+
+      case 55: // simple_type
+      case 56: // type
+        value.copy< std::shared_ptr<ast::Type>  > (YY_MOVE (that.value));
+        break;
+
+      case 54: // variable_declaration
+        value.copy< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (that.value));
         break;
 
       case 29: // "identifier"
@@ -1946,6 +2014,15 @@ switch (yytype)
         value.move< std::shared_ptr<ast::StatementList>  > (YY_MOVE (s.value));
         break;
 
+      case 55: // simple_type
+      case 56: // type
+        value.move< std::shared_ptr<ast::Type>  > (YY_MOVE (s.value));
+        break;
+
+      case 54: // variable_declaration
+        value.move< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (s.value));
+        break;
+
       case 29: // "identifier"
         value.move< std::string > (YY_MOVE (s.value));
         break;
@@ -2005,7 +2082,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2009 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2086 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

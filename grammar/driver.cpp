@@ -37,11 +37,16 @@ void Driver::scan_end()
 }
 
 void Driver::PrintTree(const std::string& filename) {
-  SymbolTreeVisitor visitor(filename);
+  PrintVisitor visitor(filename);
   visitor.Visit(program);
 }
 
 void Driver::ExecuteProgram() {
-  Interpreter interpreter;
+  SymbolTreeVisitor visitor;
+  visitor.Visit(program);
+
+  std::shared_ptr<ScopeLayer> root = visitor.GetRoot();
+
+  Interpreter interpreter(std::move(root));
   interpreter.Visit(program);
 }

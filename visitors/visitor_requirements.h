@@ -24,8 +24,11 @@
 
 #include "values/Lvalue.h"
 #include "values/PlainIdent.h"
+#include "values/Types.h"
+#include "values/VariableDeclaration.h"
 
 #include "declarations/MainClass.h"
 #include "declarations/ClassDeclaration.h"
 #include "declarations/ClassDeclarationList.h"
 #include "program_base/Program.h"
+

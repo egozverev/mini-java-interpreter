@@ -10,11 +10,9 @@
 
 
 namespace ast {
-  class Assignment : public ast::Statement, public std::enable_shared_from_this<Assignment> {
+class Assignment : public ast::Statement, public std::enable_shared_from_this<Assignment> {
   public:
     Assignment(std::shared_ptr<Lvalue> lvalue, Driver& driver, std::shared_ptr<Expression> expression);
-
-    //void execute() const override ;
 
     std::shared_ptr<Lvalue> GetLvalue();
 
