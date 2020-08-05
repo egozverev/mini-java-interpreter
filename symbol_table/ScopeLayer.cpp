@@ -4,16 +4,6 @@
 
 #include <iostream>
 
-ScopeLayer::ScopeLayer(std::shared_ptr<ScopeLayer> parent) : parent_(std::move(parent)) {
-  std::cout << "Constructor called" << std::endl;
-  std::cout << "End contstructor called" << std::endl;
-
-  parent_->AddChild(shared_from_this());
-
-}
-
-
-ScopeLayer::ScopeLayer() : parent_(nullptr) {}
 
 void ScopeLayer::DeclareVariable(const Symbol &symbol) {
   if (values_.find(symbol) != values_.end()) {
@@ -29,7 +19,7 @@ std::shared_ptr<ScopeLayer> ScopeLayer::GetDeclarationLevel(const Symbol &symbol
   std::shared_ptr<ScopeLayer> current_layer = shared_from_this();
 
   while (current_layer != nullptr && !current_layer->Has(symbol)) {
-    current_layer = current_layer->parent_;
+    current_layer = current_layer->GetParent();
   }
 
   return std::move(current_layer);
@@ -65,9 +55,10 @@ std::shared_ptr<ScopeLayer> ScopeLayer::GetChild(size_t index) {
 }
 
 void ScopeLayer::AddChild(std::shared_ptr<ScopeLayer> child) {
+  child->parent_ = shared_from_this();
   children_.push_back(std::move(child));
 }
 
 std::shared_ptr<ScopeLayer> ScopeLayer::GetParent() const {
-  return parent_;
+  return parent_.lock();
 }

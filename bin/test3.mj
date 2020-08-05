@@ -1,5 +1,7 @@
 class Test {
   public static void main () {
+    int x;
+    int y;
 	x = 5 - 7 + 22;
 	y = 44;
 	System.out.println(y % x);

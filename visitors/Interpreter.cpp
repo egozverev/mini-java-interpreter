@@ -3,7 +3,7 @@
 #include "visitor_requirements.h"
 
 
-Interpreter::Interpreter(std::shared_ptr<ScopeLayer> root): current_layer_(root) {
+Interpreter::Interpreter(std::shared_ptr<ScopeLayer> root): current_layer_(std::move(root)) {
   offsets_.push(0);
   tos_value_ = 0;
 }
@@ -52,9 +52,8 @@ void Interpreter::Visit(std::shared_ptr<ast::PrintStatement> statement) {
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::StatementList> statement_list) {
-  for (auto it = statement_list->statements_.end() - 1;
-       it != statement_list->statements_.begin() - 1; --it) {
-    (*it)->Accept(*this);
+  for (auto& elem: statement_list->statements_){
+    elem->Accept(*this);
   }
 }
 
@@ -74,7 +73,7 @@ void Interpreter::Visit(std::shared_ptr<ast::Program> program) {
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::VariableDeclaration> declaration){
-  //nothing
+  // nothing
 }
 
 

@@ -1,16 +1,3 @@
 Program:
 	MainClass:
 		StatementList: 
-			Assignment: x
-				AddExpression is:
-					SubExpression: 
-						NumExpression 5
-						NumExpression 7
-					NumExpression 22
-			Assignment: y
-				NumExpression 44
-			PrintStatement: 
-				ModExpression: 
-					IdentExpression: y
-					IdentExpression: x
-	Class DeclarationList:

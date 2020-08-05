@@ -6,19 +6,19 @@ namespace ast{
     virtual std::string GetType() = 0;
   };
 
-  class Integer: Type{
+  class Integer: public Type{
     std::string GetType() override;
   };
 
-  class Boolean: Type{
+  class Boolean: public Type{
     std::string GetType() override;
   };
 
-  class Void: Type{
+  class Void: public Type{
     std::string GetType() override;
   };
 
-  class UserType: Type{
+  class UserType: public Type{
     std::string GetType() override;
   };
 }

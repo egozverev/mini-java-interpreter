@@ -1,3 +1,5 @@
+#pragma once
+
 #include <map>
 
 #include "symbol_table/ScopeLayerTree.h"

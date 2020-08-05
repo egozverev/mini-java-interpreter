@@ -41,7 +41,7 @@
         class ClassDeclarationList;
         class Program;
 
-        VariableDeclaration;
+        class VariableDeclaration;
 
         class Type;
         class Integer;
@@ -90,7 +90,7 @@
 
     #include "program_base/Program.h"
     #include "values/VariableDeclaration.h"
-    #include "values*Types.h"
+    #include "values/Types.h"
 
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
@@ -179,18 +179,18 @@ main_class : "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{
 
 class_declarations:
  %empty {$$ = std::make_shared<ast::ClassDeclarationList>();}
- | class_declaration class_declarations {$2 -> AddDeclaration($1); $$ = $2;};
+ | class_declarations class_declaration {$1 -> AddDeclaration($2); $$ = $1;};
 
 statements:
  statement {$$ = std::make_shared<ast::StatementList>(); $$ -> AddStatement($1);}
- | statement statements {$2 -> AddStatement($1); $$ = $2;};
+ | statements statement {$1 -> AddStatement($2); $$ = $1;};
 
 class_declaration : "class"	"identifier" "{" declarations "}" {$$ = std::make_shared<ast::ClassDeclaration>();}
     | "class" "identifier" "[" "extends" "identifier" "]" "{" declarations "}" {};
 
 declarations:
     %empty {}
-    | declaration declarations {};
+    | declarations declaration {};
 
 declaration:
     variable_declaration {}
@@ -211,16 +211,16 @@ type:
     array_type {};
 
 simple_type:
-    "int" {$$ = std::make_shared<ast::Integer>();}
-    | "boolean" {$$ = std::make_shared<ast::Boolean>();}
+    "boolean" {$$ = std::make_shared<ast::Boolean>();}
+    | "int" {$$ = std::make_shared<ast::Integer>();}
     | "void" {$$ = std::make_shared<ast::Void>();}
-    | type_identifier {$$ = std::make_shared<ast::UserType>();};
+    //| type_identifier {$$ = std::make_shared<ast::UserType>();}
+    ;
 
 array_type:
     simple_type "[" "]" {};
 
-type_identifier:
-    "identifier" {};
+
 statement :	"assert" "(" expr ")" {}
     | local_variable_declaration {}
     | "{" statements "}" {}
@@ -247,6 +247,9 @@ expressions:
 lvalue :
     "identifier" {$$ = std::make_shared<ast::PlainIdent>($1);}
     | "identifier" "[" expr "]" {};
+
+type_identifier:
+    "identifier" {};
 
 expr :
     expr "+" expr {$$ = std::make_shared<ast::AddExpression>($1, $3);}

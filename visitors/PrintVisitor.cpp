@@ -89,11 +89,9 @@ void PrintVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list) {
   stream_ << "StatementList: " << std::endl;
 
   ++num_tabs_;
-  for (auto it = statement_list->statements_.end() - 1;
-       it != statement_list->statements_.begin() - 1; --it) {
-    (*it)->Accept(*this);
+  for (auto& stmt: statement_list->statements_){
+    stmt->Accept(*this);
   }
-
   --num_tabs_;
 }
 

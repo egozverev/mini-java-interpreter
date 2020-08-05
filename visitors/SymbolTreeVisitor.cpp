@@ -43,9 +43,13 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PrintStatement> statement) {
 }
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list) {
-  auto next_layer = std::make_shared<ScopeLayer>(current_layer_);
+  auto next_layer = std::make_shared<ScopeLayer>();
+  current_layer_->AddChild(next_layer);
   current_layer_ = next_layer;
-  statement_list->Accept(*this);
+  for (auto& elem: statement_list->statements_){
+    elem->Accept(*this);
+  }
+  //statement_list->Accept(*this);
   current_layer_ = current_layer_->GetParent();
 }
 
@@ -57,6 +61,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Program> program) {
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::MainClass> main_class) {
   main_class->GetStatementList()->Accept(*this);
+
 }
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ClassDeclarationList> decl_list) {

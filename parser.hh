@@ -80,7 +80,7 @@
         class ClassDeclarationList;
         class Program;
 
-        VariableDeclaration;
+        class VariableDeclaration;
 
         class Type;
         class Integer;
@@ -1758,9 +1758,9 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 270,     ///< Last index in yytable_.
+      yylast_ = 389,     ///< Last index in yytable_.
       yynnts_ = 22,  ///< Number of nonterminal symbols.
-      yyfinal_ = 8, ///< Termination state number.
+      yyfinal_ = 6, ///< Termination state number.
       yyntokens_ = 45  ///< Number of tokens.
     };
 

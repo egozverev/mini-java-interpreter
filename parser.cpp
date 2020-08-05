@@ -76,7 +76,7 @@
 
     #include "program_base/Program.h"
     #include "values/VariableDeclaration.h"
-    #include "values*Types.h"
+    #include "values/Types.h"
 
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
@@ -889,7 +889,7 @@ namespace yy {
 
   case 5:
 #line 182 "grammar/parser.y"
-                                        {yystack_[0].value.as < std::shared_ptr<ast::ClassDeclarationList>  > () -> AddDeclaration(yystack_[1].value.as < std::shared_ptr<ast::ClassDeclaration>  > ()); yylhs.value.as < std::shared_ptr<ast::ClassDeclarationList>  > () = yystack_[0].value.as < std::shared_ptr<ast::ClassDeclarationList>  > ();}
+                                        {yystack_[1].value.as < std::shared_ptr<ast::ClassDeclarationList>  > () -> AddDeclaration(yystack_[0].value.as < std::shared_ptr<ast::ClassDeclaration>  > ()); yylhs.value.as < std::shared_ptr<ast::ClassDeclarationList>  > () = yystack_[1].value.as < std::shared_ptr<ast::ClassDeclarationList>  > ();}
 #line 894 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
@@ -901,7 +901,7 @@ namespace yy {
 
   case 7:
 #line 186 "grammar/parser.y"
-                        {yystack_[0].value.as < std::shared_ptr<ast::StatementList>  > () -> AddStatement(yystack_[1].value.as < std::shared_ptr<ast::Statement>  > ()); yylhs.value.as < std::shared_ptr<ast::StatementList>  > () = yystack_[0].value.as < std::shared_ptr<ast::StatementList>  > ();}
+                        {yystack_[1].value.as < std::shared_ptr<ast::StatementList>  > () -> AddStatement(yystack_[0].value.as < std::shared_ptr<ast::Statement>  > ()); yylhs.value.as < std::shared_ptr<ast::StatementList>  > () = yystack_[1].value.as < std::shared_ptr<ast::StatementList>  > ();}
 #line 906 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
@@ -985,13 +985,13 @@ namespace yy {
 
   case 21:
 #line 214 "grammar/parser.y"
-          {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::Integer>();}
+              {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::Boolean>();}
 #line 990 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 22:
 #line 215 "grammar/parser.y"
-                {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::Boolean>();}
+            {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::Integer>();}
 #line 996 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
@@ -1002,217 +1002,211 @@ namespace yy {
     break;
 
   case 24:
-#line 217 "grammar/parser.y"
-                      {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::UserType>();}
+#line 221 "grammar/parser.y"
+                        {}
 #line 1008 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 25:
-#line 220 "grammar/parser.y"
-                        {}
+#line 224 "grammar/parser.y"
+                                      {}
 #line 1014 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 26:
-#line 223 "grammar/parser.y"
-                 {}
+#line 225 "grammar/parser.y"
+                                 {}
 #line 1020 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 27:
-#line 224 "grammar/parser.y"
-                                      {}
+#line 226 "grammar/parser.y"
+                         {}
 #line 1026 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 28:
-#line 225 "grammar/parser.y"
-                                 {}
+#line 227 "grammar/parser.y"
+                                   {}
 #line 1032 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 29:
-#line 226 "grammar/parser.y"
-                         {}
+#line 228 "grammar/parser.y"
+                                                    {}
 #line 1038 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 30:
-#line 227 "grammar/parser.y"
-                                   {}
+#line 229 "grammar/parser.y"
+                                     {}
 #line 1044 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 31:
-#line 228 "grammar/parser.y"
-                                                    {}
+#line 230 "grammar/parser.y"
+                              {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::PrintStatement>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1050 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 32:
-#line 229 "grammar/parser.y"
-                                     {}
+#line 231 "grammar/parser.y"
+                          {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::Assignment>(yystack_[3].value.as < std::shared_ptr<ast::Lvalue>  > (), driver, yystack_[1].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1056 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 33:
-#line 230 "grammar/parser.y"
-                              {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::PrintStatement>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
+#line 232 "grammar/parser.y"
+                        {}
 #line 1062 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 34:
-#line 231 "grammar/parser.y"
-                          {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::Assignment>(yystack_[3].value.as < std::shared_ptr<ast::Lvalue>  > (), driver, yystack_[1].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
+#line 233 "grammar/parser.y"
+                            {}
 #line 1068 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 35:
-#line 232 "grammar/parser.y"
-                        {}
+#line 237 "grammar/parser.y"
+                         {}
 #line 1074 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
-  case 36:
-#line 233 "grammar/parser.y"
-                            {}
+  case 38:
+#line 244 "grammar/parser.y"
+         {}
 #line 1080 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
-  case 37:
-#line 237 "grammar/parser.y"
-                         {}
+  case 39:
+#line 245 "grammar/parser.y"
+                       {}
 #line 1086 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 40:
-#line 244 "grammar/parser.y"
-         {}
+#line 248 "grammar/parser.y"
+                 {yylhs.value.as < std::shared_ptr<ast::Lvalue>  > () = std::make_shared<ast::PlainIdent>(yystack_[0].value.as < std::string > ());}
 #line 1092 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 41:
-#line 245 "grammar/parser.y"
-                       {}
+#line 249 "grammar/parser.y"
+                                {}
 #line 1098 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 42:
-#line 248 "grammar/parser.y"
-                 {yylhs.value.as < std::shared_ptr<ast::Lvalue>  > () = std::make_shared<ast::PlainIdent>(yystack_[0].value.as < std::string > ());}
+#line 252 "grammar/parser.y"
+                 {}
 #line 1104 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 43:
-#line 249 "grammar/parser.y"
-                                {}
+#line 255 "grammar/parser.y"
+                  {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::AddExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1110 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 44:
-#line 252 "grammar/parser.y"
-                  {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::AddExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
+#line 256 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::SubstractExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1116 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 45:
-#line 253 "grammar/parser.y"
-                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::SubstractExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
+#line 257 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::MulExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1122 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 46:
-#line 254 "grammar/parser.y"
-                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::MulExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
+#line 258 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::DivExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1128 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 47:
-#line 255 "grammar/parser.y"
-                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::DivExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
+#line 259 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::ModExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
 #line 1134 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 48:
-#line 256 "grammar/parser.y"
-                    {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::ModExpression>(yystack_[2].value.as < std::shared_ptr<ast::NumberExpression>  > (), yystack_[0].value.as < std::shared_ptr<ast::NumberExpression>  > ());}
+#line 260 "grammar/parser.y"
+                        {}
 #line 1140 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 49:
-#line 257 "grammar/parser.y"
+#line 261 "grammar/parser.y"
                         {}
 #line 1146 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 50:
-#line 258 "grammar/parser.y"
-                        {}
+#line 262 "grammar/parser.y"
+                                     {}
 #line 1152 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 51:
-#line 259 "grammar/parser.y"
-                                     {}
+#line 263 "grammar/parser.y"
+                                    {}
 #line 1158 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 52:
-#line 260 "grammar/parser.y"
-                                    {}
+#line 264 "grammar/parser.y"
+               {}
 #line 1164 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 53:
-#line 261 "grammar/parser.y"
-               {}
+#line 265 "grammar/parser.y"
+                   {}
 #line 1170 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 54:
-#line 262 "grammar/parser.y"
-                   {}
+#line 266 "grammar/parser.y"
+                   {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::IdentExpression> (yystack_[0].value.as < std::string > (), driver);}
 #line 1176 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 55:
-#line 263 "grammar/parser.y"
-                   {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::IdentExpression> (yystack_[0].value.as < std::string > (), driver);}
+#line 267 "grammar/parser.y"
+               {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::PlainNumberExpression> (yystack_[0].value.as < int > ());}
 #line 1182 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 56:
-#line 264 "grammar/parser.y"
-               {yylhs.value.as < std::shared_ptr<ast::NumberExpression>  > () = std::make_shared<ast::PlainNumberExpression> (yystack_[0].value.as < int > ());}
+#line 268 "grammar/parser.y"
+             {}
 #line 1188 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 57:
-#line 265 "grammar/parser.y"
+#line 269 "grammar/parser.y"
              {}
 #line 1194 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 58:
-#line 266 "grammar/parser.y"
-             {}
+#line 270 "grammar/parser.y"
+              {}
 #line 1200 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 59:
-#line 267 "grammar/parser.y"
-              {}
+#line 271 "grammar/parser.y"
+                        {}
 #line 1206 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
-  case 60:
-#line 268 "grammar/parser.y"
-                        {}
-#line 1212 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
-    break;
 
-
-#line 1216 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1210 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
             default:
               break;
@@ -1483,153 +1477,172 @@ namespace yy {
   }
 
 
-  const signed char parser::yypact_ninf_ = -120;
+  const signed char parser::yypact_ninf_ = -61;
 
-  const signed char parser::yytable_ninf_ = -43;
+  const signed char parser::yytable_ninf_ = -41;
 
   const short
   parser::yypact_[] =
   {
-     -18,   -19,   -10,    23,     8,    15,  -120,   -10,  -120,    41,
-      35,  -120,    43,    44,    84,    54,    49,  -120,  -120,  -120,
-     137,  -120,  -120,  -120,    65,    63,    84,  -120,  -120,    46,
-      83,    90,   137,    79,  -120,  -120,   103,   108,   129,   124,
-    -120,  -120,   139,    84,    -3,   149,   136,   152,   155,   147,
-     165,  -120,    81,  -120,    81,   137,   158,     6,    81,   173,
-     177,  -120,   174,   182,   183,     6,   137,     6,  -120,  -120,
-    -120,   226,   185,   175,    81,  -120,  -120,   190,   192,  -120,
-      81,  -120,   127,  -120,   195,     6,     6,     6,     6,     6,
-      50,   199,   208,   226,     6,     6,     6,     6,     6,     6,
-     -15,     6,   202,  -120,  -120,  -120,   204,  -120,  -120,   140,
-     146,   163,   180,   197,  -120,     6,   213,   232,   232,    53,
-      53,   226,   203,   221,  -120,   123,  -120,  -120,   241,  -120,
-    -120,    81,    81,   220,  -120,  -120,    64,  -120,  -120,   194,
-    -120,  -120,  -120,     6,    81,    55,   227,  -120,  -120,   236,
-    -120
+     -16,    -1,   -61,    18,     0,    30,   -61,    34,    31,   -61,
+      38,    26,    41,    35,   -61,    47,    39,   243,    67,    59,
+     -61,   -61,   -61,   -61,    49,   -61,   -61,    50,   -61,   -61,
+      93,    87,   103,    49,   113,   114,   -61,   112,   117,   -61,
+     -61,   212,   296,    92,   121,    53,   212,   126,    12,   -61,
+     138,   152,   156,    53,   137,    53,   -61,   -61,   -61,   351,
+     142,   108,   -61,   -61,   -61,   169,   -61,   154,   155,   175,
+     -61,   -61,   252,   -61,   134,    53,    53,    53,    53,    53,
+      19,   -61,   170,   177,   351,    53,    53,    53,    53,    53,
+      53,     3,    53,   171,   -61,   -61,   212,    49,   173,   -61,
+     -61,   265,   271,   288,   305,   322,   -61,    53,   188,    -4,
+      -4,    -8,    -8,   351,   328,   190,   -61,   102,   -61,   160,
+     -61,   212,   207,   -61,   -61,   212,   212,   345,   -61,   -61,
+      36,   -61,   -61,   186,   -61,   176,   -61,   -61,   -61,    53,
+     -61,   212,    82,   194,   -61,   -61,   203,   -61
   };
 
   const signed char
   parser::yydefact_[] =
   {
-       0,     0,     4,     0,     0,     0,     2,     4,     1,     0,
-       0,     5,     0,     0,    10,     0,     0,    21,    22,    23,
-       0,    26,    12,    19,     0,     0,    10,    13,    24,     0,
-       0,     0,     0,     0,     8,    11,     0,     0,     0,     0,
-      20,    16,     0,    10,     0,     0,     0,     0,     0,     0,
-       0,    25,     0,     9,     0,    17,     0,     0,     0,     0,
-      55,    56,     0,     0,     0,     0,     0,     0,    57,    58,
-      59,     0,     0,     0,     6,    37,    28,    60,     0,    18,
-       0,    55,     0,    60,     0,     0,     0,     0,     0,     0,
-       0,     0,    24,    53,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     7,    36,    14,     0,    54,    29,     0,
-       0,     0,     0,     0,    35,     0,     0,    45,    44,    46,
-      47,    48,     0,     0,    50,     0,     3,    15,     0,    43,
-      27,     0,     0,     0,    52,    49,     0,    34,    33,    30,
-      32,    51,    38,     0,     0,    40,     0,    31,    41,     0,
-      39
+       0,     0,     4,     0,     0,     2,     1,     0,     0,     5,
+       0,     0,     0,     0,    10,     0,     0,     0,     0,     0,
+       8,    22,    21,    23,     0,    12,    19,     0,    11,    13,
+       0,     0,     0,     0,     0,     0,    10,     0,     0,    20,
+      16,     0,     0,     0,     0,     0,     0,     0,    54,    55,
+       0,     0,     0,     0,     0,     0,    56,    57,    58,     0,
+       0,     0,     6,    35,    26,    59,     9,     0,     0,     0,
+      24,    54,     0,    59,     0,     0,     0,     0,     0,     0,
+       0,    42,     0,     0,    52,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     7,    34,     0,    17,     0,    53,
+      27,     0,     0,     0,     0,     0,    33,     0,     0,    44,
+      43,    45,    46,    47,     0,     0,    49,     0,     3,     0,
+      18,     0,     0,    41,    25,     0,     0,     0,    51,    48,
+       0,    32,    14,     0,    31,    28,    30,    50,    36,     0,
+      15,     0,    38,     0,    29,    39,     0,    37
   };
 
   const short
   parser::yypgoto_[] =
   {
-    -120,   -56,  -120,    62,  -119,  -120,  -120,   240,  -120,    -9,
-     -29,    31,   -22,  -120,  -120,   196,  -120,  -120,   184,  -120,
-     -52,   107
+     -61,   -38,   -61,   -35,   -60,   -61,   -61,   -61,   -61,   -11,
+     -10,   -22,   181,   -61,   -61,   127,   -61,   -61,   -61,   -41,
+      76,   -61
   };
 
   const short
   parser::yydefgoto_[] =
   {
-      -1,    71,    72,    73,    74,     2,     3,     6,     7,    75,
-      23,    24,    25,    26,    27,    50,    32,    40,    28,    76,
-      83,   146
+      -1,    59,    60,    61,    62,     2,     3,     5,     9,    63,
+      26,    27,    17,    28,    29,    69,    33,    39,    64,    73,
+     143,    83
   };
 
   const short
   parser::yytable_[] =
   {
-      77,    82,    77,    39,    35,    22,    77,    48,     1,    90,
-       4,    93,   139,   140,   123,    57,     5,    22,    17,    18,
-      19,    47,    77,     8,   124,   147,    21,     9,    77,   109,
-     110,   111,   112,   113,    22,    81,    61,    91,   117,   118,
-     119,   120,   121,   122,    10,   125,    66,    67,    68,    69,
-      70,    31,    13,   114,    14,    94,    95,    96,    97,   133,
-      94,    95,    96,    97,    57,    12,    98,    99,    15,    98,
-      99,    98,    99,    36,   142,    49,    16,    29,    30,    77,
-      77,   143,    41,    34,    81,    61,    49,   145,   100,   145,
-      57,   100,    77,   100,    33,    66,    67,    68,    69,    70,
-      58,    37,    17,    18,    19,    17,    18,    19,    20,    59,
-      60,    61,    42,    21,    62,    63,    78,    64,    65,    38,
-      84,    66,    67,    68,    69,    70,   137,    43,    94,    95,
-      96,    97,    94,    95,    96,    97,   103,   107,    44,    98,
-      99,    45,   106,    98,    99,    94,    95,    96,    97,    46,
-     128,    94,    95,    96,    97,    52,    98,    99,    17,    18,
-      19,   100,    98,    99,   129,   100,    21,    51,    94,    95,
-      96,    97,    53,   130,    54,    56,    55,    80,   100,    98,
-      99,   -42,    85,    87,   100,    94,    95,    96,    97,   101,
-     131,    88,    89,   104,    86,   102,    98,    99,   -26,   -26,
-     -26,   100,    94,    95,    96,    97,   -26,   132,    94,    95,
-      96,    97,   105,    98,    99,   108,   115,   116,   100,    98,
-      99,   135,   126,   134,   127,    94,    95,    96,    97,   144,
-     136,    94,    95,    96,    97,   100,    98,    99,   141,    96,
-      97,   100,    98,    99,   138,   149,   150,    11,    98,    99,
-      92,    79,   148,     0,     0,     0,     0,     0,   100,     0,
-       0,     0,     0,     0,   100,     0,     0,     0,     0,     0,
-     100
+      65,    94,    32,    87,    88,    65,    25,    72,    89,    90,
+       1,    74,    89,    90,    94,    80,   -40,    84,     6,     7,
+      65,    68,   106,    38,    85,    86,    87,    88,     4,    76,
+      91,    25,   115,    65,    91,    89,    90,   101,   102,   103,
+     104,   105,   116,    13,    82,    14,   138,   109,   110,   111,
+     112,   113,   114,   139,   117,    65,     8,    91,    10,    94,
+      11,   119,    45,    12,    15,   135,   136,    16,    19,   127,
+      21,    22,    23,    94,    18,    68,    30,    31,    65,    34,
+      65,   144,    71,    49,    65,    65,   133,    85,    86,    87,
+      88,    45,    65,    54,    55,    56,    57,    58,    89,    90,
+      65,   142,    67,    35,   142,   131,    36,    85,    86,    87,
+      88,    71,    49,    21,    22,    23,    40,    45,    89,    90,
+      91,    43,    54,    55,    56,    57,    58,    46,    93,    21,
+      22,    23,    37,    41,    44,    75,    47,    48,    49,    70,
+      91,    50,    51,    45,    52,    53,    92,    77,    54,    55,
+      56,    57,    58,    46,   100,    21,    22,    23,    21,    22,
+      23,    78,    47,    48,    49,    79,    81,    50,    51,    45,
+      52,    53,    95,    96,    54,    55,    56,    57,    58,    46,
+     132,    21,    22,    23,    97,    98,   108,   107,    47,    48,
+      49,   118,   121,    50,    51,    45,    52,    53,   128,   130,
+      54,    55,    56,    57,    58,    46,   140,    21,    22,    23,
+     134,   141,   146,   147,    47,    48,    49,    42,   145,    50,
+      51,    45,    52,    53,   120,     0,    54,    55,    56,    57,
+      58,    46,     0,    21,    22,    23,     0,     0,     0,     0,
+      47,    48,    49,     0,     0,    50,    51,     0,    52,    53,
+       0,     0,    54,    55,    56,    57,    58,    85,    86,    87,
+      88,     0,    99,    20,    21,    22,    23,    24,    89,    90,
+      85,    86,    87,    88,     0,   122,    85,    86,    87,    88,
+       0,    89,    90,     0,     0,     0,     0,    89,    90,   123,
+      91,     0,     0,    85,    86,    87,    88,     0,   124,     0,
+       0,     0,     0,    91,    89,    90,     0,     0,     0,    91,
+      85,    86,    87,    88,     0,   125,    66,    21,    22,    23,
+      24,    89,    90,     0,     0,     0,    91,    85,    86,    87,
+      88,     0,   126,    85,    86,    87,    88,     0,    89,    90,
+       0,     0,     0,    91,    89,    90,   129,     0,     0,     0,
+      85,    86,    87,    88,     0,     0,    85,    86,    87,    88,
+      91,    89,    90,   137,     0,     0,    91,    89,    90,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    91,     0,     0,     0,     0,     0,    91
   };
 
   const short
   parser::yycheck_[] =
   {
-      52,    57,    54,    32,    26,    14,    58,    10,    26,    65,
-      29,    67,   131,   132,    29,     9,    26,    26,    21,    22,
-      23,    43,    74,     0,    39,   144,    29,    19,    80,    85,
-      86,    87,    88,    89,    43,    29,    30,    66,    94,    95,
-      96,    97,    98,    99,    29,   101,    40,    41,    42,    43,
-      44,    20,    17,     3,    19,     5,     6,     7,     8,   115,
-       5,     6,     7,     8,     9,    24,    16,    17,    25,    16,
-      17,    16,    17,    27,    10,    44,    32,    23,    29,   131,
-     132,    17,     3,    20,    29,    30,    55,   143,    38,   145,
-       9,    38,   144,    38,    29,    40,    41,    42,    43,    44,
-      19,    18,    21,    22,    23,    21,    22,    23,    24,    28,
-      29,    30,     9,    29,    33,    34,    54,    36,    37,    29,
-      58,    40,    41,    42,    43,    44,     3,    19,     5,     6,
-       7,     8,     5,     6,     7,     8,    74,    10,     9,    16,
-      17,    17,    80,    16,    17,     5,     6,     7,     8,    10,
-      10,     5,     6,     7,     8,    19,    16,    17,    21,    22,
-      23,    38,    16,    17,    18,    38,    29,    18,     5,     6,
-       7,     8,    20,    10,    19,    10,    29,    19,    38,    16,
-      17,     4,     9,     9,    38,     5,     6,     7,     8,     4,
-      10,     9,     9,     3,    17,    20,    16,    17,    21,    22,
-      23,    38,     5,     6,     7,     8,    29,    10,     5,     6,
-       7,     8,    20,    16,    17,    20,    17,     9,    38,    16,
-      17,    18,    20,    10,    20,     5,     6,     7,     8,    35,
-       9,     5,     6,     7,     8,    38,    16,    17,    18,     7,
-       8,    38,    16,    17,     3,    18,    10,     7,    16,    17,
-      66,    55,   145,    -1,    -1,    -1,    -1,    -1,    38,    -1,
-      -1,    -1,    -1,    -1,    38,    -1,    -1,    -1,    -1,    -1,
-      38
+      41,    61,    24,     7,     8,    46,    17,    45,    16,    17,
+      26,    46,    16,    17,    74,    53,     4,    55,     0,    19,
+      61,    43,     3,    33,     5,     6,     7,     8,    29,    17,
+      38,    42,    29,    74,    38,    16,    17,    75,    76,    77,
+      78,    79,    39,    17,    54,    19,    10,    85,    86,    87,
+      88,    89,    90,    17,    92,    96,    26,    38,    24,   119,
+      29,    96,     9,    25,    23,   125,   126,    32,    29,   107,
+      21,    22,    23,   133,    27,    97,     9,    18,   119,    29,
+     121,   141,    29,    30,   125,   126,   121,     5,     6,     7,
+       8,     9,   133,    40,    41,    42,    43,    44,    16,    17,
+     141,   139,    10,    10,   142,     3,    19,     5,     6,     7,
+       8,    29,    30,    21,    22,    23,     3,     9,    16,    17,
+      38,     9,    40,    41,    42,    43,    44,    19,    20,    21,
+      22,    23,    29,    19,    17,     9,    28,    29,    30,    18,
+      38,    33,    34,     9,    36,    37,     4,     9,    40,    41,
+      42,    43,    44,    19,    20,    21,    22,    23,    21,    22,
+      23,     9,    28,    29,    30,     9,    29,    33,    34,     9,
+      36,    37,     3,    19,    40,    41,    42,    43,    44,    19,
+      20,    21,    22,    23,    29,    10,     9,    17,    28,    29,
+      30,    20,    19,    33,    34,     9,    36,    37,    10,     9,
+      40,    41,    42,    43,    44,    19,    20,    21,    22,    23,
+       3,    35,    18,    10,    28,    29,    30,    36,   142,    33,
+      34,     9,    36,    37,    97,    -1,    40,    41,    42,    43,
+      44,    19,    -1,    21,    22,    23,    -1,    -1,    -1,    -1,
+      28,    29,    30,    -1,    -1,    33,    34,    -1,    36,    37,
+      -1,    -1,    40,    41,    42,    43,    44,     5,     6,     7,
+       8,    -1,    10,    20,    21,    22,    23,    24,    16,    17,
+       5,     6,     7,     8,    -1,    10,     5,     6,     7,     8,
+      -1,    16,    17,    -1,    -1,    -1,    -1,    16,    17,    18,
+      38,    -1,    -1,     5,     6,     7,     8,    -1,    10,    -1,
+      -1,    -1,    -1,    38,    16,    17,    -1,    -1,    -1,    38,
+       5,     6,     7,     8,    -1,    10,    20,    21,    22,    23,
+      24,    16,    17,    -1,    -1,    -1,    38,     5,     6,     7,
+       8,    -1,    10,     5,     6,     7,     8,    -1,    16,    17,
+      -1,    -1,    -1,    38,    16,    17,    18,    -1,    -1,    -1,
+       5,     6,     7,     8,    -1,    -1,     5,     6,     7,     8,
+      38,    16,    17,    18,    -1,    -1,    38,    16,    17,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    38,    -1,    -1,    -1,    -1,    -1,    38
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    26,    50,    51,    29,    26,    52,    53,     0,    19,
-      29,    52,    24,    17,    19,    25,    32,    21,    22,    23,
-      24,    29,    54,    55,    56,    57,    58,    59,    63,    23,
-      29,    56,    61,    29,    20,    57,    27,    18,    29,    55,
-      62,     3,     9,    19,     9,    17,    10,    57,    10,    56,
-      60,    18,    19,    20,    19,    29,    10,     9,    19,    28,
-      29,    30,    33,    34,    36,    37,    40,    41,    42,    43,
-      44,    46,    47,    48,    49,    54,    64,    65,    48,    60,
-      19,    29,    46,    65,    48,     9,    17,     9,     9,     9,
-      46,    55,    63,    46,     5,     6,     7,     8,    16,    17,
-      38,     4,    20,    48,     3,    20,    48,    10,    20,    46,
-      46,    46,    46,    46,     3,    17,     9,    46,    46,    46,
-      46,    46,    46,    29,    39,    46,    20,    20,    10,    18,
-      10,    10,    10,    46,    10,    18,     9,     3,     3,    49,
-      49,    18,    10,    17,    35,    46,    66,    49,    66,    18,
-      10
+       0,    26,    50,    51,    29,    52,     0,    19,    26,    53,
+      24,    29,    25,    17,    19,    23,    32,    57,    27,    29,
+      20,    21,    22,    23,    24,    54,    55,    56,    58,    59,
+       9,    18,    56,    61,    29,    10,    19,    29,    55,    62,
+       3,    19,    57,     9,    17,     9,    19,    28,    29,    30,
+      33,    34,    36,    37,    40,    41,    42,    43,    44,    46,
+      47,    48,    49,    54,    63,    64,    20,    10,    56,    60,
+      18,    29,    46,    64,    48,     9,    17,     9,     9,     9,
+      46,    29,    55,    66,    46,     5,     6,     7,     8,    16,
+      17,    38,     4,    20,    49,     3,    19,    29,    10,    10,
+      20,    46,    46,    46,    46,    46,     3,    17,     9,    46,
+      46,    46,    46,    46,    46,    29,    39,    46,    20,    48,
+      60,    19,    10,    18,    10,    10,    10,    46,    10,    18,
+       9,     3,    20,    48,     3,    49,    49,    18,    10,    17,
+      20,    35,    46,    65,    49,    65,    18,    10
   };
 
   const signed char
@@ -1637,11 +1650,10 @@ namespace yy {
   {
        0,    45,    51,    50,    52,    52,    48,    48,    53,    53,
       57,    57,    58,    58,    59,    59,    54,    60,    60,    61,
-      56,    55,    55,    55,    55,    62,    63,    49,    49,    49,
-      49,    49,    49,    49,    49,    49,    49,    64,    65,    65,
-      66,    66,    47,    47,    46,    46,    46,    46,    46,    46,
-      46,    46,    46,    46,    46,    46,    46,    46,    46,    46,
-      46
+      56,    55,    55,    55,    62,    49,    49,    49,    49,    49,
+      49,    49,    49,    49,    49,    63,    64,    64,    65,    65,
+      47,    47,    66,    46,    46,    46,    46,    46,    46,    46,
+      46,    46,    46,    46,    46,    46,    46,    46,    46,    46
   };
 
   const signed char
@@ -1649,11 +1661,10 @@ namespace yy {
   {
        0,     2,     2,    13,     0,     2,     1,     2,     5,     9,
        0,     2,     1,     1,     8,     9,     3,     2,     3,     0,
-       3,     1,     1,     1,     1,     3,     1,     4,     1,     3,
-       5,     7,     5,     5,     4,     3,     2,     1,     5,     8,
-       1,     2,     1,     4,     3,     3,     3,     3,     3,     4,
-       3,     5,     4,     2,     3,     1,     1,     1,     1,     1,
-       1
+       3,     1,     1,     1,     3,     4,     1,     3,     5,     7,
+       5,     5,     4,     3,     2,     1,     5,     8,     1,     2,
+       1,     4,     1,     3,     3,     3,     3,     3,     4,     3,
+       5,     4,     2,     3,     1,     1,     1,     1,     1,     1
   };
 
 
@@ -1674,8 +1685,8 @@ namespace yy {
   "statements", "statement", "main_class", "program", "class_declarations",
   "class_declaration", "variable_declaration", "simple_type", "type",
   "declarations", "declaration", "method_declaration", "formals", "$@1",
-  "array_type", "type_identifier", "local_variable_declaration",
-  "method_invocation", "expressions", YY_NULLPTR
+  "array_type", "local_variable_declaration", "method_invocation",
+  "expressions", "type_identifier", YY_NULLPTR
   };
 
 #if YYDEBUG
@@ -1684,11 +1695,10 @@ namespace yy {
   {
        0,   166,   166,   174,   181,   182,   185,   186,   188,   189,
      192,   193,   196,   197,   200,   201,   203,   206,   207,   210,
-     210,   214,   215,   216,   217,   220,   223,   224,   225,   226,
-     227,   228,   229,   230,   231,   232,   233,   237,   240,   241,
-     244,   245,   248,   249,   252,   253,   254,   255,   256,   257,
-     258,   259,   260,   261,   262,   263,   264,   265,   266,   267,
-     268
+     210,   214,   215,   216,   221,   224,   225,   226,   227,   228,
+     229,   230,   231,   232,   233,   237,   240,   241,   244,   245,
+     248,   249,   252,   255,   256,   257,   258,   259,   260,   261,
+     262,   263,   264,   265,   266,   267,   268,   269,   270,   271
   };
 
   // Print the state stack on the debug stream.
@@ -1722,9 +1732,9 @@ namespace yy {
 
 
 } // yy
-#line 1726 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1736 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
-#line 288 "grammar/parser.y"
+#line 291 "grammar/parser.y"
 
 
 void
