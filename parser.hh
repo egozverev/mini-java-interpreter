@@ -462,6 +462,7 @@ namespace yy {
       char dummy11[sizeof (std::shared_ptr<ast::Type> )];
 
       // variable_declaration
+      // local_variable_declaration
       char dummy12[sizeof (std::shared_ptr<ast::VariableDeclaration> )];
 
       // "identifier"
@@ -828,12 +829,13 @@ switch (yytype)
         value.template destroy< std::shared_ptr<ast::StatementList>  > ();
         break;
 
-      case 55: // simple_type
-      case 56: // type
+      case 56: // simple_type
+      case 57: // type
         value.template destroy< std::shared_ptr<ast::Type>  > ();
         break;
 
       case 54: // variable_declaration
+      case 55: // local_variable_declaration
         value.template destroy< std::shared_ptr<ast::VariableDeclaration>  > ();
         break;
 
@@ -1758,8 +1760,8 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 389,     ///< Last index in yytable_.
-      yynnts_ = 22,  ///< Number of nonterminal symbols.
+      yylast_ = 384,     ///< Last index in yytable_.
+      yynnts_ = 21,  ///< Number of nonterminal symbols.
       yyfinal_ = 6, ///< Termination state number.
       yyntokens_ = 45  ///< Number of tokens.
     };
@@ -1871,12 +1873,13 @@ switch (yytype)
         value.move< std::shared_ptr<ast::StatementList>  > (std::move (that.value));
         break;
 
-      case 55: // simple_type
-      case 56: // type
+      case 56: // simple_type
+      case 57: // type
         value.move< std::shared_ptr<ast::Type>  > (std::move (that.value));
         break;
 
       case 54: // variable_declaration
+      case 55: // local_variable_declaration
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (std::move (that.value));
         break;
 
@@ -1939,12 +1942,13 @@ switch (yytype)
         value.copy< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
         break;
 
-      case 55: // simple_type
-      case 56: // type
+      case 56: // simple_type
+      case 57: // type
         value.copy< std::shared_ptr<ast::Type>  > (YY_MOVE (that.value));
         break;
 
       case 54: // variable_declaration
+      case 55: // local_variable_declaration
         value.copy< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (that.value));
         break;
 
@@ -2014,12 +2018,13 @@ switch (yytype)
         value.move< std::shared_ptr<ast::StatementList>  > (YY_MOVE (s.value));
         break;
 
-      case 55: // simple_type
-      case 56: // type
+      case 56: // simple_type
+      case 57: // type
         value.move< std::shared_ptr<ast::Type>  > (YY_MOVE (s.value));
         break;
 
       case 54: // variable_declaration
+      case 55: // local_variable_declaration
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (s.value));
         break;
 
@@ -2082,7 +2087,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2086 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2091 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

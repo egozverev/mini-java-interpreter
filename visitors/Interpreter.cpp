@@ -52,9 +52,16 @@ void Interpreter::Visit(std::shared_ptr<ast::PrintStatement> statement) {
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::StatementList> statement_list) {
+  current_layer_ = current_layer_->GetChild(offsets_.top());
+  offsets_.push(0);
   for (auto& elem: statement_list->statements_){
     elem->Accept(*this);
   }
+  current_layer_ = current_layer_->GetParent();
+  offsets_.pop();
+  size_t current_pos = offsets_.top();
+  offsets_.pop();
+  offsets_.push(++current_pos);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::MainClass> main_class) {

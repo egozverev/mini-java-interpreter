@@ -50,7 +50,6 @@ std::shared_ptr<Object> ScopeLayer::Get(const Symbol &symbol) {
 }
 
 std::shared_ptr<ScopeLayer> ScopeLayer::GetChild(size_t index) {
-  std::cout << "Children of scope: " << children_.size() << std::endl;
   return children_[index];
 }
 

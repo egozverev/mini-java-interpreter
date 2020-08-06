@@ -35,7 +35,10 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::IdentExpression> expression) 
 }
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Assignment> assignment) {
-
+  std::string value_name = assignment->GetLvalue()->GetId();
+  if(!current_layer_->Has(Symbol(value_name))){
+      throw std::runtime_error("Assignment before declaration");
+  }
 }
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PrintStatement> statement) {
@@ -49,7 +52,6 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list
   for (auto& elem: statement_list->statements_){
     elem->Accept(*this);
   }
-  //statement_list->Accept(*this);
   current_layer_ = current_layer_->GetParent();
 }
 

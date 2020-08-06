@@ -150,6 +150,7 @@
 %nterm <std::shared_ptr<ast::ClassDeclarationList> > class_declarations
 %nterm <std::shared_ptr<ast::ClassDeclaration> > class_declaration
 %nterm <std::shared_ptr<ast::VariableDeclaration> > variable_declaration
+%nterm <std::shared_ptr<ast::VariableDeclaration> > local_variable_declaration
 %nterm <std::shared_ptr<ast::Type> > simple_type
 %nterm <std::shared_ptr<ast::Type> > type
 
@@ -208,13 +209,13 @@ formals:
 
 type:
     simple_type {}
-    array_type {};
+    | array_type {};
 
 simple_type:
     "boolean" {$$ = std::make_shared<ast::Boolean>();}
     | "int" {$$ = std::make_shared<ast::Integer>();}
     | "void" {$$ = std::make_shared<ast::Void>();}
-    //| type_identifier {$$ = std::make_shared<ast::UserType>();}
+    | type_identifier {$$ = std::make_shared<ast::UserType>();}
     ;
 
 array_type:
@@ -222,8 +223,8 @@ array_type:
 
 
 statement :	"assert" "(" expr ")" {}
-    | local_variable_declaration {}
-    | "{" statements "}" {}
+    | local_variable_declaration {$$ = $1;}
+    | "{" statements "}" {$$ = $2;}
     | "if"  "(" expr ")" statement {}
     | "if"  "(" expr ")" statement "else" statement {}
     | "while" "(" expr ")" statement {}
@@ -234,7 +235,7 @@ statement :	"assert" "(" expr ")" {}
 
 
 local_variable_declaration:
-    variable_declaration {};
+    variable_declaration {$$ = $1;};
 
 method_invocation:
     expr "." "identifier" "(" ")"
