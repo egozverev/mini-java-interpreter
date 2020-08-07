@@ -25,17 +25,19 @@ public:
 
   void Visit(std::shared_ptr<ast::IdentExpression> expression) override;
 
-  //void Visit(std::shared_ptr<ast::AndExpression> expression) override;
+  void Visit(std::shared_ptr<ast::AndExpression> expression) override;
 
-  //void Visit(std::shared_ptr<ast::OrExpression> expression) override;
+  void Visit(std::shared_ptr<ast::OrExpression> expression) override;
 
-  //void Visit(std::shared_ptr<ast::LessExpression> expression) override;
+  void Visit(std::shared_ptr<ast::LessExpression> expression) override;
 
-  //void Visit(std::shared_ptr<ast::GreaterExpression> expression) override;
+  void Visit(std::shared_ptr<ast::GreaterExpression> expression) override;
 
-  //void Visit(std::shared_ptr<ast::EqualExpression> expression) override;
+  void Visit(std::shared_ptr<ast::EqualExpression> expression) override;
 
   void Visit(std::shared_ptr<ast::PlainNumberExpression> expression) override;
+
+  void Visit(std::shared_ptr<ast::PlainBooleanExpression> expression) override;
 
   void Visit(std::shared_ptr<ast::Assignment> assignment) override;
 

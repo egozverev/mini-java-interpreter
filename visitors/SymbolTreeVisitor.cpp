@@ -10,6 +10,10 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PlainNumberExpression> expres
 
 }
 
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PlainBooleanExpression> expression) {
+
+}
+
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::AddExpression> expression) {
 
 }
@@ -34,10 +38,30 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::IdentExpression> expression) 
 
 }
 
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::AndExpression> expression) {
+
+}
+
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::OrExpression> expression) {
+
+}
+
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::LessExpression> expression) {
+
+}
+
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::GreaterExpression> expression) {
+
+}
+
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::EqualExpression> expression) {
+
+}
+
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Assignment> assignment) {
   std::string value_name = assignment->GetLvalue()->GetId();
-  if(!current_layer_->Has(Symbol(value_name))){
-      throw std::runtime_error("Assignment before declaration");
+  if (!current_layer_->Has(Symbol(value_name))) {
+    throw std::runtime_error("Assignment of undeclared variable");
   }
 }
 
@@ -49,7 +73,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list
   auto next_layer = std::make_shared<ScopeLayer>();
   current_layer_->AddChild(next_layer);
   current_layer_ = next_layer;
-  for (auto& elem: statement_list->statements_){
+  for (auto &elem: statement_list->statements_) {
     elem->Accept(*this);
   }
   current_layer_ = current_layer_->GetParent();

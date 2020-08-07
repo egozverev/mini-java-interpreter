@@ -31,6 +31,8 @@ namespace ast {
 
   class PlainNumberExpression;
 
+  class PlainBooleanExpression;
+
   class Assignment;
 
   class Statement;

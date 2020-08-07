@@ -16,6 +16,7 @@
         class IdentExpression;
         class NumberExpression;
         class PlainNumberExpression;
+        class PlainBooleanExpression;
         class AddExpression;
         class SubstractExpression;
         class DivExpression;
@@ -62,6 +63,7 @@
     #include "expressions/Expression.h"
     #include "expressions/NumberExpression.h"
     #include "expressions/PlainNumberExpression.h"
+    #include "expressions/PlainBooleanExpression.h"
     #include "expressions/BoolExpression.h"
     #include "expressions/AddExpression.h"
     #include "expressions/MulExpression.h"
@@ -141,7 +143,7 @@
 %token <int> NUMBER "number"
 %token <bool> BOOLEAN "bool"
 //%token <void> VOID "voidness"
-%nterm <std::shared_ptr<ast::NumberExpression> > expr
+%nterm <std::shared_ptr<ast::Expression> > expr
 %nterm <std::shared_ptr<ast::Lvalue> > lvalue
 %nterm <std::shared_ptr<ast::StatementList> > statements
 %nterm <std::shared_ptr<ast::Statement> > statement
@@ -267,25 +269,16 @@ expr :
     | "identifier" {$$ = std::make_shared<ast::IdentExpression> ($1, driver);}
     | "number" {$$ = std::make_shared<ast::PlainNumberExpression> ($1);}
     | "this" {}
-    | "true" {}
-    | "false" {}
-    | method_invocation {};
-    //expr "&&" expr {$$ = std::make_shared<ast::AndExpression>($1, $3)}
-    //| expr "||" expr {$$ = std::make_shared<ast::OrExpression>($1, $3)}
-    //| expr "<" expr {$$ = std::make_shared<ast::LessExpression>($1, $3)}
-    //| expr ">" expr {$$ = std::make_shared<ast::GreaterExpression>($1, $3)}
-    //| expr "==" expr {$$ = std::make_shared<ast::EqualExpression>($1, $3)}
+    | "true" {$$ = std::make_shared<ast::PlainBooleanExpression> (true);}
+    | "false" {$$ = std::make_shared<ast::PlainBooleanExpression> (false);}
+    | method_invocation {}
+    | expr "&&" expr {$$ = std::make_shared<ast::AndExpression>($1, $3);}
+    | expr "||" expr {$$ = std::make_shared<ast::OrExpression>($1, $3);}
+    | expr "<" expr {$$ = std::make_shared<ast::LessExpression>($1, $3);}
+    | expr ">" expr {$$ = std::make_shared<ast::GreaterExpression>($1, $3);}
+    | expr "==" expr {$$ = std::make_shared<ast::EqualExpression>($1, $3);}
+    ;
 
-//binary_operator : "&&" {}
-//    |  "||" {}
-//    |  "<" {}
-//    | ">" {}
-//    |  "==" {}
-//    | "+" {}
-//    |  "-" {}
-//    | "*" {}
-//    | "/" {}
-//    | "%" {};
 
 
 

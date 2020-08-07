@@ -15,6 +15,7 @@
 #include "expressions/LessExpression.h"
 #include "expressions/GreaterExpression.h"
 #include "expressions/PlainNumberExpression.h"
+#include "expressions/PlainBooleanExpression.h"
 
 #include "assignments/Assignment.h"
 

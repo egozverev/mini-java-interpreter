@@ -12,6 +12,10 @@ void Interpreter::Visit(std::shared_ptr<ast::PlainNumberExpression> expression) 
   tos_value_ = expression->value;
 }
 
+void Interpreter::Visit(std::shared_ptr<ast::PlainBooleanExpression> expression) {
+  //tos_value_ = expression->value;
+}
+
 void Interpreter::Visit(std::shared_ptr<ast::AddExpression> expression) {
   tos_value_ = Accept(expression->GetFirst()) + Accept(expression->GetSecond());
 }
@@ -39,6 +43,27 @@ void Interpreter::Visit(std::shared_ptr<ast::DivExpression> expression) {
 void Interpreter::Visit(std::shared_ptr<ast::IdentExpression> expression) {
   tos_value_ = current_layer_->Get(Symbol(expression->GetIdent()))->ToInt();
 }
+
+void Interpreter::Visit(std::shared_ptr<ast::AndExpression> expression) {
+  tos_value_ = Accept(expression->GetFirst()) + Accept(expression->GetSecond());
+}
+
+void Interpreter::Visit(std::shared_ptr<ast::OrExpression> expression) {
+
+}
+
+void Interpreter::Visit(std::shared_ptr<ast::LessExpression> expression) {
+
+}
+
+void Interpreter::Visit(std::shared_ptr<ast::GreaterExpression> expression) {
+
+}
+
+void Interpreter::Visit(std::shared_ptr<ast::EqualExpression> expression) {
+
+}
+
 
 void Interpreter::Visit(std::shared_ptr<ast::Assignment> assignment) {
   int value = Accept(assignment->GetExpression());

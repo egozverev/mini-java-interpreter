@@ -5,12 +5,16 @@
 #include <memory>
 
 namespace ast {
-  class AndExpression : public ast::BoolExpression, public std::enable_shared_from_this<AndExpression> {
+  class AndExpression : public ast::Expression, public std::enable_shared_from_this<AndExpression> {
   public:
-    AndExpression(std::shared_ptr<BoolExpression> e1, std::shared_ptr<BoolExpression> e2);
+    AndExpression(std::shared_ptr<Expression> e1, std::shared_ptr<Expression> e2);
+    void Accept(Visitor& visitor) override;
+
+    std::shared_ptr<Expression> GetFirst();
+    std::shared_ptr<Expression> GetSecond();
 
   private:
-    std::shared_ptr<BoolExpression> first;
-    std::shared_ptr<BoolExpression> second;
+    std::shared_ptr<Expression> first;
+    std::shared_ptr<Expression> second;
   };
 }

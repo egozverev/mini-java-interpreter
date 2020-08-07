@@ -81,5 +81,5 @@ add_executable(
         objects/Integer.cpp
         objects/Object.cpp
         objects/UninitObject.cpp
-        visitors/SymbolTreeVisitor.cpp visitors/SymbolTreeVisitor.h values/VariableDeclaration.cpp values/VariableDeclaration.h values/Types.h values/Types.cpp visitors/TemplateVisitor.cpp visitors/TemplateVisitor.h)
+        visitors/SymbolTreeVisitor.cpp visitors/SymbolTreeVisitor.h values/VariableDeclaration.cpp values/VariableDeclaration.h values/Types.h values/Types.cpp visitors/TemplateVisitor.cpp visitors/TemplateVisitor.h expressions/PlainBooleanExpression.cpp expressions/PlainBooleanExpression.h objects/Boolean.cpp objects/Boolean.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})

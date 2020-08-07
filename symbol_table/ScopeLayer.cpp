@@ -7,7 +7,7 @@
 
 void ScopeLayer::DeclareVariable(const Symbol &symbol) {
   if (values_.find(symbol) != values_.end()) {
-    throw std::runtime_error("Variable has declared");
+    throw std::runtime_error("Variable has been declared");
   }
 
   values_[symbol] = std::make_shared<UninitObject>();
