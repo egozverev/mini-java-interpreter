@@ -39,6 +39,10 @@ namespace ast {
 
   class PrintStatement;
 
+  class IfElseStatement;
+
+  class IfStatement;
+
   class StatementList;
 
   class Lvalue;

@@ -3,6 +3,9 @@
 #include "TemplateVisitor.h"
 #include "symbol_table/ScopeLayer.h"
 #include "objects/Integer.h"
+#include "objects/Boolean.h"
+#include "objects/UninitObject.h"
+#include "values/Types.h"
 #include "forward_decl.h"
 
 #include <iostream>
@@ -10,7 +13,7 @@
 #include <map>
 #include <memory>
 
-class Interpreter : public TemplateVisitor<int>  { // not int btw
+class Interpreter : public TemplateVisitor<Object>  {
 public:
   explicit Interpreter(std::shared_ptr<ScopeLayer> root);
   //void Visit(std::shared_ptr<ast::NumberExpression> expression) override;
@@ -47,6 +50,11 @@ public:
 
   void Visit(std::shared_ptr<ast::PrintStatement> expression) override;
 
+  void Visit(std::shared_ptr<ast::IfElseStatement> expression) override;
+
+  void Visit(std::shared_ptr<ast::IfStatement> expression) override;
+
+
   //void Visit(std::shared_ptr<ast::PlainIdent> expression) override;
 
   void Visit(std::shared_ptr<ast::StatementList> statemen_list) override;
@@ -61,8 +69,13 @@ public:
 
   void Visit(std::shared_ptr<ast::VariableDeclaration> declaration) override;
 
-
   void Execute(std::shared_ptr<ast::Program> program);
+
+  void SetTosValue(const int value);
+
+  void SetTosValue(const bool value);
+
+  void SetTosValue(const Object& value);
 
 private:
   std::shared_ptr<ScopeLayer> current_layer_;

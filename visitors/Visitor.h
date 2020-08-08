@@ -23,6 +23,9 @@ public:
   virtual void Visit(std::shared_ptr<ast::Assignment> assignment) = 0;
   virtual void Visit(std::shared_ptr<ast::StatementList> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::PrintStatement> expression) = 0;
+  virtual void Visit(std::shared_ptr<ast::IfElseStatement> expression) = 0;
+  virtual void Visit(std::shared_ptr<ast::IfStatement> expression) = 0;
+
   //virtual void Visit(std::shared_ptr<ast::PlainIdent> expression) = 0;
   //virtual void Visit(std::shared_ptr<ast::ClassDeclaration> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::ClassDeclarationList> expression) = 0;

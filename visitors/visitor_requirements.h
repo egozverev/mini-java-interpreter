@@ -21,6 +21,8 @@
 
 #include "statements/Statement.h"
 #include "statements/PrintStatement.h"
+#include "statements/IfElseStatement.h"
+#include "statements/IfStatement.h"
 #include "statements/StatementList.h"
 
 #include "values/Lvalue.h"

@@ -33,6 +33,8 @@
         class Statement;
         class StatementList;
         class PrintStatement;
+        class IfStatement;
+        class IfElseStatement;
 
         class Lvalue;
         class PlainIdent;
@@ -82,6 +84,9 @@
     #include "statements/Statement.h"
     #include "statements/StatementList.h"
     #include "statements/PrintStatement.h"
+    #include "statements/IfStatement.h"
+    #include "statements/IfElseStatement.h"
+
 
     #include "values/Lvalue.h"
     #include "values/PlainIdent.h"
@@ -135,6 +140,8 @@
     STATIC_KW "static"
     CLASS_KW "class"
     MAIN_KW "main"
+    IF_KW "if"
+    ELSE_KW "else"
     PRINT "print"
 ;
 
@@ -227,8 +234,10 @@ array_type:
 statement :	"assert" "(" expr ")" {}
     | local_variable_declaration {$$ = $1;}
     | "{" statements "}" {$$ = $2;}
-    | "if"  "(" expr ")" statement {}
-    | "if"  "(" expr ")" statement "else" statement {}
+    | "if"  "(" expr ")" statement {$$ = std::make_shared<ast::IfStatement>($3, $5);}
+    | "if"  "(" expr ")" statement "else" statement {
+    $$ = std::make_shared<ast::IfElseStatement>($3, $5, $7);
+    }
     | "while" "(" expr ")" statement {}
     | "print" "(" expr")" ";" {$$ = std::make_shared<ast::PrintStatement>($3);}
     | lvalue "=" expr ";" {$$ = std::make_shared<ast::Assignment>($1, driver, $3);}
@@ -265,12 +274,13 @@ expr :
     | "new" simple_type "[" expr "]" {}
     | "new" type_identifier "(" ")" {}
     | "!" expr {}
-    | "(" expr ")" {}
+    | "(" expr ")" {$$ = $2;}
     | "identifier" {$$ = std::make_shared<ast::IdentExpression> ($1, driver);}
     | "number" {$$ = std::make_shared<ast::PlainNumberExpression> ($1);}
     | "this" {}
-    | "true" {$$ = std::make_shared<ast::PlainBooleanExpression> (true);}
-    | "false" {$$ = std::make_shared<ast::PlainBooleanExpression> (false);}
+    | "bool" {$$ = std::make_shared<ast::PlainBooleanExpression> ($1);}
+    //| "true" {$$ = std::make_shared<ast::PlainBooleanExpression> (true);}
+    //| "false" {$$ = std::make_shared<ast::PlainBooleanExpression> (false);}
     | method_invocation {}
     | expr "&&" expr {$$ = std::make_shared<ast::AndExpression>($1, $3);}
     | expr "||" expr {$$ = std::make_shared<ast::OrExpression>($1, $3);}

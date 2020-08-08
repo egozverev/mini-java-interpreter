@@ -63,6 +63,8 @@ blank [ \t\r]
 "static"   return yy::parser::make_STATIC_KW (loc);
 "class"    return yy::parser::make_CLASS_KW (loc);
 "main"     return yy::parser::make_MAIN_KW (loc);
+"if"       return yy::parser::make_IF_KW (loc);
+"else"     return yy::parser::make_ELSE_KW (loc);
 "System.out.println"    return yy::parser::make_PRINT (loc);
 "int"      return yy::parser::make_INT_T (loc);
 "boolean"  return yy::parser::make_BOOLEAN_T (loc);

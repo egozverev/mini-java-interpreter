@@ -10,7 +10,7 @@ void ScopeLayer::DeclareVariable(const Symbol &symbol) {
     throw std::runtime_error("Variable has been declared");
   }
 
-  values_[symbol] = std::make_shared<UninitObject>();
+  values_[symbol] = std::make_shared<Object>();
   offsets_[symbol] = symbols_.size();
   symbols_.push_back(symbol);
 }

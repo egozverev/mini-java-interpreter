@@ -43,6 +43,11 @@ public:
 
   void Visit(std::shared_ptr<ast::PrintStatement> expression) override;
 
+  void Visit(std::shared_ptr<ast::IfElseStatement> expression) override;
+
+  void Visit(std::shared_ptr<ast::IfStatement> expression) override;
+
+
   //void Visit(std::shared_ptr<ast::PlainIdent> expression) override;
 
   void Visit(std::shared_ptr<ast::StatementList> statement_list) override;

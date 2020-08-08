@@ -60,7 +60,11 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::EqualExpression> expression) 
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Assignment> assignment) {
   std::string value_name = assignment->GetLvalue()->GetId();
-  if (!current_layer_->Has(Symbol(value_name))) {
+  auto search_layer = current_layer_;
+  while (!search_layer->Has(Symbol(value_name)) && search_layer != GetRoot()) {
+    search_layer = search_layer->GetParent();
+  }
+  if (!search_layer->Has(Symbol(value_name))) {
     throw std::runtime_error("Assignment of undeclared variable");
   }
 }
@@ -68,6 +72,30 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Assignment> assignment) {
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PrintStatement> statement) {
 
 }
+
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::IfElseStatement> statement) {
+  std::vector<std::shared_ptr<ast::Statement>> statements {
+    statement->GetTrueStatement(), statement->GetFalseStatement()
+  };
+  for (auto& stmt: statements){
+    auto next_layer = std::make_shared<ScopeLayer>();
+    current_layer_->AddChild(next_layer);
+    current_layer_ = next_layer;
+    stmt->Accept(*this);
+    current_layer_ = current_layer_->GetParent();
+  }
+
+
+}
+
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::IfStatement> statement) {
+  auto next_layer = std::make_shared<ScopeLayer>();
+  current_layer_->AddChild(next_layer);
+  current_layer_ = next_layer;
+  statement->GetStatement()->Accept(*this);
+  current_layer_ = current_layer_->GetParent();
+}
+
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list) {
   auto next_layer = std::make_shared<ScopeLayer>();

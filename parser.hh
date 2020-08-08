@@ -72,6 +72,8 @@
         class Statement;
         class StatementList;
         class PrintStatement;
+        class IfStatement;
+        class IfElseStatement;
 
         class Lvalue;
         class PlainIdent;
@@ -90,7 +92,7 @@
         class UserType;
     }
 
-#line 94 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 96 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -224,7 +226,7 @@
 #endif
 
 namespace yy {
-#line 228 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 230 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -541,10 +543,12 @@ namespace yy {
         TOK_STATIC_KW = 280,
         TOK_CLASS_KW = 281,
         TOK_MAIN_KW = 282,
-        TOK_PRINT = 283,
-        TOK_IDENTIFIER = 284,
-        TOK_NUMBER = 285,
-        TOK_BOOLEAN = 286
+        TOK_IF_KW = 283,
+        TOK_ELSE_KW = 284,
+        TOK_PRINT = 285,
+        TOK_IDENTIFIER = 286,
+        TOK_NUMBER = 287,
+        TOK_BOOLEAN = 288
       };
     };
 
@@ -790,57 +794,57 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.template destroy< bool > ();
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.template destroy< int > ();
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.template destroy< std::shared_ptr<ast::ClassDeclaration>  > ();
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.template destroy< std::shared_ptr<ast::ClassDeclarationList>  > ();
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.template destroy< std::shared_ptr<ast::Expression>  > ();
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.template destroy< std::shared_ptr<ast::Lvalue>  > ();
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.template destroy< std::shared_ptr<ast::MainClass>  > ();
         break;
 
-      case 51: // program
+      case 49: // program
         value.template destroy< std::shared_ptr<ast::Program>  > ();
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.template destroy< std::shared_ptr<ast::Statement>  > ();
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.template destroy< std::shared_ptr<ast::StatementList>  > ();
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.template destroy< std::shared_ptr<ast::Type>  > ();
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.template destroy< std::shared_ptr<ast::VariableDeclaration>  > ();
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.template destroy< std::string > ();
         break;
 
@@ -920,13 +924,13 @@ switch (yytype)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_PRINT || tok == 287 || tok == 288 || tok == 289 || tok == 290 || tok == 291 || tok == 292 || tok == 293 || tok == 294 || tok == 295 || tok == 296 || tok == 297 || tok == 298 || tok == 299);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_IF_KW || tok == token::TOK_ELSE_KW || tok == token::TOK_PRINT || tok == 289 || tok == 290 || tok == 291 || tok == 292 || tok == 293 || tok == 294 || tok == 295 || tok == 296 || tok == 297);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_PRINT || tok == 287 || tok == 288 || tok == 289 || tok == 290 || tok == 291 || tok == 292 || tok == 293 || tok == 294 || tok == 295 || tok == 296 || tok == 297 || tok == 298 || tok == 299);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_IF_KW || tok == token::TOK_ELSE_KW || tok == token::TOK_PRINT || tok == 289 || tok == 290 || tok == 291 || tok == 292 || tok == 293 || tok == 294 || tok == 295 || tok == 296 || tok == 297);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1398,6 +1402,36 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_IF_KW (location_type l)
+      {
+        return symbol_type (token::TOK_IF_KW, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_IF_KW (const location_type& l)
+      {
+        return symbol_type (token::TOK_IF_KW, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ELSE_KW (location_type l)
+      {
+        return symbol_type (token::TOK_ELSE_KW, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ELSE_KW (const location_type& l)
+      {
+        return symbol_type (token::TOK_ELSE_KW, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_PRINT (location_type l)
       {
         return symbol_type (token::TOK_PRINT, std::move (l));
@@ -1761,10 +1795,10 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 482,     ///< Last index in yytable_.
+      yylast_ = 456,     ///< Last index in yytable_.
       yynnts_ = 21,  ///< Number of nonterminal symbols.
       yyfinal_ = 6, ///< Termination state number.
-      yyntokens_ = 45  ///< Number of tokens.
+      yyntokens_ = 43  ///< Number of tokens.
     };
 
 
@@ -1812,9 +1846,9 @@ switch (yytype)
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39,    40,    41,    42,    43,    44
+      35,    36,    37,    38,    39,    40,    41,    42
     };
-    const int user_token_number_max_ = 299;
+    const int user_token_number_max_ = 297;
 
     if (t <= 0)
       return yyeof_;
@@ -1834,57 +1868,57 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.move< bool > (std::move (that.value));
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.move< int > (std::move (that.value));
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.move< std::shared_ptr<ast::ClassDeclaration>  > (std::move (that.value));
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.move< std::shared_ptr<ast::ClassDeclarationList>  > (std::move (that.value));
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.move< std::shared_ptr<ast::Expression>  > (std::move (that.value));
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.move< std::shared_ptr<ast::Lvalue>  > (std::move (that.value));
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.move< std::shared_ptr<ast::MainClass>  > (std::move (that.value));
         break;
 
-      case 51: // program
+      case 49: // program
         value.move< std::shared_ptr<ast::Program>  > (std::move (that.value));
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.move< std::shared_ptr<ast::Statement>  > (std::move (that.value));
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.move< std::shared_ptr<ast::StatementList>  > (std::move (that.value));
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.move< std::shared_ptr<ast::Type>  > (std::move (that.value));
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (std::move (that.value));
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -1903,57 +1937,57 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.copy< bool > (YY_MOVE (that.value));
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.copy< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (that.value));
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.copy< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (that.value));
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.copy< std::shared_ptr<ast::Expression>  > (YY_MOVE (that.value));
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.copy< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (that.value));
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.copy< std::shared_ptr<ast::MainClass>  > (YY_MOVE (that.value));
         break;
 
-      case 51: // program
+      case 49: // program
         value.copy< std::shared_ptr<ast::Program>  > (YY_MOVE (that.value));
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.copy< std::shared_ptr<ast::Statement>  > (YY_MOVE (that.value));
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.copy< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.copy< std::shared_ptr<ast::Type>  > (YY_MOVE (that.value));
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.copy< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (that.value));
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1979,57 +2013,57 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.move< bool > (YY_MOVE (s.value));
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.move< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (s.value));
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.move< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (s.value));
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.move< std::shared_ptr<ast::Expression>  > (YY_MOVE (s.value));
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.move< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (s.value));
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.move< std::shared_ptr<ast::MainClass>  > (YY_MOVE (s.value));
         break;
 
-      case 51: // program
+      case 49: // program
         value.move< std::shared_ptr<ast::Program>  > (YY_MOVE (s.value));
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.move< std::shared_ptr<ast::Statement>  > (YY_MOVE (s.value));
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.move< std::shared_ptr<ast::StatementList>  > (YY_MOVE (s.value));
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.move< std::shared_ptr<ast::Type>  > (YY_MOVE (s.value));
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (s.value));
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -2088,7 +2122,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2092 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2126 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

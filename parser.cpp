@@ -41,7 +41,7 @@
 
 
 // Unqualified %code blocks.
-#line 60 "grammar/parser.y"
+#line 62 "grammar/parser.y"
 
     #include "grammar/driver.hh"
     #include "location.hh"
@@ -67,6 +67,9 @@
     #include "statements/Statement.h"
     #include "statements/StatementList.h"
     #include "statements/PrintStatement.h"
+    #include "statements/IfStatement.h"
+    #include "statements/IfElseStatement.h"
+
 
     #include "values/Lvalue.h"
     #include "values/PlainIdent.h"
@@ -83,7 +86,7 @@
         return scanner.ScanToken();
     }
 
-#line 87 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 90 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
 
 #ifndef YY_
@@ -174,7 +177,7 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 namespace yy {
-#line 178 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 181 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -285,57 +288,57 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.YY_MOVE_OR_COPY< bool > (YY_MOVE (that.value));
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (that.value));
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (that.value));
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Expression>  > (YY_MOVE (that.value));
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (that.value));
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::MainClass>  > (YY_MOVE (that.value));
         break;
 
-      case 51: // program
+      case 49: // program
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Program>  > (YY_MOVE (that.value));
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Statement>  > (YY_MOVE (that.value));
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::Type>  > (YY_MOVE (that.value));
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.YY_MOVE_OR_COPY< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (that.value));
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -354,57 +357,57 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.move< bool > (YY_MOVE (that.value));
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.move< std::shared_ptr<ast::ClassDeclaration>  > (YY_MOVE (that.value));
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.move< std::shared_ptr<ast::ClassDeclarationList>  > (YY_MOVE (that.value));
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.move< std::shared_ptr<ast::Expression>  > (YY_MOVE (that.value));
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.move< std::shared_ptr<ast::Lvalue>  > (YY_MOVE (that.value));
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.move< std::shared_ptr<ast::MainClass>  > (YY_MOVE (that.value));
         break;
 
-      case 51: // program
+      case 49: // program
         value.move< std::shared_ptr<ast::Program>  > (YY_MOVE (that.value));
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.move< std::shared_ptr<ast::Statement>  > (YY_MOVE (that.value));
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.move< std::shared_ptr<ast::StatementList>  > (YY_MOVE (that.value));
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.move< std::shared_ptr<ast::Type>  > (YY_MOVE (that.value));
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (that.value));
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -423,57 +426,57 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.copy< bool > (that.value);
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.copy< int > (that.value);
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.copy< std::shared_ptr<ast::ClassDeclaration>  > (that.value);
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.copy< std::shared_ptr<ast::ClassDeclarationList>  > (that.value);
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.copy< std::shared_ptr<ast::Expression>  > (that.value);
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.copy< std::shared_ptr<ast::Lvalue>  > (that.value);
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.copy< std::shared_ptr<ast::MainClass>  > (that.value);
         break;
 
-      case 51: // program
+      case 49: // program
         value.copy< std::shared_ptr<ast::Program>  > (that.value);
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.copy< std::shared_ptr<ast::Statement>  > (that.value);
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.copy< std::shared_ptr<ast::StatementList>  > (that.value);
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.copy< std::shared_ptr<ast::Type>  > (that.value);
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.copy< std::shared_ptr<ast::VariableDeclaration>  > (that.value);
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.copy< std::string > (that.value);
         break;
 
@@ -491,57 +494,57 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 31: // "bool"
+      case 33: // "bool"
         value.move< bool > (that.value);
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         value.move< int > (that.value);
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         value.move< std::shared_ptr<ast::ClassDeclaration>  > (that.value);
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         value.move< std::shared_ptr<ast::ClassDeclarationList>  > (that.value);
         break;
 
-      case 46: // expr
+      case 44: // expr
         value.move< std::shared_ptr<ast::Expression>  > (that.value);
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         value.move< std::shared_ptr<ast::Lvalue>  > (that.value);
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         value.move< std::shared_ptr<ast::MainClass>  > (that.value);
         break;
 
-      case 51: // program
+      case 49: // program
         value.move< std::shared_ptr<ast::Program>  > (that.value);
         break;
 
-      case 49: // statement
+      case 47: // statement
         value.move< std::shared_ptr<ast::Statement>  > (that.value);
         break;
 
-      case 48: // statements
+      case 46: // statements
         value.move< std::shared_ptr<ast::StatementList>  > (that.value);
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         value.move< std::shared_ptr<ast::Type>  > (that.value);
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (that.value);
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         value.move< std::string > (that.value);
         break;
 
@@ -795,57 +798,57 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 31: // "bool"
+      case 33: // "bool"
         yylhs.value.emplace< bool > ();
         break;
 
-      case 30: // "number"
+      case 32: // "number"
         yylhs.value.emplace< int > ();
         break;
 
-      case 53: // class_declaration
+      case 51: // class_declaration
         yylhs.value.emplace< std::shared_ptr<ast::ClassDeclaration>  > ();
         break;
 
-      case 52: // class_declarations
+      case 50: // class_declarations
         yylhs.value.emplace< std::shared_ptr<ast::ClassDeclarationList>  > ();
         break;
 
-      case 46: // expr
+      case 44: // expr
         yylhs.value.emplace< std::shared_ptr<ast::Expression>  > ();
         break;
 
-      case 47: // lvalue
+      case 45: // lvalue
         yylhs.value.emplace< std::shared_ptr<ast::Lvalue>  > ();
         break;
 
-      case 50: // main_class
+      case 48: // main_class
         yylhs.value.emplace< std::shared_ptr<ast::MainClass>  > ();
         break;
 
-      case 51: // program
+      case 49: // program
         yylhs.value.emplace< std::shared_ptr<ast::Program>  > ();
         break;
 
-      case 49: // statement
+      case 47: // statement
         yylhs.value.emplace< std::shared_ptr<ast::Statement>  > ();
         break;
 
-      case 48: // statements
+      case 46: // statements
         yylhs.value.emplace< std::shared_ptr<ast::StatementList>  > ();
         break;
 
-      case 56: // simple_type
-      case 57: // type
+      case 54: // simple_type
+      case 55: // type
         yylhs.value.emplace< std::shared_ptr<ast::Type>  > ();
         break;
 
-      case 54: // variable_declaration
-      case 55: // local_variable_declaration
+      case 52: // variable_declaration
+      case 53: // local_variable_declaration
         yylhs.value.emplace< std::shared_ptr<ast::VariableDeclaration>  > ();
         break;
 
-      case 29: // "identifier"
+      case 31: // "identifier"
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -870,385 +873,381 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 170 "grammar/parser.y"
+#line 177 "grammar/parser.y"
 {
     yylhs.value.as < std::shared_ptr<ast::Program>  > () = std::make_shared<ast::Program>(yystack_[1].value.as < std::shared_ptr<ast::MainClass>  > (), yystack_[0].value.as < std::shared_ptr<ast::ClassDeclarationList>  > ());
     driver.program = yylhs.value.as < std::shared_ptr<ast::Program>  > ();
 
 }
-#line 880 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 883 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 3:
-#line 178 "grammar/parser.y"
+#line 185 "grammar/parser.y"
 {
     yylhs.value.as < std::shared_ptr<ast::MainClass>  > () = std::make_shared<ast::MainClass>(yystack_[2].value.as < std::shared_ptr<ast::StatementList>  > ());
 }
-#line 888 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 891 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 4:
-#line 184 "grammar/parser.y"
+#line 191 "grammar/parser.y"
         {yylhs.value.as < std::shared_ptr<ast::ClassDeclarationList>  > () = std::make_shared<ast::ClassDeclarationList>();}
-#line 894 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 897 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 5:
-#line 185 "grammar/parser.y"
+#line 192 "grammar/parser.y"
                                         {yystack_[1].value.as < std::shared_ptr<ast::ClassDeclarationList>  > () -> AddDeclaration(yystack_[0].value.as < std::shared_ptr<ast::ClassDeclaration>  > ()); yylhs.value.as < std::shared_ptr<ast::ClassDeclarationList>  > () = yystack_[1].value.as < std::shared_ptr<ast::ClassDeclarationList>  > ();}
-#line 900 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 903 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 6:
-#line 188 "grammar/parser.y"
+#line 195 "grammar/parser.y"
            {yylhs.value.as < std::shared_ptr<ast::StatementList>  > () = std::make_shared<ast::StatementList>(); yylhs.value.as < std::shared_ptr<ast::StatementList>  > () -> AddStatement(yystack_[0].value.as < std::shared_ptr<ast::Statement>  > ());}
-#line 906 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 909 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 7:
-#line 189 "grammar/parser.y"
+#line 196 "grammar/parser.y"
                         {yystack_[1].value.as < std::shared_ptr<ast::StatementList>  > () -> AddStatement(yystack_[0].value.as < std::shared_ptr<ast::Statement>  > ()); yylhs.value.as < std::shared_ptr<ast::StatementList>  > () = yystack_[1].value.as < std::shared_ptr<ast::StatementList>  > ();}
-#line 912 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 915 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 8:
-#line 191 "grammar/parser.y"
+#line 198 "grammar/parser.y"
                                                                   {yylhs.value.as < std::shared_ptr<ast::ClassDeclaration>  > () = std::make_shared<ast::ClassDeclaration>();}
-#line 918 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 921 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 9:
-#line 192 "grammar/parser.y"
+#line 199 "grammar/parser.y"
                                                                                {}
-#line 924 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 927 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 10:
-#line 195 "grammar/parser.y"
+#line 202 "grammar/parser.y"
            {}
-#line 930 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 933 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 11:
-#line 196 "grammar/parser.y"
+#line 203 "grammar/parser.y"
                                {}
-#line 936 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 939 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 12:
-#line 199 "grammar/parser.y"
+#line 206 "grammar/parser.y"
                          {}
-#line 942 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 945 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 13:
-#line 200 "grammar/parser.y"
+#line 207 "grammar/parser.y"
                          {}
-#line 948 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 951 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 14:
-#line 203 "grammar/parser.y"
+#line 210 "grammar/parser.y"
                                                           {}
-#line 954 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 957 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 15:
-#line 204 "grammar/parser.y"
+#line 211 "grammar/parser.y"
                                                                     {}
-#line 960 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 963 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 16:
-#line 206 "grammar/parser.y"
+#line 213 "grammar/parser.y"
                                              {yylhs.value.as < std::shared_ptr<ast::VariableDeclaration>  > () = std::make_shared<ast::VariableDeclaration>(yystack_[1].value.as < std::string > (), yystack_[2].value.as < std::shared_ptr<ast::Type>  > ());}
-#line 966 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 969 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 17:
-#line 209 "grammar/parser.y"
+#line 216 "grammar/parser.y"
                       {}
-#line 972 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 975 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 18:
-#line 210 "grammar/parser.y"
+#line 217 "grammar/parser.y"
                                 {}
-#line 978 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 981 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 19:
-#line 213 "grammar/parser.y"
+#line 220 "grammar/parser.y"
                 {}
-#line 984 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 987 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 20:
-#line 214 "grammar/parser.y"
+#line 221 "grammar/parser.y"
                  {}
-#line 990 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 993 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 21:
-#line 217 "grammar/parser.y"
+#line 224 "grammar/parser.y"
               {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::Boolean>();}
-#line 996 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 999 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 22:
-#line 218 "grammar/parser.y"
+#line 225 "grammar/parser.y"
             {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::Integer>();}
-#line 1002 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1005 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 23:
-#line 219 "grammar/parser.y"
+#line 226 "grammar/parser.y"
              {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::Void>();}
-#line 1008 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1011 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 24:
-#line 220 "grammar/parser.y"
+#line 227 "grammar/parser.y"
                       {yylhs.value.as < std::shared_ptr<ast::Type>  > () = std::make_shared<ast::UserType>();}
-#line 1014 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1017 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 25:
-#line 224 "grammar/parser.y"
+#line 231 "grammar/parser.y"
                         {}
-#line 1020 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1023 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 26:
-#line 227 "grammar/parser.y"
+#line 234 "grammar/parser.y"
                                       {}
-#line 1026 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1029 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 27:
-#line 228 "grammar/parser.y"
+#line 235 "grammar/parser.y"
                                  {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = yystack_[0].value.as < std::shared_ptr<ast::VariableDeclaration>  > ();}
-#line 1032 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1035 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 28:
-#line 229 "grammar/parser.y"
+#line 236 "grammar/parser.y"
                          {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = yystack_[1].value.as < std::shared_ptr<ast::StatementList>  > ();}
-#line 1038 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1041 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 29:
-#line 230 "grammar/parser.y"
-                                   {}
-#line 1044 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 237 "grammar/parser.y"
+                                   {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::IfStatement>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Statement>  > ());}
+#line 1047 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 30:
-#line 231 "grammar/parser.y"
-                                                    {}
-#line 1050 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 238 "grammar/parser.y"
+                                                    {
+    yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::IfElseStatement>(yystack_[4].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[2].value.as < std::shared_ptr<ast::Statement>  > (), yystack_[0].value.as < std::shared_ptr<ast::Statement>  > ());
+    }
+#line 1055 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 31:
-#line 232 "grammar/parser.y"
+#line 241 "grammar/parser.y"
                                      {}
-#line 1056 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1061 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 32:
-#line 233 "grammar/parser.y"
+#line 242 "grammar/parser.y"
                               {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::PrintStatement>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1062 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1067 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 33:
-#line 234 "grammar/parser.y"
+#line 243 "grammar/parser.y"
                           {yylhs.value.as < std::shared_ptr<ast::Statement>  > () = std::make_shared<ast::Assignment>(yystack_[3].value.as < std::shared_ptr<ast::Lvalue>  > (), driver, yystack_[1].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1068 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1073 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 34:
-#line 235 "grammar/parser.y"
+#line 244 "grammar/parser.y"
                         {}
-#line 1074 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1079 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 35:
-#line 236 "grammar/parser.y"
+#line 245 "grammar/parser.y"
                             {}
-#line 1080 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1085 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 36:
-#line 240 "grammar/parser.y"
+#line 249 "grammar/parser.y"
                          {yylhs.value.as < std::shared_ptr<ast::VariableDeclaration>  > () = yystack_[0].value.as < std::shared_ptr<ast::VariableDeclaration>  > ();}
-#line 1086 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1091 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 39:
-#line 247 "grammar/parser.y"
+#line 256 "grammar/parser.y"
          {}
-#line 1092 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1097 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 40:
-#line 248 "grammar/parser.y"
+#line 257 "grammar/parser.y"
                        {}
-#line 1098 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1103 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 41:
-#line 251 "grammar/parser.y"
+#line 260 "grammar/parser.y"
                  {yylhs.value.as < std::shared_ptr<ast::Lvalue>  > () = std::make_shared<ast::PlainIdent>(yystack_[0].value.as < std::string > ());}
-#line 1104 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1109 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 42:
-#line 252 "grammar/parser.y"
+#line 261 "grammar/parser.y"
                                 {}
-#line 1110 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1115 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 43:
-#line 255 "grammar/parser.y"
+#line 264 "grammar/parser.y"
                  {}
-#line 1116 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1121 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 44:
-#line 258 "grammar/parser.y"
+#line 267 "grammar/parser.y"
                   {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::AddExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1122 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1127 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 45:
-#line 259 "grammar/parser.y"
+#line 268 "grammar/parser.y"
                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::SubstractExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1128 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1133 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 46:
-#line 260 "grammar/parser.y"
+#line 269 "grammar/parser.y"
                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::MulExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1134 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1139 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 47:
-#line 261 "grammar/parser.y"
+#line 270 "grammar/parser.y"
                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::DivExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1140 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1145 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 48:
-#line 262 "grammar/parser.y"
+#line 271 "grammar/parser.y"
                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::ModExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1146 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1151 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 49:
-#line 263 "grammar/parser.y"
+#line 272 "grammar/parser.y"
                         {}
-#line 1152 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1157 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 50:
-#line 264 "grammar/parser.y"
+#line 273 "grammar/parser.y"
                         {}
-#line 1158 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1163 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 51:
-#line 265 "grammar/parser.y"
+#line 274 "grammar/parser.y"
                                      {}
-#line 1164 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1169 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 52:
-#line 266 "grammar/parser.y"
+#line 275 "grammar/parser.y"
                                     {}
-#line 1170 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1175 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 53:
-#line 267 "grammar/parser.y"
+#line 276 "grammar/parser.y"
                {}
-#line 1176 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1181 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 54:
-#line 268 "grammar/parser.y"
-                   {}
-#line 1182 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 277 "grammar/parser.y"
+                   {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = yystack_[1].value.as < std::shared_ptr<ast::Expression>  > ();}
+#line 1187 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 55:
-#line 269 "grammar/parser.y"
+#line 278 "grammar/parser.y"
                    {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::IdentExpression> (yystack_[0].value.as < std::string > (), driver);}
-#line 1188 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1193 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 56:
-#line 270 "grammar/parser.y"
+#line 279 "grammar/parser.y"
                {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::PlainNumberExpression> (yystack_[0].value.as < int > ());}
-#line 1194 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1199 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 57:
-#line 271 "grammar/parser.y"
+#line 280 "grammar/parser.y"
              {}
-#line 1200 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1205 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 58:
-#line 272 "grammar/parser.y"
-             {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::PlainBooleanExpression> (true);}
-#line 1206 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 281 "grammar/parser.y"
+             {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::PlainBooleanExpression> (yystack_[0].value.as < bool > ());}
+#line 1211 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 59:
-#line 273 "grammar/parser.y"
-              {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::PlainBooleanExpression> (false);}
-#line 1212 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 284 "grammar/parser.y"
+                        {}
+#line 1217 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 60:
-#line 274 "grammar/parser.y"
-                        {}
-#line 1218 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 285 "grammar/parser.y"
+                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::AndExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
+#line 1223 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 61:
-#line 275 "grammar/parser.y"
-                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::AndExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1224 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 286 "grammar/parser.y"
+                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::OrExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
+#line 1229 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 62:
-#line 276 "grammar/parser.y"
-                     {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::OrExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1230 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 287 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::LessExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
+#line 1235 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 63:
-#line 277 "grammar/parser.y"
-                    {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::LessExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1236 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 288 "grammar/parser.y"
+                    {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::GreaterExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
+#line 1241 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
   case 64:
-#line 278 "grammar/parser.y"
-                    {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::GreaterExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1242 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
-    break;
-
-  case 65:
-#line 279 "grammar/parser.y"
+#line 289 "grammar/parser.y"
                      {yylhs.value.as < std::shared_ptr<ast::Expression>  > () = std::make_shared<ast::EqualExpression>(yystack_[2].value.as < std::shared_ptr<ast::Expression>  > (), yystack_[0].value.as < std::shared_ptr<ast::Expression>  > ());}
-#line 1248 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1247 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 
 
-#line 1252 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1251 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
             default:
               break;
@@ -1519,29 +1518,29 @@ namespace yy {
   }
 
 
-  const signed char parser::yypact_ninf_ = -62;
+  const signed char parser::yypact_ninf_ = -60;
 
   const signed char parser::yytable_ninf_ = -44;
 
   const short
   parser::yypact_[] =
   {
-      -5,   -17,   -62,    24,     6,     7,   -62,    17,    14,   -62,
-      30,    23,    43,    36,   -62,    42,    41,    92,    63,    57,
-     -62,   -62,   -62,   -62,   -12,   -62,   -62,    59,    49,   -62,
-     -62,   -62,   -62,    67,    61,    53,    65,    81,    71,   -62,
-      84,   -62,   -62,   219,   274,     5,   277,   219,   100,     3,
-     -62,   101,   108,   111,   277,   -12,   277,   -62,   -62,   -62,
-     430,   118,   115,   -62,   -62,   -62,   120,   -62,   106,    97,
-     129,   -62,   317,   -62,   141,   277,   277,   277,   277,   277,
-     261,   123,   119,   430,   277,   277,   277,   277,   277,   277,
-     277,   277,   277,   277,   277,   -21,   277,   121,   -62,   -62,
-     219,   -12,   127,   -62,   -62,   330,   345,   359,   374,   388,
-     -62,   277,   132,   444,   444,    48,    48,   430,   430,   430,
-     430,   430,   430,   402,   138,   -62,   276,   -62,   167,   -62,
-     219,   150,   -62,   -62,   219,   219,   416,   -62,   -62,    12,
-     -62,   -62,   193,   -62,   130,   -62,   -62,   -62,   277,   -62,
-     219,    89,   136,   -62,   -62,   156,   -62
+     -13,    -7,   -60,    26,     9,    31,   -60,    34,    41,   -60,
+      48,   -12,    53,    44,   -60,    52,    49,    43,    72,    65,
+     -60,   -60,   -60,   -60,    38,   -60,   -60,    68,    57,   -60,
+     -60,   -60,   -60,    79,    89,    78,   104,   115,   105,   -60,
+     114,   -60,   -60,   252,   416,    -2,     0,   252,   116,   118,
+       8,   -60,   -60,   123,   138,     0,    38,     0,   -60,   404,
+     133,   152,   -60,   -60,   -60,   149,   -60,   134,   131,   153,
+     -60,   290,   -60,   177,     0,     0,     0,     0,     0,   128,
+     147,   156,   404,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,   -28,     0,   148,   -60,   -60,   252,
+      38,   150,   -60,   -60,   303,   319,   332,   348,   361,   -60,
+       0,   157,   418,   418,   100,   100,   404,   404,   404,   404,
+     404,   404,   376,   161,   -60,   143,   -60,   202,   -60,   252,
+     252,   173,   -60,   -60,   252,   390,   -60,   -60,     6,   -60,
+     -60,   227,   162,   -60,   -60,   -60,   -60,     0,   -60,   252,
+      88,   159,   -60,   -60,   168,   -60
   };
 
   const signed char
@@ -1551,175 +1550,169 @@ namespace yy {
        0,     0,     0,     0,    10,     0,     0,     0,     0,     0,
        8,    22,    21,    23,     0,    43,    12,    19,     0,    11,
       13,    20,    24,     0,     0,     0,     0,     0,     0,    10,
-       0,    25,    16,     0,     0,     0,     0,     0,     0,    55,
-      56,     0,     0,     0,     0,     0,     0,    57,    58,    59,
-       0,     0,     0,     6,    36,    27,    60,     9,     0,     0,
-       0,    55,     0,    60,     0,     0,     0,     0,     0,     0,
-       0,     0,    24,    53,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     7,    35,
-       0,    17,     0,    54,    28,     0,     0,     0,     0,     0,
-      34,     0,     0,    45,    44,    46,    47,    65,    61,    62,
-      63,    64,    48,     0,     0,    50,     0,     3,     0,    18,
-       0,     0,    42,    26,     0,     0,     0,    52,    49,     0,
-      33,    14,     0,    32,    29,    31,    51,    37,     0,    15,
-       0,    39,     0,    30,    40,     0,    38
+       0,    25,    16,     0,     0,     0,     0,     0,     0,     0,
+      55,    56,    58,     0,     0,     0,     0,     0,    57,     0,
+       0,     0,     6,    36,    27,    59,     9,     0,     0,     0,
+      55,     0,    59,     0,     0,     0,     0,     0,     0,     0,
+       0,    24,    53,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     7,    35,     0,
+      17,     0,    54,    28,     0,     0,     0,     0,     0,    34,
+       0,     0,    45,    44,    46,    47,    64,    60,    61,    62,
+      63,    48,     0,     0,    50,     0,     3,     0,    18,     0,
+       0,     0,    42,    26,     0,     0,    52,    49,     0,    33,
+      14,     0,    29,    32,    31,    51,    37,     0,    15,     0,
+      39,     0,    30,    40,     0,    38
   };
 
   const short
   parser::yypgoto_[] =
   {
-     -62,   -40,   -62,   -42,   -61,   -62,   -62,   -62,   -62,   -14,
-     -62,   112,   -22,   133,   -62,   -62,    72,   -62,   -43,    28,
-     113
+     -60,   -40,   -60,   -37,   -59,   -60,   -60,   -60,   -60,    10,
+     -60,   139,   -23,   140,   -60,   -60,    90,   -60,   -43,    51,
+     146
   };
 
   const short
   parser::yydefgoto_[] =
   {
-      -1,    60,    61,    62,    63,     2,     3,     5,     9,    64,
-      65,    27,    28,    17,    29,    30,    70,    31,    73,   152,
+      -1,    59,    60,    61,    62,     2,     3,     5,     9,    63,
+      64,    27,    28,    17,    29,    30,    69,    31,    72,   151,
       32
   };
 
   const short
   parser::yytable_[] =
   {
-      66,    98,    35,    26,    66,    74,    72,   -41,   124,    21,
-      22,    23,     4,    98,    80,    68,    83,    25,   125,    66,
-      76,     1,   147,    69,     6,     7,    21,    22,    23,   148,
-      26,    66,   -43,     8,    25,   105,   106,   107,   108,   109,
-      13,    10,    14,    11,   113,   114,   115,   116,   117,   118,
-     119,   120,   121,   122,   123,    12,   126,    66,   128,    88,
-      89,    90,    91,    92,    93,    94,    15,    98,    16,    18,
-      19,   136,    33,   144,   145,    34,    36,    38,    37,    69,
-      39,    98,    40,    41,    42,    66,    95,    66,   142,   153,
-      43,    66,    66,    45,    84,    85,    86,    87,    46,    66,
-      88,    89,    90,    91,    92,    93,    94,    66,   151,    75,
-      77,   151,    20,    21,    22,    23,    24,    78,    71,    50,
-      79,    25,    96,    99,    46,   100,   101,    95,   112,    55,
-      56,    57,    58,    59,    47,    97,    21,    22,    23,   102,
-     111,   127,   137,    48,    49,    50,   130,   139,    51,    52,
-      46,    53,    54,   143,   155,    55,    56,    57,    58,    59,
-      47,   104,    21,    22,    23,   150,   156,    81,    82,    48,
-      49,    50,    44,   129,    51,    52,    46,    53,    54,   154,
-       0,    55,    56,    57,    58,    59,    47,   141,    21,    22,
-      23,     0,     0,     0,     0,    48,    49,    50,     0,     0,
-      51,    52,    46,    53,    54,     0,     0,    55,    56,    57,
-      58,    59,    47,   149,    21,    22,    23,     0,     0,     0,
-       0,    48,    49,    50,     0,     0,    51,    52,    46,    53,
-      54,     0,     0,    55,    56,    57,    58,    59,    47,     0,
-      21,    22,    23,     0,     0,     0,     0,    48,    49,    50,
-       0,     0,    51,    52,     0,    53,    54,     0,     0,    55,
-      56,    57,    58,    59,   110,     0,    84,    85,    86,    87,
-       0,     0,    88,    89,    90,    91,    92,    93,    94,   140,
-       0,    84,    85,    86,    87,     0,    46,    88,    89,    90,
-      91,    92,    93,    94,    67,    21,    22,    23,    24,    95,
-       0,     0,     0,    25,     0,     0,    71,    50,     0,     0,
-       0,     0,     0,     0,    95,     0,     0,    55,    56,    57,
-      58,    59,    84,    85,    86,    87,     0,   103,    88,    89,
-      90,    91,    92,    93,    94,    84,    85,    86,    87,     0,
-     131,    88,    89,    90,    91,    92,    93,    94,     0,     0,
-      84,    85,    86,    87,     0,    95,    88,    89,    90,    91,
-      92,    93,    94,   132,    84,    85,    86,    87,    95,   133,
-      88,    89,    90,    91,    92,    93,    94,     0,     0,    84,
-      85,    86,    87,    95,   134,    88,    89,    90,    91,    92,
-      93,    94,     0,    84,    85,    86,    87,    95,   135,    88,
-      89,    90,    91,    92,    93,    94,     0,    84,    85,    86,
-      87,     0,    95,    88,    89,    90,    91,    92,    93,    94,
-     138,    84,    85,    86,    87,     0,    95,    88,    89,    90,
-      91,    92,    93,    94,   146,    84,    85,    86,    87,     0,
-      95,    88,    89,    90,    91,    92,    93,    94,     0,     0,
-       0,    86,    87,     0,    95,    88,    89,    90,    91,    92,
-      93,    94,     0,     0,     0,     0,     0,     0,    95,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,    95
+      65,    35,    97,   123,    65,    13,    71,    14,    67,    46,
+      73,   124,   -41,     1,    97,    79,   146,    82,    65,    21,
+      22,    23,    68,   147,     4,    76,     6,    26,     7,    25,
+      65,    70,    51,    52,   104,   105,   106,   107,   108,   -43,
+      56,    57,    58,   112,   113,   114,   115,   116,   117,   118,
+     119,   120,   121,   122,    26,   125,    65,     8,    10,    21,
+      22,    23,   127,    20,    21,    22,    23,    24,    97,    25,
+     135,   142,    11,    12,    25,   144,    15,    68,    16,    18,
+      19,    33,    97,    34,    65,    36,    65,    65,    37,    38,
+     152,    65,   141,    83,    84,    85,    86,    46,    65,    87,
+      88,    89,    90,    91,    92,    93,    65,   150,    39,    40,
+     150,    87,    88,    89,    90,    91,    92,    93,    42,    70,
+      51,    52,    41,    45,    43,    74,    94,    75,    56,    57,
+      58,   109,    77,    83,    84,    85,    86,    95,    94,    87,
+      88,    89,    90,    91,    92,    93,   139,    78,    83,    84,
+      85,    86,    98,    99,    87,    88,    89,    90,    91,    92,
+      93,    46,   100,   101,   110,   111,    94,   136,   126,   129,
+     138,    47,    96,    21,    22,    23,   143,   154,   155,    44,
+      48,    94,    49,    50,    51,    52,    46,    53,    54,    55,
+     128,   149,    56,    57,    58,    80,    47,   103,    21,    22,
+      23,   153,    81,     0,     0,    48,     0,    49,    50,    51,
+      52,    46,    53,    54,    55,     0,     0,    56,    57,    58,
+       0,    47,   140,    21,    22,    23,     0,     0,     0,     0,
+      48,     0,    49,    50,    51,    52,    46,    53,    54,    55,
+       0,     0,    56,    57,    58,     0,    47,   148,    21,    22,
+      23,     0,     0,     0,     0,    48,     0,    49,    50,    51,
+      52,    46,    53,    54,    55,     0,     0,    56,    57,    58,
+       0,    47,     0,    21,    22,    23,     0,     0,     0,     0,
+      48,     0,    49,    50,    51,    52,     0,    53,    54,    55,
+       0,     0,    56,    57,    58,    83,    84,    85,    86,     0,
+     102,    87,    88,    89,    90,    91,    92,    93,    83,    84,
+      85,    86,     0,   130,    87,    88,    89,    90,    91,    92,
+      93,     0,     0,     0,    83,    84,    85,    86,    94,   131,
+      87,    88,    89,    90,    91,    92,    93,    83,    84,    85,
+      86,    94,     0,    87,    88,    89,    90,    91,    92,    93,
+     132,     0,     0,    83,    84,    85,    86,    94,   133,    87,
+      88,    89,    90,    91,    92,    93,    83,    84,    85,    86,
+      94,   134,    87,    88,    89,    90,    91,    92,    93,     0,
+       0,    83,    84,    85,    86,     0,    94,    87,    88,    89,
+      90,    91,    92,    93,   137,    83,    84,    85,    86,    94,
+       0,    87,    88,    89,    90,    91,    92,    93,   145,    83,
+      84,    85,    86,     0,    94,    87,    88,    89,    90,    91,
+      92,    93,     0,     0,     0,    85,    86,     0,    94,    87,
+      88,    89,    90,    91,    92,    93,    66,    21,    22,    23,
+      24,     0,    94,     0,     0,     0,     0,    25,     0,     0,
+       0,     0,     0,     0,     0,     0,    94
   };
 
   const short
   parser::yycheck_[] =
   {
-      43,    62,    24,    17,    47,    47,    46,     4,    29,    21,
-      22,    23,    29,    74,    54,    10,    56,    29,    39,    62,
-      17,    26,    10,    45,     0,    19,    21,    22,    23,    17,
-      44,    74,    29,    26,    29,    75,    76,    77,    78,    79,
-      17,    24,    19,    29,    84,    85,    86,    87,    88,    89,
-      90,    91,    92,    93,    94,    25,    96,   100,   100,    11,
-      12,    13,    14,    15,    16,    17,    23,   128,    32,    27,
-      29,   111,     9,   134,   135,    18,    17,    10,    29,   101,
-      19,   142,    29,    18,     3,   128,    38,   130,   130,   150,
-      19,   134,   135,     9,     5,     6,     7,     8,     9,   142,
-      11,    12,    13,    14,    15,    16,    17,   150,   148,     9,
-       9,   151,    20,    21,    22,    23,    24,     9,    29,    30,
-       9,    29,     4,     3,     9,    19,    29,    38,     9,    40,
-      41,    42,    43,    44,    19,    20,    21,    22,    23,    10,
-      17,    20,    10,    28,    29,    30,    19,     9,    33,    34,
-       9,    36,    37,     3,    18,    40,    41,    42,    43,    44,
-      19,    20,    21,    22,    23,    35,    10,    55,    55,    28,
-      29,    30,    39,   101,    33,    34,     9,    36,    37,   151,
-      -1,    40,    41,    42,    43,    44,    19,    20,    21,    22,
-      23,    -1,    -1,    -1,    -1,    28,    29,    30,    -1,    -1,
-      33,    34,     9,    36,    37,    -1,    -1,    40,    41,    42,
-      43,    44,    19,    20,    21,    22,    23,    -1,    -1,    -1,
-      -1,    28,    29,    30,    -1,    -1,    33,    34,     9,    36,
-      37,    -1,    -1,    40,    41,    42,    43,    44,    19,    -1,
-      21,    22,    23,    -1,    -1,    -1,    -1,    28,    29,    30,
-      -1,    -1,    33,    34,    -1,    36,    37,    -1,    -1,    40,
-      41,    42,    43,    44,     3,    -1,     5,     6,     7,     8,
-      -1,    -1,    11,    12,    13,    14,    15,    16,    17,     3,
-      -1,     5,     6,     7,     8,    -1,     9,    11,    12,    13,
-      14,    15,    16,    17,    20,    21,    22,    23,    24,    38,
-      -1,    -1,    -1,    29,    -1,    -1,    29,    30,    -1,    -1,
-      -1,    -1,    -1,    -1,    38,    -1,    -1,    40,    41,    42,
-      43,    44,     5,     6,     7,     8,    -1,    10,    11,    12,
-      13,    14,    15,    16,    17,     5,     6,     7,     8,    -1,
-      10,    11,    12,    13,    14,    15,    16,    17,    -1,    -1,
-       5,     6,     7,     8,    -1,    38,    11,    12,    13,    14,
-      15,    16,    17,    18,     5,     6,     7,     8,    38,    10,
-      11,    12,    13,    14,    15,    16,    17,    -1,    -1,     5,
-       6,     7,     8,    38,    10,    11,    12,    13,    14,    15,
-      16,    17,    -1,     5,     6,     7,     8,    38,    10,    11,
-      12,    13,    14,    15,    16,    17,    -1,     5,     6,     7,
-       8,    -1,    38,    11,    12,    13,    14,    15,    16,    17,
-      18,     5,     6,     7,     8,    -1,    38,    11,    12,    13,
-      14,    15,    16,    17,    18,     5,     6,     7,     8,    -1,
-      38,    11,    12,    13,    14,    15,    16,    17,    -1,    -1,
-      -1,     7,     8,    -1,    38,    11,    12,    13,    14,    15,
-      16,    17,    -1,    -1,    -1,    -1,    -1,    -1,    38,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    38
+      43,    24,    61,    31,    47,    17,    46,    19,    10,     9,
+      47,    39,     4,    26,    73,    55,    10,    57,    61,    21,
+      22,    23,    45,    17,    31,    17,     0,    17,    19,    31,
+      73,    31,    32,    33,    74,    75,    76,    77,    78,    31,
+      40,    41,    42,    83,    84,    85,    86,    87,    88,    89,
+      90,    91,    92,    93,    44,    95,    99,    26,    24,    21,
+      22,    23,    99,    20,    21,    22,    23,    24,   127,    31,
+     110,   130,    31,    25,    31,   134,    23,   100,    34,    27,
+      31,     9,   141,    18,   127,    17,   129,   130,    31,    10,
+     149,   134,   129,     5,     6,     7,     8,     9,   141,    11,
+      12,    13,    14,    15,    16,    17,   149,   147,    19,    31,
+     150,    11,    12,    13,    14,    15,    16,    17,     3,    31,
+      32,    33,    18,     9,    19,     9,    38,     9,    40,    41,
+      42,     3,     9,     5,     6,     7,     8,     4,    38,    11,
+      12,    13,    14,    15,    16,    17,     3,     9,     5,     6,
+       7,     8,     3,    19,    11,    12,    13,    14,    15,    16,
+      17,     9,    31,    10,    17,     9,    38,    10,    20,    19,
+       9,    19,    20,    21,    22,    23,     3,    18,    10,    39,
+      28,    38,    30,    31,    32,    33,     9,    35,    36,    37,
+     100,    29,    40,    41,    42,    56,    19,    20,    21,    22,
+      23,   150,    56,    -1,    -1,    28,    -1,    30,    31,    32,
+      33,     9,    35,    36,    37,    -1,    -1,    40,    41,    42,
+      -1,    19,    20,    21,    22,    23,    -1,    -1,    -1,    -1,
+      28,    -1,    30,    31,    32,    33,     9,    35,    36,    37,
+      -1,    -1,    40,    41,    42,    -1,    19,    20,    21,    22,
+      23,    -1,    -1,    -1,    -1,    28,    -1,    30,    31,    32,
+      33,     9,    35,    36,    37,    -1,    -1,    40,    41,    42,
+      -1,    19,    -1,    21,    22,    23,    -1,    -1,    -1,    -1,
+      28,    -1,    30,    31,    32,    33,    -1,    35,    36,    37,
+      -1,    -1,    40,    41,    42,     5,     6,     7,     8,    -1,
+      10,    11,    12,    13,    14,    15,    16,    17,     5,     6,
+       7,     8,    -1,    10,    11,    12,    13,    14,    15,    16,
+      17,    -1,    -1,    -1,     5,     6,     7,     8,    38,    10,
+      11,    12,    13,    14,    15,    16,    17,     5,     6,     7,
+       8,    38,    -1,    11,    12,    13,    14,    15,    16,    17,
+      18,    -1,    -1,     5,     6,     7,     8,    38,    10,    11,
+      12,    13,    14,    15,    16,    17,     5,     6,     7,     8,
+      38,    10,    11,    12,    13,    14,    15,    16,    17,    -1,
+      -1,     5,     6,     7,     8,    -1,    38,    11,    12,    13,
+      14,    15,    16,    17,    18,     5,     6,     7,     8,    38,
+      -1,    11,    12,    13,    14,    15,    16,    17,    18,     5,
+       6,     7,     8,    -1,    38,    11,    12,    13,    14,    15,
+      16,    17,    -1,    -1,    -1,     7,     8,    -1,    38,    11,
+      12,    13,    14,    15,    16,    17,    20,    21,    22,    23,
+      24,    -1,    38,    -1,    -1,    -1,    -1,    31,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    38
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    26,    50,    51,    29,    52,     0,    19,    26,    53,
-      24,    29,    25,    17,    19,    23,    32,    58,    27,    29,
-      20,    21,    22,    23,    24,    29,    54,    56,    57,    59,
-      60,    62,    65,     9,    18,    57,    17,    29,    10,    19,
-      29,    18,     3,    19,    58,     9,     9,    19,    28,    29,
-      30,    33,    34,    36,    37,    40,    41,    42,    43,    44,
-      46,    47,    48,    49,    54,    55,    63,    20,    10,    57,
-      61,    29,    46,    63,    48,     9,    17,     9,     9,     9,
-      46,    56,    65,    46,     5,     6,     7,     8,    11,    12,
-      13,    14,    15,    16,    17,    38,     4,    20,    49,     3,
-      19,    29,    10,    10,    20,    46,    46,    46,    46,    46,
-       3,    17,     9,    46,    46,    46,    46,    46,    46,    46,
-      46,    46,    46,    46,    29,    39,    46,    20,    48,    61,
-      19,    10,    18,    10,    10,    10,    46,    10,    18,     9,
-       3,    20,    48,     3,    49,    49,    18,    10,    17,    20,
-      35,    46,    64,    49,    64,    18,    10
+       0,    26,    48,    49,    31,    50,     0,    19,    26,    51,
+      24,    31,    25,    17,    19,    23,    34,    56,    27,    31,
+      20,    21,    22,    23,    24,    31,    52,    54,    55,    57,
+      58,    60,    63,     9,    18,    55,    17,    31,    10,    19,
+      31,    18,     3,    19,    56,     9,     9,    19,    28,    30,
+      31,    32,    33,    35,    36,    37,    40,    41,    42,    44,
+      45,    46,    47,    52,    53,    61,    20,    10,    55,    59,
+      31,    44,    61,    46,     9,     9,    17,     9,     9,    44,
+      54,    63,    44,     5,     6,     7,     8,    11,    12,    13,
+      14,    15,    16,    17,    38,     4,    20,    47,     3,    19,
+      31,    10,    10,    20,    44,    44,    44,    44,    44,     3,
+      17,     9,    44,    44,    44,    44,    44,    44,    44,    44,
+      44,    44,    44,    31,    39,    44,    20,    46,    59,    19,
+      10,    10,    18,    10,    10,    44,    10,    18,     9,     3,
+      20,    46,    47,     3,    47,    18,    10,    17,    20,    29,
+      44,    62,    47,    62,    18,    10
   };
 
   const signed char
   parser::yyr1_[] =
   {
-       0,    45,    51,    50,    52,    52,    48,    48,    53,    53,
-      58,    58,    59,    59,    60,    60,    54,    61,    61,    57,
-      57,    56,    56,    56,    56,    62,    49,    49,    49,    49,
-      49,    49,    49,    49,    49,    49,    55,    63,    63,    64,
-      64,    47,    47,    65,    46,    46,    46,    46,    46,    46,
-      46,    46,    46,    46,    46,    46,    46,    46,    46,    46,
-      46,    46,    46,    46,    46,    46
+       0,    43,    49,    48,    50,    50,    46,    46,    51,    51,
+      56,    56,    57,    57,    58,    58,    52,    59,    59,    55,
+      55,    54,    54,    54,    54,    60,    47,    47,    47,    47,
+      47,    47,    47,    47,    47,    47,    53,    61,    61,    62,
+      62,    45,    45,    63,    44,    44,    44,    44,    44,    44,
+      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
+      44,    44,    44,    44,    44
   };
 
   const signed char
@@ -1731,7 +1724,7 @@ namespace yy {
        7,     5,     5,     4,     3,     2,     1,     5,     8,     1,
        2,     1,     4,     1,     3,     3,     3,     3,     3,     4,
        3,     5,     4,     2,     3,     1,     1,     1,     1,     1,
-       1,     3,     3,     3,     3,     3
+       3,     3,     3,     3,     3
   };
 
 
@@ -1745,28 +1738,27 @@ namespace yy {
   "\"+\"", "\"*\"", "\"/\"", "\"(\"", "\")\"", "\"==\"", "\"&&\"",
   "\"||\"", "\"<\"", "\">\"", "\"%\"", "\"[\"", "\"]\"", "\"{\"", "\"}\"",
   "\"int\"", "\"boolean\"", "\"void\"", "\"public\"", "\"static\"",
-  "\"class\"", "\"main\"", "\"print\"", "\"identifier\"", "\"number\"",
-  "\"bool\"", "\"extends\"", "\"assert\"", "\"if\"", "\"else\"",
+  "\"class\"", "\"main\"", "\"if\"", "\"else\"", "\"print\"",
+  "\"identifier\"", "\"number\"", "\"bool\"", "\"extends\"", "\"assert\"",
   "\"while\"", "\"return\"", "\".\"", "\"length\"", "\"new\"", "\"!\"",
-  "\"this\"", "\"true\"", "\"false\"", "$accept", "expr", "lvalue",
-  "statements", "statement", "main_class", "program", "class_declarations",
-  "class_declaration", "variable_declaration",
-  "local_variable_declaration", "simple_type", "type", "declarations",
-  "declaration", "method_declaration", "formals", "array_type",
-  "method_invocation", "expressions", "type_identifier", YY_NULLPTR
+  "\"this\"", "$accept", "expr", "lvalue", "statements", "statement",
+  "main_class", "program", "class_declarations", "class_declaration",
+  "variable_declaration", "local_variable_declaration", "simple_type",
+  "type", "declarations", "declaration", "method_declaration", "formals",
+  "array_type", "method_invocation", "expressions", "type_identifier", YY_NULLPTR
   };
 
 #if YYDEBUG
   const short
   parser::yyrline_[] =
   {
-       0,   169,   169,   177,   184,   185,   188,   189,   191,   192,
-     195,   196,   199,   200,   203,   204,   206,   209,   210,   213,
-     214,   217,   218,   219,   220,   224,   227,   228,   229,   230,
-     231,   232,   233,   234,   235,   236,   240,   243,   244,   247,
-     248,   251,   252,   255,   258,   259,   260,   261,   262,   263,
-     264,   265,   266,   267,   268,   269,   270,   271,   272,   273,
-     274,   275,   276,   277,   278,   279
+       0,   176,   176,   184,   191,   192,   195,   196,   198,   199,
+     202,   203,   206,   207,   210,   211,   213,   216,   217,   220,
+     221,   224,   225,   226,   227,   231,   234,   235,   236,   237,
+     238,   241,   242,   243,   244,   245,   249,   252,   253,   256,
+     257,   260,   261,   264,   267,   268,   269,   270,   271,   272,
+     273,   274,   275,   276,   277,   278,   279,   280,   281,   284,
+     285,   286,   287,   288,   289
   };
 
   // Print the state stack on the debug stream.
@@ -1800,9 +1792,9 @@ namespace yy {
 
 
 } // yy
-#line 1804 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
+#line 1796 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
 
-#line 285 "grammar/parser.y"
+#line 295 "grammar/parser.y"
 
 
 void
