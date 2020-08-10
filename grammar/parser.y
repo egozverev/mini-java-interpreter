@@ -217,7 +217,7 @@ formals:
     | type "identifier" formals {};
 
 type:
-    simple_type {}
+    simple_type {$$ = $1;}
     | array_type {};
 
 simple_type:

@@ -12,7 +12,7 @@
 class ScopeLayer : public std::enable_shared_from_this<ScopeLayer> {
 public:
 
-  void DeclareVariable(const Symbol &symbol);
+  void DeclareVariable(const Symbol &symbol, const std::string& type);
 
   std::shared_ptr<ScopeLayer> GetDeclarationLevel(const Symbol &symbol);
 
@@ -32,7 +32,6 @@ private:
   std::unordered_map<Symbol, std::shared_ptr<Object>> values_;
   std::unordered_map<Symbol, size_t> offsets_;
   std::vector<Symbol> symbols_;
-  std::string name_;
   std::weak_ptr<ScopeLayer> parent_;
   std::vector<std::shared_ptr<ScopeLayer>> children_;
 };

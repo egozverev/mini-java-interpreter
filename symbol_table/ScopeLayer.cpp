@@ -5,12 +5,13 @@
 #include <iostream>
 
 
-void ScopeLayer::DeclareVariable(const Symbol &symbol) {
+void ScopeLayer::DeclareVariable(const Symbol &symbol, const std::string& type) {
   if (values_.find(symbol) != values_.end()) {
     throw std::runtime_error("Variable has been declared");
   }
 
   values_[symbol] = std::make_shared<Object>();
+  values_[symbol]->SetType(type);
   offsets_[symbol] = symbols_.size();
   symbols_.push_back(symbol);
 }

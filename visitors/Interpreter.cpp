@@ -11,56 +11,60 @@ Interpreter::Interpreter(std::shared_ptr<ScopeLayer> root) :
 void Interpreter::Visit(std::shared_ptr<ast::PlainNumberExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Integer>()));
   tos_value_.SetValue(expression->value);
+  tos_value_.SetType(INT);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::PlainBooleanExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Boolean>()));
   tos_value_.SetValue(expression->value);
+  tos_value_.SetType(BOOLEAN);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::AddExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Integer>()));
   int value = Accept(expression->GetFirst()).ToInt() + Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
+  tos_value_.SetType(INT);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::ModExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Integer>()));
   int value = Accept(expression->GetFirst()).ToInt() % Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
+  tos_value_.SetType(INT);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::SubstractExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Integer>()));
   int value = Accept(expression->GetFirst()).ToInt() - Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
-  //tos_value_ = Accept(expression->GetFirst()) - Accept(expression->GetSecond());
+  tos_value_.SetType(INT);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::MulExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Integer>()));
   int value = Accept(expression->GetFirst()).ToInt() * Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
-  //tos_value_ = Accept(expression->GetFirst()) * Accept(expression->GetSecond());
+  tos_value_.SetType(INT);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::DivExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Integer>()));
   int value = Accept(expression->GetFirst()).ToInt() / Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
-  //tos_value_ = Accept(expression->GetFirst()) / Accept(expression->GetSecond());
+  tos_value_.SetType(INT);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::IdentExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Integer>()));
-  SetTosValue(current_layer_->Get(Symbol(expression->GetIdent()))->ToInt());
-  //tos_value_ = current_layer_->Get(Symbol(expression->GetIdent()))->ToInt();
+  SetTosValue(*(current_layer_->Get(Symbol(expression->GetIdent()))));
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::AndExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Boolean>()));
   bool value = Accept(expression->GetFirst()).ToBool() && Accept(expression->GetSecond()).ToBool();
   SetTosValue(value);
+  tos_value_.SetType(BOOLEAN);
   //tos_value_ = Accept(expression->GetFirst()) + Accept(expression->GetSecond());
 }
 
@@ -68,31 +72,39 @@ void Interpreter::Visit(std::shared_ptr<ast::OrExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Boolean>()));
   bool value = Accept(expression->GetFirst()).ToBool() || Accept(expression->GetSecond()).ToBool();
   SetTosValue(value);
+  tos_value_.SetType(BOOLEAN);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::LessExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Boolean>()));
   bool value = Accept(expression->GetFirst()).ToInt() < Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
+  tos_value_.SetType(BOOLEAN);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::GreaterExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Boolean>()));
   bool value = Accept(expression->GetFirst()).ToInt() > Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
+  tos_value_.SetType(BOOLEAN);
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::EqualExpression> expression) {
   //tos_value_.SetType(std::move(std::make_unique<ast::Boolean>()));
   bool value = Accept(expression->GetFirst()).ToInt() == Accept(expression->GetSecond()).ToInt();
   SetTosValue(value);
+  tos_value_.SetType(BOOLEAN);
 }
 
 
 void Interpreter::Visit(std::shared_ptr<ast::Assignment> assignment) {
-  Object value = Accept(assignment->GetExpression());
+  Object assign_value = Accept(assignment->GetExpression());
   std::string ident = assignment->GetLvalue()->GetId();
-  current_layer_->Put(Symbol(ident), std::make_shared<Object>(value));
+  Types required_type = current_layer_->Get(Symbol(ident))->GetType();
+  if (assign_value.GetType() != required_type) {
+    throw std::runtime_error("Invalid type");
+  }
+  current_layer_->Put(Symbol(ident), std::make_shared<Object>(assign_value));
 }
 
 void Interpreter::Visit(std::shared_ptr<ast::PrintStatement> statement) {

@@ -123,7 +123,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ClassDeclarationList> decl_li
 }
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::VariableDeclaration> declaration) {
-  current_layer_->DeclareVariable(Symbol(declaration->GetName()));
+  current_layer_->DeclareVariable(Symbol(declaration->GetName()), declaration->GetType()->GetTypeName());
 }
 
 std::shared_ptr<ScopeLayer> SymbolTreeVisitor::GetRoot() {

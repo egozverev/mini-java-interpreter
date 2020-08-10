@@ -1,11 +1,21 @@
 #pragma once
 
-#include "values/Types.h"
-
 #include <memory>
+
+enum Types{
+  UNINIT,
+  VOID,
+  BOOLEAN,
+  INT,
+  USERTYPE
+};
 
 class Object {
 public:
+  Object() = default;
+
+  explicit Object(Types type);
+
   ~Object() = default;
 
   int ToInt();
@@ -14,9 +24,13 @@ public:
 
   void SetValue(int value);
 
-  //void SetType(std::unique_ptr<ast::Type> type);
+  void SetType(Types type);
+
+  void SetType(const std::string& type);
+
+  Types GetType();
 
 private:
   int value_ = 0;
-  //std::unique_ptr<ast::Type> type_;
+  Types type_ = UNINIT;
 };

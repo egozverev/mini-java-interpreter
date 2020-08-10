@@ -982,7 +982,7 @@ namespace yy {
 
   case 19:
 #line 220 "grammar/parser.y"
-                {}
+                {yylhs.value.as < std::shared_ptr<ast::Type>  > () = yystack_[0].value.as < std::shared_ptr<ast::Type>  > ();}
 #line 987 "/home/egor/C_projects/mini-java-compiler/parser.cpp"
     break;
 

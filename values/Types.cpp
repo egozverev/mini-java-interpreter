@@ -1,19 +1,19 @@
 #include "Types.h"
 
 namespace ast {
-  std::string Integer::GetType() {
+  std::string Integer::GetTypeName() {
     return "int";
   }
 
-  std::string Void::GetType() {
+  std::string Void::GetTypeName() {
     return "void";
   }
 
-  std::string Boolean::GetType() {
+  std::string Boolean::GetTypeName() {
     return "bool";
   }
 
-  std::string UserType::GetType() {
+  std::string UserType::GetTypeName() {
     return "user_type";
   }
 }
