@@ -6,6 +6,9 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PlainNumberExpression> expres
 
 }
 
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ThisExpression> expression) {
+
+}
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PlainBooleanExpression> expression) {
 
 }
@@ -60,7 +63,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::Assignment> assignment) {
   while (search_layer && !search_layer->Has(Symbol(value_name))) {
     search_layer = search_layer->GetParent();
   }
-  if (!search_layer || !search_layer->Has(Symbol(value_name))) {
+  if ((!search_layer || !search_layer->Has(Symbol(value_name))) && !current_node_->HasVariable(value_name)) {
     throw std::runtime_error("Assignment of undeclared variable");
   }
 }
@@ -118,10 +121,15 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::MainClass> main_class) {
   current_node_ = std::make_shared<ClassNode>("main");
   class_tree_.AddMapping("main", current_node_);
   current_func_name_ = "main";
-  current_node_->AddFunction(current_func_name_, std::make_shared<ast::Function>(
-      "main", ast::Type::BuildType("void"), nullptr, main_class->GetStatementList()
-      ));
+  auto function_to_add = std::make_shared<ast::Function>(
+      "main", ast::Type::BuildType("void"),
+      std::make_shared<ast::FunctionParameters>(),
+      main_class->GetStatementList()
+  );
+  current_node_->AddFunction(current_func_name_, function_to_add);
   is_new_scope_ = true;
+  auto func_layer = std::make_shared<ScopeLayer>();
+  current_node_->AddScope(current_func_name_, func_layer);
   main_class->GetStatementList()->Accept(*this);
 
 }
@@ -146,12 +154,13 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ClassDeclarationList> decl_li
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::DeclarationList> decl_list) {
   auto functions =  decl_list->GetFunctions();
   auto var_decls = decl_list->GetVarDecls();
-  for (auto& func: functions){
-    func->Accept(*this);
-  }
   for (auto& decl: var_decls) {
     current_node_->AddVariable(decl->GetName(), decl->GetType());
   }
+  for (auto& func: functions){
+    func->Accept(*this);
+  }
+
 }
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ClassVarDecl> var_decl) {

@@ -1,3 +1,4 @@
+#include <visitors/FunctionCallVisitor.h>
 #include "driver.hh"
 #include "parser.hh"
 
@@ -46,9 +47,8 @@ void Driver::ExecuteProgram() {
   visitor.Visit(program);
 
   auto class_tree = visitor.GetClassTree();
-  
-
-
-  Interpreter interpreter(std::move(root));
-  interpreter.Visit(program);
+  FunctionCallVisitor::InitClassTree(class_tree);
+  auto obj = std::make_shared<ClassObject>("main");
+  FunctionCallVisitor call_visitor(obj, "main");
+  call_visitor.Visit(class_tree.GetNode("main")->GetFunction("main"));
 }

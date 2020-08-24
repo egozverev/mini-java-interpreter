@@ -1,9 +1,9 @@
 #pragma once
 
-#include "grammar/program_base/BaseElement.h"
+#include "grammar/statements/Statement.h"
 
 namespace ast {
-  class Expression: public BaseElement {
+  class Expression: public Statement {
   public:
     //virtual int eval() const = 0;
   };

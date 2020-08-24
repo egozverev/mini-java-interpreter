@@ -52,6 +52,7 @@
     class Driver;
     namespace ast {
         class Expression;
+        class ThisExpression;
         class IdentExpression;
         class NumberExpression;
         class PlainNumberExpression;
@@ -103,7 +104,7 @@
 
     }
 
-#line 107 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 108 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -237,7 +238,7 @@
 #endif
 
 namespace yy {
-#line 241 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 242 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 
@@ -550,37 +551,40 @@ namespace yy {
         TOK_END = 0,
         TOK_SEPARATOR = 258,
         TOK_COMMA = 259,
-        TOK_ASSIGN = 260,
-        TOK_MINUS = 261,
-        TOK_PLUS = 262,
-        TOK_STAR = 263,
-        TOK_SLASH = 264,
-        TOK_LPAREN = 265,
-        TOK_RPAREN = 266,
-        TOK_EQUAL = 267,
-        TOK_AND = 268,
-        TOK_OR = 269,
-        TOK_LESS = 270,
-        TOK_MORE = 271,
-        TOK_MODULE = 272,
-        TOK_LSPAREN = 273,
-        TOK_RSPAREN = 274,
-        TOK_LFPAREN = 275,
-        TOK_RFPAREN = 276,
-        TOK_INT_T = 277,
-        TOK_BOOLEAN_T = 278,
-        TOK_VOID_T = 279,
-        TOK_PUBLIC_KW = 280,
-        TOK_STATIC_KW = 281,
-        TOK_CLASS_KW = 282,
-        TOK_MAIN_KW = 283,
-        TOK_NEW_KW = 284,
-        TOK_IF_KW = 285,
-        TOK_ELSE_KW = 286,
-        TOK_PRINT = 287,
-        TOK_IDENTIFIER = 288,
-        TOK_NUMBER = 289,
-        TOK_BOOLEAN = 290
+        TOK_DOT = 260,
+        TOK_ASSIGN = 261,
+        TOK_MINUS = 262,
+        TOK_PLUS = 263,
+        TOK_STAR = 264,
+        TOK_SLASH = 265,
+        TOK_LPAREN = 266,
+        TOK_RPAREN = 267,
+        TOK_EQUAL = 268,
+        TOK_AND = 269,
+        TOK_OR = 270,
+        TOK_LESS = 271,
+        TOK_MORE = 272,
+        TOK_MODULE = 273,
+        TOK_LSPAREN = 274,
+        TOK_RSPAREN = 275,
+        TOK_LFPAREN = 276,
+        TOK_RFPAREN = 277,
+        TOK_INT_T = 278,
+        TOK_BOOLEAN_T = 279,
+        TOK_VOID_T = 280,
+        TOK_PUBLIC_KW = 281,
+        TOK_STATIC_KW = 282,
+        TOK_CLASS_KW = 283,
+        TOK_MAIN_KW = 284,
+        TOK_NEW_KW = 285,
+        TOK_IF_KW = 286,
+        TOK_ELSE_KW = 287,
+        TOK_PRINT = 288,
+        TOK_RETURN_KW = 289,
+        TOK_THIS_KW = 290,
+        TOK_IDENTIFIER = 291,
+        TOK_NUMBER = 292,
+        TOK_BOOLEAN = 293
       };
     };
 
@@ -904,11 +908,11 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 35: // "bool"
+      case 38: // "bool"
         value.template destroy< bool > ();
         break;
 
-      case 34: // "number"
+      case 37: // "number"
         value.template destroy< int > ();
         break;
 
@@ -978,7 +982,7 @@ switch (yytype)
         value.template destroy< std::shared_ptr<ast::VariableDeclaration>  > ();
         break;
 
-      case 33: // "identifier"
+      case 36: // "identifier"
       case 63: // type_identifier
         value.template destroy< std::string > ();
         break;
@@ -1059,13 +1063,13 @@ switch (yytype)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_COMMA || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_NEW_KW || tok == token::TOK_IF_KW || tok == token::TOK_ELSE_KW || tok == token::TOK_PRINT || tok == 291 || tok == 292 || tok == 293 || tok == 294 || tok == 295 || tok == 296 || tok == 297 || tok == 298);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_COMMA || tok == token::TOK_DOT || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_NEW_KW || tok == token::TOK_IF_KW || tok == token::TOK_ELSE_KW || tok == token::TOK_PRINT || tok == token::TOK_RETURN_KW || tok == token::TOK_THIS_KW || tok == 294 || tok == 295 || tok == 296 || tok == 297 || tok == 298);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_COMMA || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_NEW_KW || tok == token::TOK_IF_KW || tok == token::TOK_ELSE_KW || tok == token::TOK_PRINT || tok == 291 || tok == 292 || tok == 293 || tok == 294 || tok == 295 || tok == 296 || tok == 297 || tok == 298);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_SEPARATOR || tok == token::TOK_COMMA || tok == token::TOK_DOT || tok == token::TOK_ASSIGN || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_EQUAL || tok == token::TOK_AND || tok == token::TOK_OR || tok == token::TOK_LESS || tok == token::TOK_MORE || tok == token::TOK_MODULE || tok == token::TOK_LSPAREN || tok == token::TOK_RSPAREN || tok == token::TOK_LFPAREN || tok == token::TOK_RFPAREN || tok == token::TOK_INT_T || tok == token::TOK_BOOLEAN_T || tok == token::TOK_VOID_T || tok == token::TOK_PUBLIC_KW || tok == token::TOK_STATIC_KW || tok == token::TOK_CLASS_KW || tok == token::TOK_MAIN_KW || tok == token::TOK_NEW_KW || tok == token::TOK_IF_KW || tok == token::TOK_ELSE_KW || tok == token::TOK_PRINT || tok == token::TOK_RETURN_KW || tok == token::TOK_THIS_KW || tok == 294 || tok == 295 || tok == 296 || tok == 297 || tok == 298);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1187,6 +1191,21 @@ switch (yytype)
       make_COMMA (const location_type& l)
       {
         return symbol_type (token::TOK_COMMA, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DOT (location_type l)
+      {
+        return symbol_type (token::TOK_DOT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DOT (const location_type& l)
+      {
+        return symbol_type (token::TOK_DOT, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1612,6 +1631,36 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_RETURN_KW (location_type l)
+      {
+        return symbol_type (token::TOK_RETURN_KW, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_RETURN_KW (const location_type& l)
+      {
+        return symbol_type (token::TOK_RETURN_KW, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_THIS_KW (location_type l)
+      {
+        return symbol_type (token::TOK_THIS_KW, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_THIS_KW (const location_type& l)
+      {
+        return symbol_type (token::TOK_THIS_KW, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_IDENTIFIER (std::string v, location_type l)
       {
         return symbol_type (token::TOK_IDENTIFIER, std::move (v), std::move (l));
@@ -1960,7 +2009,7 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 457,     ///< Last index in yytable_.
+      yylast_ = 454,     ///< Last index in yytable_.
       yynnts_ = 21,  ///< Number of nonterminal symbols.
       yyfinal_ = 6, ///< Termination state number.
       yyntokens_ = 44  ///< Number of tokens.
@@ -2033,11 +2082,11 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 35: // "bool"
+      case 38: // "bool"
         value.move< bool > (std::move (that.value));
         break;
 
-      case 34: // "number"
+      case 37: // "number"
         value.move< int > (std::move (that.value));
         break;
 
@@ -2107,7 +2156,7 @@ switch (yytype)
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (std::move (that.value));
         break;
 
-      case 33: // "identifier"
+      case 36: // "identifier"
       case 63: // type_identifier
         value.move< std::string > (std::move (that.value));
         break;
@@ -2127,11 +2176,11 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 35: // "bool"
+      case 38: // "bool"
         value.copy< bool > (YY_MOVE (that.value));
         break;
 
-      case 34: // "number"
+      case 37: // "number"
         value.copy< int > (YY_MOVE (that.value));
         break;
 
@@ -2201,7 +2250,7 @@ switch (yytype)
         value.copy< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (that.value));
         break;
 
-      case 33: // "identifier"
+      case 36: // "identifier"
       case 63: // type_identifier
         value.copy< std::string > (YY_MOVE (that.value));
         break;
@@ -2228,11 +2277,11 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 35: // "bool"
+      case 38: // "bool"
         value.move< bool > (YY_MOVE (s.value));
         break;
 
-      case 34: // "number"
+      case 37: // "number"
         value.move< int > (YY_MOVE (s.value));
         break;
 
@@ -2302,7 +2351,7 @@ switch (yytype)
         value.move< std::shared_ptr<ast::VariableDeclaration>  > (YY_MOVE (s.value));
         break;
 
-      case 33: // "identifier"
+      case 36: // "identifier"
       case 63: // type_identifier
         value.move< std::string > (YY_MOVE (s.value));
         break;
@@ -2362,7 +2411,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2366 "/home/egor/C_projects/mini-java-compiler/parser.hh"
+#line 2415 "/home/egor/C_projects/mini-java-compiler/parser.hh"
 
 
 

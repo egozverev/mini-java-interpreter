@@ -7,6 +7,7 @@ class Visitor {
 public:
   //virtual void Visit(std::shared_ptr<ast::NumberExpression> expression) = 0;
   //virtual void Visit(std::shared_ptr<ast::BoolExpression> expression) = 0;
+  virtual void Visit(std::shared_ptr<ast::ThisExpression> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::AddExpression> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::SubstractExpression> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::MulExpression> expression) = 0;

@@ -20,6 +20,12 @@ namespace calls {
 
     return index;
   }
+  size_t Frame::AllocVariable(std::shared_ptr<ast::Type> type) {
+    size_t index = variables_.size();
+    variables_.emplace_back(std::move(type));
+
+    return index;
+  }
 
   void Frame::DeallocScope() {
     size_t new_size = offsets_.top();

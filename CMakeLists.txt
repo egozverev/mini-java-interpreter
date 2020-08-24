@@ -96,7 +96,6 @@ add_executable(
         grammar/functions/FunctionParameters.h
         grammar/functions/Function.cpp
         grammar/functions/Function.h
-        grammar/declarations/Declaration.cpp
         grammar/declarations/Declaration.h
         grammar/declarations/DeclarationList.cpp
         grammar/declarations/DeclarationList.h
@@ -105,5 +104,20 @@ add_executable(
         call_mechanics/FunctionMapping.cpp
         call_mechanics/FunctionMapping.h
         call_mechanics/IndexTable.cpp
-        call_mechanics/IndexTable.h objects/ClassObject.cpp objects/ClassObject.h grammar/values/ClassVarDecl.cpp grammar/values/ClassVarDecl.h class_tree/ClassNode.cpp class_tree/ClassNode.h class_tree/ClassTree.cpp class_tree/ClassTree.h grammar/functions/ParamValuesList.cpp grammar/functions/ParamValuesList.h grammar/functions/FunctionCall.cpp grammar/functions/FunctionCall.h grammar/statements/ReturnStatement.cpp grammar/statements/ReturnStatement.h visitors/FunctionCallVisitor.cpp visitors/FunctionCallVisitor.h)
+        call_mechanics/IndexTable.h
+        objects/ClassObject.cpp objects/ClassObject.h
+        grammar/values/ClassVarDecl.cpp
+        grammar/values/ClassVarDecl.h
+        class_tree/ClassNode.cpp
+        class_tree/ClassNode.h
+        class_tree/ClassTree.cpp
+        class_tree/ClassTree.h
+        grammar/functions/ParamValueList.cpp
+        grammar/functions/ParamValueList.h
+        grammar/functions/FunctionCall.cpp
+        grammar/functions/FunctionCall.h
+        grammar/statements/ReturnStatement.cpp
+        grammar/statements/ReturnStatement.h
+        visitors/FunctionCallVisitor.cpp
+        visitors/FunctionCallVisitor.h grammar/expressions/ThisExpression.cpp grammar/expressions/ThisExpression.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})

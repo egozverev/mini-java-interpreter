@@ -53,7 +53,7 @@ std::shared_ptr<ast::Type> ScopeLayer::GetType(const Symbol &symbol) {
   if (current_layer != nullptr) {
     return current_layer->values_.find(symbol)->second;
   } else {
-    throw std::runtime_error("Variable not declared");
+    return nullptr;
   }
 }
 

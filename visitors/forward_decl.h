@@ -3,6 +3,8 @@
 namespace ast {
   class Expression;
 
+  class ThisExpression;
+
   class NumberExpression;
 
   class BoolExpression;

@@ -1,0 +1,13 @@
+class PrintTest {
+  public static void main () {
+    PrintClass x;
+    x = new PrintClass();
+    System.out.println (x.GetNumber());
+  }
+}
+
+class PrintClass {
+  public int GetNumber () {
+    return 114;
+  }
+}

@@ -5,10 +5,6 @@
 namespace ast {
   class Declaration : public Statement {
   public:
-    virtual void Accept(Visitor &visitor) = 0;
-
-    virtual ~Declaration() = default;
-
-    virtual bool IsFunction();
+    virtual bool IsFunction() = 0;
   };
 }

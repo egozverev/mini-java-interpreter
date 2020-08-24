@@ -17,6 +17,8 @@ namespace calls {
 
     void EndScope();
 
+    bool HasSymbol(const Symbol& symbol);
+
   private:
     std::unordered_map<Symbol, std::stack<size_t>> values_; // symbol -> stack of indices
     std::stack<Symbol> symbols_;

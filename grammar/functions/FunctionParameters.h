@@ -12,6 +12,8 @@
 namespace ast {
   class FunctionParameters : public BaseElement, public std::enable_shared_from_this<FunctionParameters> {
   public:
+    FunctionParameters() = default;
+
     explicit FunctionParameters(std::string first_param, std::shared_ptr<ast::Type> first_type);
 
     const std::vector<std::string>& GetParamList();

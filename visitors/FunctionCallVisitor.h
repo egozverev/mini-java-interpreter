@@ -19,6 +19,9 @@
 class FunctionCallVisitor : public TemplateVisitor<std::shared_ptr<Object>> {
 public:
   explicit FunctionCallVisitor(std::shared_ptr<ClassObject> class_obj, const std::string &func_name);
+
+  void Visit(std::shared_ptr<ast::ThisExpression> expression) override;
+
   void Visit(std::shared_ptr<ast::AddExpression> expression) override;
 
   void Visit(std::shared_ptr<ast::SubstractExpression> expression) override;
@@ -94,7 +97,7 @@ public:
 
 private:
 
-  static ClassTree &class_tree_;
+  inline static ClassTree class_tree_;
 
   std::shared_ptr<ClassObject> class_object_;
 
@@ -107,4 +110,7 @@ private:
   calls::IndexTable index_table_;
 
   bool is_returned_ {false};
+
+  bool is_new_scope_ = true;
+
 };

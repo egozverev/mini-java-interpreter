@@ -14,7 +14,7 @@ public:
 
   bool HasVariable(const std::string& name);
 
-  Object& GetVariable(const std::string& name);
+  std::shared_ptr<Object> GetVariable(const std::string& name);
 
   bool IsClassObj() override;
 private:

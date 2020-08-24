@@ -26,7 +26,7 @@ namespace ast {
   }
 
   std::string UserType::GetTypeName() {
-    return "user_type";
+    return type_name_;
   }
 
   std::string FunctionType::GetTypeName() {

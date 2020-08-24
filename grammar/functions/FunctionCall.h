@@ -1,9 +1,9 @@
 #pragma once
 
-#include "grammar/statements/Statement.h"
-#include "ParamValuesList.h"
+#include "grammar/expressions/Expression.h"
+#include "ParamValueList.h"
 namespace ast {
-class FunctionCall: public Statement, public std::enable_shared_from_this<FunctionCall> {
+class FunctionCall: public Expression, public std::enable_shared_from_this<FunctionCall> {
 public:
   FunctionCall(std::shared_ptr<Expression> class_entity, std::string name, std::shared_ptr<ParamValueList> param_values);
   void Accept(Visitor& visitor);

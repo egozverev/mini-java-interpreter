@@ -13,6 +13,7 @@ namespace calls {
     void SetParams(const std::vector<Object>& values);
 
     size_t AllocVariable();
+    size_t AllocVariable(std::shared_ptr<ast::Type> type);
 
     void DeallocScope();
     void AllocScope();

@@ -13,6 +13,7 @@
     class Driver;
     namespace ast {
         class Expression;
+        class ThisExpression;
         class IdentExpression;
         class NumberExpression;
         class PlainNumberExpression;
@@ -74,6 +75,7 @@
     #include "grammar/driver.hh"
     #include "location.hh"
     #include "grammar/expressions/Expression.h"
+    #include "grammar/expressions/ThisExpression.h"
     #include "grammar/expressions/NumberExpression.h"
     #include "grammar/expressions/PlainNumberExpression.h"
     #include "grammar/expressions/PlainBooleanExpression.h"
@@ -114,9 +116,9 @@
     #include "grammar/values/Types.h"
 
     #include "grammar/functions/Function.h"
-    #include "grammar/fnctions/FunctionParameters.h"
+    #include "grammar/functions/FunctionParameters.h"
     #include "grammar/functions/FunctionCall.h"
-    #include "grammar/functions/ParamValueLust.h"
+    #include "grammar/functions/ParamValueList.h"
 
     #include "grammar/values/ClassVarDecl.h"
 
@@ -142,6 +144,7 @@
     END 0 "end of file"
     SEPARATOR ";"
     COMMA ","
+    DOT "."
     ASSIGN "="
     MINUS "-"
     PLUS "+"
@@ -170,13 +173,14 @@
     IF_KW "if"
     ELSE_KW "else"
     PRINT "print"
+    RETURN_KW "return"
+    THIS_KW "this"
 ;
 
 
 %token <std::string> IDENTIFIER "identifier"
 %token <int> NUMBER "number"
 %token <bool> BOOLEAN "bool"
-//%token <void> VOID "voidness"
 %nterm <std::shared_ptr<ast::Expression> > expr
 %nterm <std::shared_ptr<ast::Lvalue> > lvalue
 %nterm <std::shared_ptr<ast::StatementList> > statements
@@ -196,11 +200,6 @@
 %nterm <std::shared_ptr<ast::ParamValueList> > expressions
 %nterm <std::shared_ptr<ast::FunctionCall> > method_invocation
 %nterm <std::string> type_identifier
-
-
-
-
-
 
 
 
@@ -235,7 +234,7 @@ statements:
  | statements statement {$1 -> AddStatement($2); $$ = $1;};
 
 class_declaration : "class"	"identifier" "{" declarations "}" {
-    $$ = std::make_shared<ast::ClassDeclaration>(%2, "", $4);
+    $$ = std::make_shared<ast::ClassDeclaration>($2, "", $4);
     }
     | "class" "identifier" "extends" "identifier" "{" declarations "}" {
     $$ = std::make_shared<ast::ClassDeclaration>($2, $4, $6);
@@ -243,7 +242,7 @@ class_declaration : "class"	"identifier" "{" declarations "}" {
     ;
 
 declarations:
-    %empty {$$ = std::make_shared<DeclarationList>();}
+    %empty {$$ = std::make_shared<ast::DeclarationList>();}
     | declarations declaration {$$ = $1; $$->AddDeclaration($2);};
 
 declaration:
@@ -252,17 +251,17 @@ declaration:
 
 method_declaration:
     "public" type "identifier" "(" ")" "{" statements "}" {
-    $$ = std::make_shared<Function>($3, $2, nullptr , $7);
+    $$ = std::make_shared<ast::Function>($3, $2, std::make_shared<ast::FunctionParameters>(), $7);
     }
     | "public" type "identifier" "(" formals ")" "{" statements "}" {
-    $$ = std::make_shared<Function>($3, $2, $5, $8);
+    $$ = std::make_shared<ast::Function>($3, $2, $5, $8);
     };
 
 
 variable_declaration : type "identifier" ";" {$$ = std::make_shared<ast::VariableDeclaration>($2, $1);};
 
 formals:
-    type "identifier" {$$ = std::make_shared<FunctionParameters>($2, $1);}
+    type "identifier" {$$ = std::make_shared<ast::FunctionParameters>($2, $1);}
     | type "identifier" "," formals {$$ = $4; $$->AddParam($2, $1);};
 
 type:
@@ -290,7 +289,7 @@ statement :	"assert" "(" expr ")" {}
     | "while" "(" expr ")" statement {}
     | "print" "(" expr")" ";" {$$ = std::make_shared<ast::PrintStatement>($3);}
     | lvalue "=" expr ";" {$$ = std::make_shared<ast::Assignment>($1, driver, $3);}
-    | "return" expr ";" {$$ = std::make_shared<ReturnStatement>($2);}
+    | "return" expr ";" {$$ = std::make_shared<ast::ReturnStatement>($2);}
     | method_invocation ";" {$$ = $1;};
 
 
@@ -298,13 +297,13 @@ local_variable_declaration:
     variable_declaration {$$ = $1;};
 
 method_invocation:
-    expr "." "identifier" "(" ")" {$$ = std::make_shared<FunctionCall>($1, $3, nullptr);}
-    | expr "." "identifier" "(" expressions ")" {$$ = std::make_shared<FunctionCall>($1, $3, $5);}
+    expr "." "identifier" "(" ")" {$$ = std::make_shared<ast::FunctionCall>($1, $3, std::make_shared<ast::ParamValueList>());}
+    | expr "." "identifier" "(" expressions ")" {$$ = std::make_shared<ast::FunctionCall>($1, $3, $5);}
     ;
 
 expressions:
-    expr {$$ = std::make_shared<ParamValueList>($1);}
-    | expressions expr{$$ = $1; $$.AddParam($2);};
+    expr {$$ = std::make_shared<ast::ParamValueList>($1);}
+    | expressions expr {$1->AddParam($2); $$ = $1;};
 
 lvalue :
     "identifier" {$$ = std::make_shared<ast::PlainIdent>($1);}
@@ -322,14 +321,14 @@ expr :
     | expr "[" expr "]" {}
     | expr "." "length" {}
     | "new" simple_type "[" expr "]" {}
-    | "new" type_identifier "(" ")" {$$ = std::make_shared<ClassVarDecl>($2);}
+    | "new" type_identifier "(" ")" {$$ = std::make_shared<ast::ClassVarDecl>($2);}
     | "!" expr {}
     | "(" expr ")" {$$ = $2;}
     | "identifier" {$$ = std::make_shared<ast::IdentExpression> ($1, driver);}
     | "number" {$$ = std::make_shared<ast::PlainNumberExpression> ($1);}
-    | "this" {}
+    | "this" {$$ = std::make_shared<ast::ThisExpression>();}
     | "bool" {$$ = std::make_shared<ast::PlainBooleanExpression> ($1);}
-    | method_invocation {}
+    | method_invocation {$$ = $1;}
     | expr "&&" expr {$$ = std::make_shared<ast::AndExpression>($1, $3);}
     | expr "||" expr {$$ = std::make_shared<ast::OrExpression>($1, $3);}
     | expr "<" expr {$$ = std::make_shared<ast::LessExpression>($1, $3);}

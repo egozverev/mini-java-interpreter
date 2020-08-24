@@ -33,7 +33,7 @@ public:
 
   virtual bool IsClassObj();
 
-private:
+protected:
   int value_ = 0;
   std::shared_ptr<ast::Type> type_;
 };

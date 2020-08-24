@@ -64,3 +64,7 @@ std::shared_ptr<ScopeLayer> ClassNode::GetScope(const std::string& name) const {
 bool ClassNode::HasFunction(const std::string& name) {
   return functions_.find(name) != functions_.end();
 }
+
+bool ClassNode::HasVariable(const std::string& name) {
+  return var_types_.find(name) != var_types_.end();
+}

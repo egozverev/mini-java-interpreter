@@ -17,6 +17,10 @@ namespace calls {
     return values_[symbol].top();
   }
 
+  bool IndexTable::HasSymbol(const Symbol &symbol) {
+    return values_.find(symbol) != values_.end();
+  }
+
   void IndexTable::CreateVariable(const Symbol& symbol, size_t index) {
     if (values_.find(symbol) == values_.end()) {
       values_[symbol] = std::stack<size_t>();

@@ -11,6 +11,8 @@ class SymbolTreeVisitor: public Visitor {
 public:
   SymbolTreeVisitor() = default;
 
+  void Visit(std::shared_ptr<ast::ThisExpression> expression) override;
+
   void Visit(std::shared_ptr<ast::AddExpression> expression) override;
 
   void Visit(std::shared_ptr<ast::SubstractExpression> expression) override;

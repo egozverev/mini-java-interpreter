@@ -43,6 +43,8 @@ public:
 
   bool HasFunction(const std::string& name);
 
+  bool HasVariable(const std::string& name);
+
 private:
   std::string class_name_;
   std::unordered_map<std::string, std::shared_ptr<ClassNode>> children_;

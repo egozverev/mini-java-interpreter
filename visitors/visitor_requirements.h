@@ -1,6 +1,7 @@
 #pragma once
 
 #include "grammar/expressions/Expression.h"
+#include "grammar/expressions/ThisExpression.h"
 #include "grammar/expressions/NumberExpression.h"
 #include "grammar/expressions/BoolExpression.h"
 #include "grammar/expressions/AddExpression.h"
@@ -42,6 +43,6 @@
 #include "grammar/functions/Function.h"
 #include "grammar/functions/FunctionParameters.h"
 
-#include "grammar/functions/ParamValuesList.h"
+#include "grammar/functions/ParamValueList.h"
 #include "grammar/functions/FunctionCall.h"
 
