@@ -37,11 +37,6 @@ void Driver::scan_end()
     stream.close();
 }
 
-/*void Driver::PrintTree(const std::string& filename) {
-  PrintVisitor visitor(filename);
-  visitor.Visit(program);
-}*/
-
 void Driver::ExecuteProgram() {
   SymbolTreeVisitor visitor;
   visitor.Visit(program);

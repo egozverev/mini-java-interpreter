@@ -119,5 +119,5 @@ add_executable(
         grammar/statements/ReturnStatement.cpp
         grammar/statements/ReturnStatement.h
         visitors/FunctionCallVisitor.cpp
-        visitors/FunctionCallVisitor.h grammar/expressions/ThisExpression.cpp grammar/expressions/ThisExpression.h)
+        visitors/FunctionCallVisitor.h grammar/expressions/ThisExpression.cpp grammar/expressions/ThisExpression.h grammar/statements/WhileStatement.cpp grammar/statements/WhileStatement.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})

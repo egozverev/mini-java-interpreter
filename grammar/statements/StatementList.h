@@ -11,7 +11,6 @@ namespace ast {
   class StatementList : public ast::Statement, public std::enable_shared_from_this<StatementList> {
   public:
     void AddStatement(std::shared_ptr<Statement> statement);
-    //void execute() const;
 
     void Accept(Visitor &visitor) override;
 

@@ -25,11 +25,9 @@ void ScopeLayer::DeclareVariable(const Symbol &symbol, std::shared_ptr<ast::Type
 
 std::shared_ptr<ScopeLayer> ScopeLayer::GetDeclarationLevel(const Symbol &symbol) {
   std::shared_ptr<ScopeLayer> current_layer = shared_from_this();
-
   while (current_layer != nullptr && !current_layer->Has(symbol)) {
     current_layer = current_layer->GetParent();
   }
-
   return std::move(current_layer);
 }
 

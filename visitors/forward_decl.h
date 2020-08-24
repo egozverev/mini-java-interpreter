@@ -45,6 +45,8 @@ namespace ast {
 
   class IfStatement;
 
+  class WhileStatement;
+
   class StatementList;
 
   class Lvalue;

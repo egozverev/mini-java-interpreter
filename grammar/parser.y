@@ -36,6 +36,7 @@
         class PrintStatement;
         class IfStatement;
         class IfElseStatement;
+        class WhileStatement;
 
         class Lvalue;
         class PlainIdent;
@@ -99,6 +100,7 @@
     #include "grammar/statements/PrintStatement.h"
     #include "grammar/statements/IfStatement.h"
     #include "grammar/statements/IfElseStatement.h"
+    #include "grammar/statements/WhileStatement.h"
 
 
     #include "grammar/values/Lvalue.h"
@@ -175,6 +177,7 @@
     PRINT "print"
     RETURN_KW "return"
     THIS_KW "this"
+    WHILE_KW "while"
 ;
 
 
@@ -286,7 +289,7 @@ statement :	"assert" "(" expr ")" {}
     | "if"  "(" expr ")" statement "else" statement {
     $$ = std::make_shared<ast::IfElseStatement>($3, $5, $7);
     }
-    | "while" "(" expr ")" statement {}
+    | "while" "(" expr ")" statement {$$ = std::make_shared<ast::WhileStatement>($3, $5);}
     | "print" "(" expr")" ";" {$$ = std::make_shared<ast::PrintStatement>($3);}
     | lvalue "=" expr ";" {$$ = std::make_shared<ast::Assignment>($1, driver, $3);}
     | "return" expr ";" {$$ = std::make_shared<ast::ReturnStatement>($2);}

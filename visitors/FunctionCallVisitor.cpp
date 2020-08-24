@@ -58,7 +58,7 @@ void FunctionCallVisitor::Visit(std::shared_ptr<ast::IdentExpression> expression
     size_t index = index_table_.Get(Symbol(expression->GetIdent()));
     SetTosValue(frame_.Get(index));
   } else {
-    tos_value_ = class_object_->GetVariable(expression->GetIdent());
+    tos_value_ = std::make_shared<Object>(class_object_->GetVariable(expression->GetIdent()));
   }
 }
 
@@ -99,14 +99,14 @@ void FunctionCallVisitor::Visit(std::shared_ptr<ast::Assignment> assignment) {
   std::shared_ptr<ast::Type> required_type = current_layer_->GetType(Symbol(ident));
   bool is_class_var = false;
   if (required_type == nullptr){
-    required_type = class_object_->GetVariable(ident)->GetType();
+    required_type = class_object_->GetVariable(ident).GetType();
     is_class_var = true;
   }
   if (assign_value->GetType()->GetTypeName() != required_type->GetTypeName()) {
     throw std::runtime_error("Invalid type");
   }
   if (is_class_var) {
-    *class_object_->GetVariable(ident) = * assign_value;
+    class_object_->SetVariable(ident, *assign_value);
   } else {
     size_t index = index_table_.Get(Symbol(ident));
     frame_.Set(index, *assign_value);
@@ -133,6 +133,16 @@ void FunctionCallVisitor::Visit(std::shared_ptr<ast::IfStatement> statement) {
     Accept(statement->GetStatement());
   }
 }
+
+void FunctionCallVisitor::Visit(std::shared_ptr<ast::WhileStatement> statement) {
+  while(Accept(statement->GetExpr())->ToBool()){
+    Accept(statement->GetStatement());
+    size_t current_pos = offsets_.top();
+    offsets_.pop();
+    offsets_.push(--current_pos);
+  }
+}
+
 
 
 void FunctionCallVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list) {

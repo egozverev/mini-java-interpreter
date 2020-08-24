@@ -62,6 +62,7 @@ blank [ \t\r]
 ","        return yy::parser::make_COMMA (loc);
 "."        return yy::parser::make_DOT (loc);
 "this"     return yy::parser::make_THIS_KW (loc);
+"while"    return yy::parser::make_WHILE_KW (loc);
 "return"   return yy::parser::make_RETURN_KW (loc);
 "public"   return yy::parser::make_PUBLIC_KW (loc);
 "static"   return yy::parser::make_STATIC_KW (loc);

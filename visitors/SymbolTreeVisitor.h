@@ -47,6 +47,9 @@ public:
 
   void Visit(std::shared_ptr<ast::IfStatement> expression) override;
 
+  void Visit(std::shared_ptr<ast::WhileStatement> expression) override;
+
+
   void Visit(std::shared_ptr<ast::ReturnStatement> expression) override;
 
   void Visit(std::shared_ptr<ast::StatementList> statement_list) override;

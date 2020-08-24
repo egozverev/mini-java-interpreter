@@ -9,6 +9,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PlainNumberExpression> expres
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ThisExpression> expression) {
 
 }
+
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::PlainBooleanExpression> expression) {
 
 }
@@ -95,6 +96,14 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::IfStatement> statement) {
   current_layer_ = current_layer_->GetParent();
 }
 
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::WhileStatement> statement) {
+  auto next_layer = std::make_shared<ScopeLayer>();
+  current_layer_->AddChild(next_layer);
+  current_layer_ = next_layer;
+  statement->GetStatement()->Accept(*this);
+  current_layer_ = current_layer_->GetParent();
+
+}
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::StatementList> statement_list) {
   auto next_layer = std::make_shared<ScopeLayer>();
@@ -152,12 +161,12 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ClassDeclarationList> decl_li
 }
 
 void SymbolTreeVisitor::Visit(std::shared_ptr<ast::DeclarationList> decl_list) {
-  auto functions =  decl_list->GetFunctions();
+  auto functions = decl_list->GetFunctions();
   auto var_decls = decl_list->GetVarDecls();
-  for (auto& decl: var_decls) {
+  for (auto &decl: var_decls) {
     current_node_->AddVariable(decl->GetName(), decl->GetType());
   }
-  for (auto& func: functions){
+  for (auto &func: functions) {
     func->Accept(*this);
   }
 
@@ -180,7 +189,7 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::FunctionParameters> params) {
   current_node_->AddScope(current_func_name_, func_layer);
   auto names = params->GetParamList();
   auto types = params->GetTypes();
-  for (size_t i = 0; i < names.size(); ++i){
+  for (size_t i = 0; i < names.size(); ++i) {
     func_layer->DeclareVariable(Symbol(names[i]), types[i]);
   }
 
@@ -191,19 +200,19 @@ void SymbolTreeVisitor::Visit(std::shared_ptr<ast::VariableDeclaration> declarat
   current_layer_->DeclareVariable(Symbol(declaration->GetName()), declaration->GetType()->GetTypeName());
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<ast::FunctionCall> expression){
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::FunctionCall> expression) {
   //nothing
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ParamValueList> expression){
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ParamValueList> expression) {
   //nothing
 }
 
-void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ReturnStatement> expression){
+void SymbolTreeVisitor::Visit(std::shared_ptr<ast::ReturnStatement> expression) {
   //nothing
 }
 
-ClassTree& SymbolTreeVisitor::GetClassTree() {
+ClassTree &SymbolTreeVisitor::GetClassTree() {
   return class_tree_;
 }
 

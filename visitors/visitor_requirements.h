@@ -26,6 +26,7 @@
 #include "grammar/statements/IfStatement.h"
 #include "grammar/statements/StatementList.h"
 #include "grammar/statements/ReturnStatement.h"
+#include "grammar/statements/WhileStatement.h"
 
 #include "grammar/values/Lvalue.h"
 #include "grammar/values/PlainIdent.h"
@@ -45,4 +46,5 @@
 
 #include "grammar/functions/ParamValueList.h"
 #include "grammar/functions/FunctionCall.h"
+
 
