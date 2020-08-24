@@ -42,6 +42,8 @@
         class MainClass;
         class ClassDeclaration;
         class ClassDeclarationList;
+        class Declaration;
+        class DeclarationList;
         class Program;
 
         class VariableDeclaration;
@@ -51,6 +53,15 @@
         class Void;
         class Boolean;
         class UserType;
+
+        class Function;
+        class FunctionParameters;
+        class FunctionCall;
+        class ParamValueList;
+        class ClassVarDecl;
+
+        class ReturnStatement;
+
     }
 }
 
@@ -62,42 +73,56 @@
 %code {
     #include "grammar/driver.hh"
     #include "location.hh"
-    #include "expressions/Expression.h"
-    #include "expressions/NumberExpression.h"
-    #include "expressions/PlainNumberExpression.h"
-    #include "expressions/PlainBooleanExpression.h"
-    #include "expressions/BoolExpression.h"
-    #include "expressions/AddExpression.h"
-    #include "expressions/MulExpression.h"
-    #include "expressions/DivExpression.h"
-    #include "expressions/SubstractExpression.h"
-    #include "expressions/ModExpression.h"
-    #include "expressions/IdentExpression.h"
-    #include "expressions/AndExpression.h"
-    #include "expressions/OrExpression.h"
-    #include "expressions/LessExpression.h"
-    #include "expressions/GreaterExpression.h"
-    #include "expressions/EqualExpression.h"
+    #include "grammar/expressions/Expression.h"
+    #include "grammar/expressions/NumberExpression.h"
+    #include "grammar/expressions/PlainNumberExpression.h"
+    #include "grammar/expressions/PlainBooleanExpression.h"
+    #include "grammar/expressions/BoolExpression.h"
+    #include "grammar/expressions/AddExpression.h"
+    #include "grammar/expressions/MulExpression.h"
+    #include "grammar/expressions/DivExpression.h"
+    #include "grammar/expressions/SubstractExpression.h"
+    #include "grammar/expressions/ModExpression.h"
+    #include "grammar/expressions/IdentExpression.h"
+    #include "grammar/expressions/AndExpression.h"
+    #include "grammar/expressions/OrExpression.h"
+    #include "grammar/expressions/LessExpression.h"
+    #include "grammar/expressions/GreaterExpression.h"
+    #include "grammar/expressions/EqualExpression.h"
 
-    #include "assignments/Assignment.h"
+    #include "grammar/assignments/Assignment.h"
 
-    #include "statements/Statement.h"
-    #include "statements/StatementList.h"
-    #include "statements/PrintStatement.h"
-    #include "statements/IfStatement.h"
-    #include "statements/IfElseStatement.h"
+    #include "grammar/statements/Statement.h"
+    #include "grammar/statements/StatementList.h"
+    #include "grammar/statements/PrintStatement.h"
+    #include "grammar/statements/IfStatement.h"
+    #include "grammar/statements/IfElseStatement.h"
 
 
-    #include "values/Lvalue.h"
-    #include "values/PlainIdent.h"
+    #include "grammar/values/Lvalue.h"
+    #include "grammar/values/PlainIdent.h"
 
-    #include "declarations/MainClass.h"
-    #include "declarations/ClassDeclaration.h"
-    #include "declarations/ClassDeclarationList.h"
+    #include "grammar/declarations/MainClass.h"
+    #include "grammar/declarations/ClassDeclaration.h"
+    #include "grammar/declarations/ClassDeclarationList.h"
 
-    #include "program_base/Program.h"
-    #include "values/VariableDeclaration.h"
-    #include "values/Types.h"
+    #include "grammar/declarations/Declaration.h"
+    #include "grammar/declarations/DeclarationList.h"
+
+    #include "grammar/program_base/Program.h"
+    #include "grammar/values/VariableDeclaration.h"
+    #include "grammar/values/Types.h"
+
+    #include "grammar/functions/Function.h"
+    #include "grammar/fnctions/FunctionParameters.h"
+    #include "grammar/functions/FunctionCall.h"
+    #include "grammar/functions/ParamValueLust.h"
+
+    #include "grammar/values/ClassVarDecl.h"
+
+    #include "grammar/statements/ReturnStatement.h"
+
+
 
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
@@ -116,6 +141,7 @@
 %token
     END 0 "end of file"
     SEPARATOR ";"
+    COMMA ","
     ASSIGN "="
     MINUS "-"
     PLUS "+"
@@ -140,6 +166,7 @@
     STATIC_KW "static"
     CLASS_KW "class"
     MAIN_KW "main"
+    NEW_KW "new"
     IF_KW "if"
     ELSE_KW "else"
     PRINT "print"
@@ -162,6 +189,18 @@
 %nterm <std::shared_ptr<ast::VariableDeclaration> > local_variable_declaration
 %nterm <std::shared_ptr<ast::Type> > simple_type
 %nterm <std::shared_ptr<ast::Type> > type
+%nterm <std::shared_ptr<ast::FunctionParameters> > formals
+%nterm <std::shared_ptr<ast::Function> > method_declaration
+%nterm <std::shared_ptr<ast::Declaration> > declaration
+%nterm <std::shared_ptr<ast::DeclarationList> > declarations
+%nterm <std::shared_ptr<ast::ParamValueList> > expressions
+%nterm <std::shared_ptr<ast::FunctionCall> > method_invocation
+%nterm <std::string> type_identifier
+
+
+
+
+
 
 
 
@@ -195,26 +234,36 @@ statements:
  statement {$$ = std::make_shared<ast::StatementList>(); $$ -> AddStatement($1);}
  | statements statement {$1 -> AddStatement($2); $$ = $1;};
 
-class_declaration : "class"	"identifier" "{" declarations "}" {$$ = std::make_shared<ast::ClassDeclaration>();}
-    | "class" "identifier" "[" "extends" "identifier" "]" "{" declarations "}" {};
+class_declaration : "class"	"identifier" "{" declarations "}" {
+    $$ = std::make_shared<ast::ClassDeclaration>(%2, "", $4);
+    }
+    | "class" "identifier" "extends" "identifier" "{" declarations "}" {
+    $$ = std::make_shared<ast::ClassDeclaration>($2, $4, $6);
+    }
+    ;
 
 declarations:
-    %empty {}
-    | declarations declaration {};
+    %empty {$$ = std::make_shared<DeclarationList>();}
+    | declarations declaration {$$ = $1; $$->AddDeclaration($2);};
 
 declaration:
-    variable_declaration {}
-    | method_declaration {};
+    variable_declaration {$$ = $1;}
+    | method_declaration {$$ = $1;};
 
 method_declaration:
-    "public" type "identifier" "(" ")" "{" statements "}" {}
-    | "public" type "identifier" "(" formals ")" "{" statements "}" {};
+    "public" type "identifier" "(" ")" "{" statements "}" {
+    $$ = std::make_shared<Function>($3, $2, nullptr , $7);
+    }
+    | "public" type "identifier" "(" formals ")" "{" statements "}" {
+    $$ = std::make_shared<Function>($3, $2, $5, $8);
+    };
+
 
 variable_declaration : type "identifier" ";" {$$ = std::make_shared<ast::VariableDeclaration>($2, $1);};
 
 formals:
-    type "identifier" {}
-    | type "identifier" formals {};
+    type "identifier" {$$ = std::make_shared<FunctionParameters>($2, $1);}
+    | type "identifier" "," formals {$$ = $4; $$->AddParam($2, $1);};
 
 type:
     simple_type {$$ = $1;}
@@ -224,7 +273,7 @@ simple_type:
     "boolean" {$$ = std::make_shared<ast::Boolean>();}
     | "int" {$$ = std::make_shared<ast::Integer>();}
     | "void" {$$ = std::make_shared<ast::Void>();}
-    | type_identifier {$$ = std::make_shared<ast::UserType>();}
+    | type_identifier {$$ = std::make_shared<ast::UserType>($1);}
     ;
 
 array_type:
@@ -241,27 +290,28 @@ statement :	"assert" "(" expr ")" {}
     | "while" "(" expr ")" statement {}
     | "print" "(" expr")" ";" {$$ = std::make_shared<ast::PrintStatement>($3);}
     | lvalue "=" expr ";" {$$ = std::make_shared<ast::Assignment>($1, driver, $3);}
-    | "return" expr ";" {}
-    | method_invocation ";" {};
+    | "return" expr ";" {$$ = std::make_shared<ReturnStatement>($2);}
+    | method_invocation ";" {$$ = $1;};
 
 
 local_variable_declaration:
     variable_declaration {$$ = $1;};
 
 method_invocation:
-    expr "." "identifier" "(" ")"
-    | expr "." "identifier" "(" "[" expressions "]" ")"
+    expr "." "identifier" "(" ")" {$$ = std::make_shared<FunctionCall>($1, $3, nullptr);}
+    | expr "." "identifier" "(" expressions ")" {$$ = std::make_shared<FunctionCall>($1, $3, $5);}
+    ;
 
 expressions:
-    expr {}
-    | expr expressions {};
+    expr {$$ = std::make_shared<ParamValueList>($1);}
+    | expressions expr{$$ = $1; $$.AddParam($2);};
 
 lvalue :
     "identifier" {$$ = std::make_shared<ast::PlainIdent>($1);}
     | "identifier" "[" expr "]" {};
 
 type_identifier:
-    "identifier" {};
+    "identifier" {$$ = $1;};
 
 expr :
     expr "+" expr {$$ = std::make_shared<ast::AddExpression>($1, $3);}
@@ -272,15 +322,13 @@ expr :
     | expr "[" expr "]" {}
     | expr "." "length" {}
     | "new" simple_type "[" expr "]" {}
-    | "new" type_identifier "(" ")" {}
+    | "new" type_identifier "(" ")" {$$ = std::make_shared<ClassVarDecl>($2);}
     | "!" expr {}
     | "(" expr ")" {$$ = $2;}
     | "identifier" {$$ = std::make_shared<ast::IdentExpression> ($1, driver);}
     | "number" {$$ = std::make_shared<ast::PlainNumberExpression> ($1);}
     | "this" {}
     | "bool" {$$ = std::make_shared<ast::PlainBooleanExpression> ($1);}
-    //| "true" {$$ = std::make_shared<ast::PlainBooleanExpression> (true);}
-    //| "false" {$$ = std::make_shared<ast::PlainBooleanExpression> (false);}
     | method_invocation {}
     | expr "&&" expr {$$ = std::make_shared<ast::AndExpression>($1, $3);}
     | expr "||" expr {$$ = std::make_shared<ast::OrExpression>($1, $3);}

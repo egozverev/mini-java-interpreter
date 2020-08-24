@@ -25,13 +25,23 @@ public:
   virtual void Visit(std::shared_ptr<ast::PrintStatement> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::IfElseStatement> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::IfStatement> expression) = 0;
+  virtual void Visit(std::shared_ptr<ast::ReturnStatement> declaration) = 0;
 
   //virtual void Visit(std::shared_ptr<ast::PlainIdent> expression) = 0;
-  //virtual void Visit(std::shared_ptr<ast::ClassDeclaration> expression) = 0;
+  virtual void Visit(std::shared_ptr<ast::ClassDeclaration> expression) = 0;
+  virtual void Visit(std::shared_ptr<ast::DeclarationList> expression) = 0;
+
   virtual void Visit(std::shared_ptr<ast::ClassDeclarationList> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::MainClass> expression) = 0;
   virtual void Visit(std::shared_ptr<ast::Program> program) = 0;
 
   virtual void Visit(std::shared_ptr<ast::VariableDeclaration> declaration) = 0;
+  virtual void Visit(std::shared_ptr<ast::ClassVarDecl> declaration) = 0;
+
+  virtual void Visit(std::shared_ptr<ast::Function> declaration) = 0;
+  virtual void Visit(std::shared_ptr<ast::FunctionParameters> declaration) = 0;
+
+  virtual void Visit(std::shared_ptr<ast::ParamValueList> declaration) = 0;
+  virtual void Visit(std::shared_ptr<ast::FunctionCall> declaration) = 0;
 
 };

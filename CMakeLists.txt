@@ -30,56 +30,80 @@ add_executable(
         grammar/driver.cpp
         ${BISON_MyParser_OUTPUTS}
         ${FLEX_MyScanner_OUTPUTS}
-        expressions/MulExpression.cpp
-        expressions/AddExpression.cpp
-        expressions/SubstractExpression.cpp
-        expressions/DivExpression.cpp
-        expressions/IdentExpression.cpp
-        assignments/Assignment.cpp
-        statements/Statement.h
-        statements/StatementList.cpp
-        statements/StatementList.h
-        expressions/PlainNumberExpression.cpp
-        expressions/PlainNumberExpression.h
-        expressions/ModExpression.cpp
-        expressions/ModExpression.h
-        expressions/BoolExpression.h
-        expressions/AndExpression.cpp
-        expressions/AndExpression.h
-        expressions/OrExpression.cpp
-        expressions/OrExpression.h
-        expressions/LessExpression.cpp
-        expressions/LessExpression.h
-        expressions/GreaterExpression.cpp
-        expressions/GreaterExpression.h
-        expressions/EqualExpression.cpp
-        expressions/EqualExpression.h
-        values/Lvalue.h
-        values/PlainIdent.cpp
-        values/PlainIdent.h
-        statements/PrintStatement.cpp
-        statements/PrintStatement.h
-        declarations/MainClass.cpp
-        declarations/MainClass.h
-        declarations/ClassDeclaration.cpp
-        declarations/ClassDeclaration.h
-        declarations/ClassDeclarationList.cpp
-        declarations/ClassDeclarationList.h
-        program_base/Program.cpp
-        program_base/Program.h
+        grammar/expressions/MulExpression.cpp
+        grammar/expressions/AddExpression.cpp
+        grammar/expressions/SubstractExpression.cpp
+        grammar/expressions/DivExpression.cpp
+        grammar/expressions/IdentExpression.cpp
+        grammar/assignments/Assignment.cpp
+        grammar/statements/Statement.h
+        grammar/statements/StatementList.cpp
+        grammar/statements/StatementList.h
+        grammar/expressions/PlainNumberExpression.cpp
+        grammar/expressions/PlainNumberExpression.h
+        grammar/expressions/ModExpression.cpp
+        grammar/expressions/ModExpression.h
+        grammar/expressions/BoolExpression.h
+        grammar/expressions/AndExpression.cpp
+        grammar/expressions/AndExpression.h
+        grammar/expressions/OrExpression.cpp
+        grammar/expressions/OrExpression.h
+        grammar/expressions/LessExpression.cpp
+        grammar/expressions/LessExpression.h
+        grammar/expressions/GreaterExpression.cpp
+        grammar/expressions/GreaterExpression.h
+        grammar/expressions/EqualExpression.cpp
+        grammar/expressions/EqualExpression.h
+        grammar/values/Lvalue.h
+        grammar/values/PlainIdent.cpp
+        grammar/values/PlainIdent.h
+        grammar/statements/PrintStatement.cpp
+        grammar/statements/PrintStatement.h
+        grammar/declarations/MainClass.cpp
+        grammar/declarations/MainClass.h
+        grammar/declarations/ClassDeclaration.cpp
+        grammar/declarations/ClassDeclaration.h
+        grammar/declarations/ClassDeclarationList.cpp
+        grammar/declarations/ClassDeclarationList.h
+        grammar/program_base/Program.cpp
+        grammar/program_base/Program.h
         visitors/Visitor.h
         visitors/forward_decl.h
         visitors/PrintVisitor.cpp
         visitors/PrintVisitor.h
-        program_base/BaseElement.h
+        grammar/program_base/BaseElement.h
         visitors/visitor_requirements.h
         visitors/Interpreter.cpp
         visitors/Interpreter.h
         symbol_table/Symbol.cpp
         symbol_table/ScopeLayer.cpp
         symbol_table/ScopeLayerTree.cpp
-        objects/Integer.cpp
         objects/Object.cpp
-        objects/UninitObject.cpp
-        visitors/SymbolTreeVisitor.cpp visitors/SymbolTreeVisitor.h values/VariableDeclaration.cpp values/VariableDeclaration.h values/Types.h values/Types.cpp visitors/TemplateVisitor.h expressions/PlainBooleanExpression.cpp expressions/PlainBooleanExpression.h objects/Boolean.cpp objects/Boolean.h statements/IfElseStatement.cpp statements/IfElseStatement.h statements/IfStatement.cpp statements/IfStatement.h)
+        visitors/SymbolTreeVisitor.cpp
+        visitors/SymbolTreeVisitor.h
+        grammar/values/VariableDeclaration.cpp
+        grammar/values/VariableDeclaration.h
+        grammar/values/Types.h
+        grammar/values/Types.cpp
+        visitors/TemplateVisitor.h
+        grammar/expressions/PlainBooleanExpression.cpp
+        grammar/expressions/PlainBooleanExpression.h
+        grammar/statements/IfElseStatement.cpp
+        grammar/statements/IfElseStatement.h
+        grammar/statements/IfStatement.cpp
+        grammar/statements/IfStatement.h
+        grammar/functions/FunctionParameters.cpp
+        grammar/functions/FunctionParameters.h
+        grammar/functions/Function.cpp
+        grammar/functions/Function.h
+        grammar/declarations/Declaration.cpp
+        grammar/declarations/Declaration.h
+        grammar/declarations/DeclarationList.cpp
+        grammar/declarations/DeclarationList.h
+        call_mechanics/Frame.cpp
+        call_mechanics/Frame.h
+        call_mechanics/FunctionMapping.cpp
+        call_mechanics/FunctionMapping.h
+        call_mechanics/IndexTable.cpp
+        call_mechanics/IndexTable.h objects/ClassObject.cpp objects/ClassObject.h grammar/values/ClassVarDecl.cpp grammar/values/ClassVarDecl.h class_tree/ClassNode.cpp class_tree/ClassNode.h class_tree/ClassTree.cpp class_tree/ClassTree.h grammar/functions/ParamValuesList.cpp grammar/functions/ParamValuesList.h grammar/functions/FunctionCall.cpp grammar/functions/FunctionCall.h grammar/statements/ReturnStatement.cpp grammar/statements/ReturnStatement.h visitors/FunctionCallVisitor.cpp visitors/FunctionCallVisitor.h)
 target_include_directories(mini_java_compiler PRIVATE ${mini_java_compiler_SOURCE_DIR})

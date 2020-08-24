@@ -3,15 +3,13 @@
 #include <map>
 
 #include "symbol_table/ScopeLayerTree.h"
+#include "class_tree/ClassTree.h"
 
 #include "Visitor.h"
 
 class SymbolTreeVisitor: public Visitor {
 public:
-  SymbolTreeVisitor();
-  //void Visit(std::shared_ptr<ast::NumberExpression> expression) override;
-
-  //void Visit(std::shared_ptr<ast::BoolExpression> expression) override;
+  SymbolTreeVisitor() = default;
 
   void Visit(std::shared_ptr<ast::AddExpression> expression) override;
 
@@ -47,14 +45,15 @@ public:
 
   void Visit(std::shared_ptr<ast::IfStatement> expression) override;
 
-
-  //void Visit(std::shared_ptr<ast::PlainIdent> expression) override;
+  void Visit(std::shared_ptr<ast::ReturnStatement> expression) override;
 
   void Visit(std::shared_ptr<ast::StatementList> statement_list) override;
 
-  //void Visit(std::shared_ptr<ast::ClassDeclaration> expression) override;
+  void Visit(std::shared_ptr<ast::ClassDeclaration> declaration) override;
 
-  void Visit(std::shared_ptr<ast::ClassDeclarationList> expression) override;
+  void Visit(std::shared_ptr<ast::DeclarationList> decl_list) override;
+
+  void Visit(std::shared_ptr<ast::ClassDeclarationList> decl_list) override;
 
   void Visit(std::shared_ptr<ast::MainClass> expression) override;
 
@@ -62,8 +61,22 @@ public:
 
   void Visit(std::shared_ptr<ast::VariableDeclaration> declaration) override;
 
-  std::shared_ptr<ScopeLayer> GetRoot();
+  void Visit(std::shared_ptr<ast::ClassVarDecl> expression) override;
+
+  void Visit(std::shared_ptr<ast::Function> expression) override;
+
+  void Visit(std::shared_ptr<ast::FunctionParameters> expression) override;
+
+  void Visit(std::shared_ptr<ast::FunctionCall> expression) override;
+
+  void Visit(std::shared_ptr<ast::ParamValueList> expression) override;
+
+  ClassTree& GetClassTree();
+
 private:
-  ScopeLayerTree tree_;
+  ClassTree class_tree_;
+  std::shared_ptr<ClassNode> current_node_;
   std::shared_ptr<ScopeLayer> current_layer_;
+  std::string current_func_name_;
+  bool is_new_scope_ = true; // true = create independent layer
 };

@@ -1,6 +1,5 @@
 #include "ScopeLayer.h"
 
-#include "objects/UninitObject.h"
 
 #include <iostream>
 
@@ -10,8 +9,16 @@ void ScopeLayer::DeclareVariable(const Symbol &symbol, const std::string& type) 
     throw std::runtime_error("Variable has been declared");
   }
 
-  values_[symbol] = std::make_shared<Object>();
-  values_[symbol]->SetType(type);
+  values_[symbol] = ast::Type::BuildType(type);
+  offsets_[symbol] = symbols_.size();
+  symbols_.push_back(symbol);
+}
+
+void ScopeLayer::DeclareVariable(const Symbol &symbol, std::shared_ptr<ast::Type> type){
+  if (values_.find(symbol) != values_.end()) {
+    throw std::runtime_error("Variable has been declared");
+  }
+  values_[symbol] = std::move(type);
   offsets_[symbol] = symbols_.size();
   symbols_.push_back(symbol);
 }
@@ -27,7 +34,7 @@ std::shared_ptr<ScopeLayer> ScopeLayer::GetDeclarationLevel(const Symbol &symbol
 }
 
 
-void ScopeLayer::Put(const Symbol &symbol, std::shared_ptr<Object> value) {
+void ScopeLayer::Put(const Symbol &symbol, std::shared_ptr<ast::Type> value) {
   std::shared_ptr<ScopeLayer> current_layer = std::move(GetDeclarationLevel(symbol));
   if (current_layer != nullptr) {
     current_layer->values_.find(symbol)->second = std::move(value);
@@ -41,7 +48,7 @@ bool ScopeLayer::Has(const Symbol &symbol) {
 }
 
 
-std::shared_ptr<Object> ScopeLayer::Get(const Symbol &symbol) {
+std::shared_ptr<ast::Type> ScopeLayer::GetType(const Symbol &symbol) {
   std::shared_ptr<ScopeLayer> current_layer = std::move(GetDeclarationLevel(symbol));
   if (current_layer != nullptr) {
     return current_layer->values_.find(symbol)->second;

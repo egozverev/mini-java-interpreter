@@ -53,10 +53,24 @@ namespace ast {
 
   class ClassDeclaration;
 
+  class DeclarationList;
+
   class ClassDeclarationList;
 
   class Program;
 
   class VariableDeclaration;
+
+  class ClassVarDecl;
+
+  class Function;
+
+  class FunctionParameters;
+
+  class ReturnStatement;
+
+  class ParamValueList;
+
+  class FunctionCall;
 }
 

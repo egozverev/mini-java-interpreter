@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "grammar/values/Types.h"
 
 enum Types{
   UNINIT,
@@ -14,23 +15,25 @@ class Object {
 public:
   Object() = default;
 
-  explicit Object(Types type);
+  explicit Object(std::shared_ptr<ast::Type> type);
 
   ~Object() = default;
 
-  int ToInt();
+  virtual int ToInt();
 
-  bool ToBool();
+  virtual bool ToBool();
 
-  void SetValue(int value);
+  virtual void SetValue(int value);
 
-  void SetType(Types type);
+  virtual void SetType(std::shared_ptr<ast::Type> type);
 
-  void SetType(const std::string& type);
+  virtual void SetType(const std::string& type);
 
-  Types GetType();
+  virtual std::shared_ptr<ast::Type> GetType();
+
+  virtual bool IsClassObj();
 
 private:
   int value_ = 0;
-  Types type_ = UNINIT;
+  std::shared_ptr<ast::Type> type_;
 };

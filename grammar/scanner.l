@@ -59,6 +59,7 @@ blank [ \t\r]
 "{"        return yy::parser::make_LFPAREN (loc);
 "}"        return yy::parser::make_RFPAREN (loc);
 ";"        return yy::parser::make_SEPARATOR (loc);
+","        return yy::parser::make_COMMA (loc);
 "public"   return yy::parser::make_PUBLIC_KW (loc);
 "static"   return yy::parser::make_STATIC_KW (loc);
 "class"    return yy::parser::make_CLASS_KW (loc);
@@ -72,6 +73,7 @@ blank [ \t\r]
 {int}      return make_NUMBER(yytext, loc);
 "true"     return yy::parser::make_BOOLEAN(1, loc);
 "false"    return yy::parser::make_BOOLEAN(0, loc);
+"new"      return yy::parser::make_NEW_KW (loc) ;
 {id}       return yy::parser::make_IDENTIFIER(yytext, loc);
 
 

@@ -45,7 +45,9 @@ void Driver::ExecuteProgram() {
   SymbolTreeVisitor visitor;
   visitor.Visit(program);
 
-  std::shared_ptr<ScopeLayer> root = visitor.GetRoot();
+  auto class_tree = visitor.GetClassTree();
+  
+
 
   Interpreter interpreter(std::move(root));
   interpreter.Visit(program);

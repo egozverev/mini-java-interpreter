@@ -1,6 +1,6 @@
 #include "Object.h"
 
-Object::Object(Types type) : type_(type) {}
+Object::Object(std::shared_ptr<ast::Type> type) : type_(std::move(type)) {}
 
 int Object::ToInt() {
   return value_;
@@ -14,24 +14,18 @@ void Object::SetValue(int value) {
   value_ = value;
 }
 
-void Object::SetType(Types type) {
-  type_ = type;
+void Object::SetType(std::shared_ptr<ast::Type> type) {
+  type_ = std::move(type);
 }
 
 void Object::SetType(const std::string &type) {
-  if (type == "int") {
-    SetType(INT);
-  } else if (type == "bool") {
-    SetType(BOOLEAN);
-  } else if (type == "void") {
-    SetType(VOID);
-  } else if (type == "user_type") {
-    SetType(USERTYPE);
-  } else {
-    throw std::runtime_error("Object SetType error");
-  }
+  type_ = ast::Type::BuildType(type);
 }
 
-Types Object::GetType() {
+std::shared_ptr<ast::Type> Object::GetType() {
   return type_;
+}
+
+bool Object::IsClassObj() {
+  return false;
 }

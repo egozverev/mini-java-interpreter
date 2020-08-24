@@ -2,17 +2,14 @@
 #include "Visitor.h"
 #include "TemplateVisitor.h"
 #include "symbol_table/ScopeLayer.h"
-#include "objects/Integer.h"
-#include "objects/Boolean.h"
-#include "objects/UninitObject.h"
-#include "values/Types.h"
+#include "grammar/values/Types.h"
 #include "forward_decl.h"
 
 #include <iostream>
 #include <stack>
 #include <map>
 #include <memory>
-
+/*
 class Interpreter : public TemplateVisitor<Object>  {
 public:
   explicit Interpreter(std::shared_ptr<ScopeLayer> root);
@@ -81,4 +78,4 @@ private:
   std::shared_ptr<ScopeLayer> current_layer_;
 
   std::stack<int> offsets_;
-};
+};*/

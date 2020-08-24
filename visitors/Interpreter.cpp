@@ -1,7 +1,7 @@
 #include "Interpreter.h"
 
 #include "visitor_requirements.h"
-
+/*
 
 Interpreter::Interpreter(std::shared_ptr<ScopeLayer> root) :
     current_layer_(std::move(root)) {
@@ -178,4 +178,4 @@ void Interpreter::SetTosValue(const bool value) {
 }
 void Interpreter::SetTosValue(const Object& value) {
   tos_value_ = value;
-}
+}*/
