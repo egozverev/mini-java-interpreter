@@ -1,0 +1,6 @@
+class Test {
+  public static void main () {
+	System.out.println (5 + 3 - 1);
+	System.out.println (7 * 7 + 4 / 2);
+  }
+}

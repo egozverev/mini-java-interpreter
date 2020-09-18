@@ -1,0 +1,22 @@
+class Test {
+  public static void main () {
+    int x;
+    x = 3 * 4 - 6;
+    int y;
+    y = 2 * 2 * 2 - 5 % 3;
+    if (x == y) {
+        System.out.println(6);
+    } else {
+        System.out.println(9);
+    }
+    {
+        x = 34;
+        if (x == y) {
+            System.out.println(99);
+        } else {
+            System.out.println(666);
+        }
+    }
+    System.out.println(34);
+  }
+}

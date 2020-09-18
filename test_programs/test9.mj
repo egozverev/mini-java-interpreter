@@ -1,0 +1,10 @@
+class Test {
+  public static void main () {
+	int x;
+	x = 344;
+	int y;
+	y = 4 + x;
+	bool z;
+	z = x + y;
+  }
+}
