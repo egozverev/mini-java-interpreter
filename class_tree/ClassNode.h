@@ -24,11 +24,6 @@ public:
 
   std::string GetName() const;
 
-  /* std::unordered_map<std::string, std::shared_ptr<ClassNode>> GetChildren() const;
-
-
-  std::unordered_map<std::string, std::shared_ptr<ast::Function>> GetFunctions() const; */
-
   const std::unordered_map<std::string, std::shared_ptr<ast::Type>>& GetVars() const;
 
   std::weak_ptr<ClassNode> GetParent() const;

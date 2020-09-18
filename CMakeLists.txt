@@ -73,7 +73,6 @@ add_executable(
         visitors/PrintVisitor.h
         grammar/program_base/BaseElement.h
         visitors/visitor_requirements.h
-        visitors/Interpreter.cpp
         visitors/Interpreter.h
         symbol_table/Symbol.cpp
         symbol_table/ScopeLayer.cpp

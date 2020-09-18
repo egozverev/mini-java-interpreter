@@ -26,17 +26,7 @@ void ClassNode::AddScope(std::string name, std::shared_ptr<ScopeLayer> scope) {
 std::string ClassNode::GetName() const {
   return class_name_;
 }
-/*
-std::unordered_map<std::string, std::shared_ptr<ast::Function> > ClassNode::GetFunctions() const {
-  return functions_;
-}
 
-
-
-std::unordered_map<std::string, std::shared_ptr<ClassNode> > ClassNode::GetChildren() const {
-  return children_;
-}
-*/
 const std::unordered_map<std::string, std::shared_ptr<ast::Type> >& ClassNode::GetVars() const {
   return var_types_;
 }

@@ -7,7 +7,6 @@
 #include "scanner.h"
 #include "parser.hh"
 #include "visitors/PrintVisitor.h"
-#include "visitors/Interpreter.h"
 #include "visitors/SymbolTreeVisitor.h"
 #include "objects/ClassObject.h"
 
@@ -23,8 +22,6 @@ public:
   void scan_begin();
 
   void scan_end();
-
-  void PrintTree(const std::string &filename);
 
   void ExecuteProgram();
 
