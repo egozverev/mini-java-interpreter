@@ -1,17 +1,17 @@
 # mini-java-interpeter
 Mini Java Interpreter (Compiler Theory course practice, MIPT)
 ### Short Description
-This is a MJ interpreter I wrote first as a part of one of my MIPT courses,
-and then as a personal project during the summer. 
+This is a MJ interpreter I wrote during my MIPT spring 2020 term.
+It started as a course project and then I was doing it as a personal project during the summer. 
 
 This interpreter supports all necessary features every self-respecting
-interpreter or compiler has.  
+interpreter shall.  
 
-We've got classes, functions, scopes and more basic things like of course types and arithmetic here.
+We've got classes, functions, scopes and more basic things like types and arithmetics here.
 
-Mind that MJ is a language which is ideal for learning how to work with programming languages, 
-so it is simpler than any real OOP language, but it still has 
-all major features. More detailed description is below.
+MJ is a language which is ideal for learning how to work with programming languages, 
+since it is simpler than any real OOP language, but it still has 
+all major OOP features. More detailed description is below.
 
 # Mini-Java Syntax
 
