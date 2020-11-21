@@ -7,7 +7,7 @@ It started as a course project and then I was doing it as a personal project dur
 This interpreter supports all necessary features every self-respecting
 interpreter shall.  
 
-We've got classes, functions, scopes and more basic things like types and arithmetics here.
+We've got classes, functions, scopes and more basic things like types and arithmetic here.
 
 MJ is a language which is ideal for learning how to work with programming languages, 
 since it is simpler than any real OOP language, but it still has 
